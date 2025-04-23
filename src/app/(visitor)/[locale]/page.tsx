@@ -1,6 +1,7 @@
 import { Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import Link from "next/link";
+import Image from "next/image";
 
 interface HomePageProps {
   params: { locale: string };
@@ -16,13 +17,13 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
         <div className='grid grid-cols-1 md:grid-cols-12 gap-8'>
           <div className='md:col-span-7 order-2 md:order-1'>
             <div className='space-y-6 py-10'>
-              <h1 className='text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white'>
+              <h1 className='text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900'>
                 {dictionary.hero.title}
               </h1>
-              <h2 className='text-xl md:text-2xl text-blue-600 dark:text-blue-400 font-medium'>
+              <h2 className='text-xl md:text-2xl text-blue-600 font-medium'>
                 {dictionary.hero.subtitle}
               </h2>
-              <p className='max-w-xl text-lg leading-relaxed text-gray-700 dark:text-gray-300'>
+              <p className='max-w-xl text-lg leading-relaxed text-gray-700'>
                 {dictionary.hero.description}
               </p>
               <div className='flex flex-wrap gap-4'>
@@ -48,7 +49,7 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
                 </Link>
                 <Link
                   href={`/${locale}/contact`}
-                  className='px-6 py-3 border border-blue-600 text-blue-600 hover:bg-blue-50 dark:hover:bg-gray-800 rounded-md font-medium'
+                  className='px-6 py-3 border border-blue-600 text-blue-600 hover:bg-blue-50 rounded-md font-medium'
                 >
                   {dictionary.cta.contact_me}
                 </Link>
@@ -56,23 +57,26 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
             </div>
           </div>
           <div className='md:col-span-5 order-1 md:order-2 flex items-center justify-center'>
-            <div className='relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-blue-600 bg-gray-200 dark:bg-gray-700 flex items-center justify-center'>
-              <span className='text-gray-500 dark:text-gray-400 text-lg font-medium'>
-                Profile Photo
-              </span>
-            </div>
+            <Image
+              src='/mateo.png'
+              alt='Mateo profile picture'
+              width={300}
+              height={300}
+              priority
+              unoptimized
+            />
           </div>
         </div>
       </div>
 
       {/* Featured Projects Section */}
-      <div className='bg-gray-50 dark:bg-gray-900 py-16'>
+      <div className='bg-gray-50 py-16'>
         <div className='container mx-auto px-4'>
           <div className='text-center mb-12'>
-            <h2 className='text-3xl font-bold mb-4 text-gray-900 dark:text-white'>
+            <h2 className='text-3xl font-bold mb-4 text-gray-900'>
               Featured Projects
             </h2>
-            <p className='text-gray-600 dark:text-gray-400 max-w-2xl mx-auto'>
+            <p className='text-gray-600 max-w-2xl mx-auto'>
               Here are some of my recent projects. Check out my projects page
               for more.
             </p>
@@ -82,16 +86,16 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
             {[1, 2, 3].map((item) => (
               <div
                 key={item}
-                className='bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow'
+                className='bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow'
               >
                 <div className='aspect-video relative'>
-                  <div className='bg-gray-200 dark:bg-gray-700 w-full h-full'></div>
+                  <div className='bg-gray-200 w-full h-full'></div>
                 </div>
                 <div className='p-6'>
-                  <h3 className='text-xl font-semibold mb-2 text-gray-900 dark:text-white'>
+                  <h3 className='text-xl font-semibold mb-2 text-gray-900'>
                     Project {item}
                   </h3>
-                  <p className='text-gray-600 dark:text-gray-400 mb-4'>
+                  <p className='text-gray-600 mb-4'>
                     A short description of project {item} and the technologies
                     used.
                   </p>
@@ -123,7 +127,7 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
           <div className='text-center mt-12'>
             <Link
               href={`/${locale}/projects`}
-              className='px-6 py-3 border border-blue-600 text-blue-600 hover:bg-blue-50 dark:hover:bg-gray-800 rounded-md font-medium inline-flex items-center'
+              className='px-6 py-3 border border-blue-600 text-blue-600 hover:bg-blue-50 rounded-md font-medium inline-flex items-center'
             >
               View All Projects
               <svg
@@ -149,10 +153,10 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
       <div className='py-16'>
         <div className='container mx-auto px-4'>
           <div className='text-center mb-12'>
-            <h2 className='text-3xl font-bold mb-4 text-gray-900 dark:text-white'>
+            <h2 className='text-3xl font-bold mb-4 text-gray-900'>
               Skills & Technologies
             </h2>
-            <p className='text-gray-600 dark:text-gray-400 max-w-2xl mx-auto'>
+            <p className='text-gray-600 max-w-2xl mx-auto'>
               These are the technologies and tools I work with regularly.
             </p>
           </div>
@@ -168,14 +172,12 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
             ].map((skill) => (
               <div
                 key={skill}
-                className='flex flex-col items-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow'
+                className='flex flex-col items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow'
               >
-                <div className='w-16 h-16 mb-4 flex items-center justify-center bg-blue-100 dark:bg-blue-900 rounded-full'>
+                <div className='w-16 h-16 mb-4 flex items-center justify-center bg-blue-100 rounded-full'>
                   {/* Placeholder for skill icon */}
                 </div>
-                <span className='font-medium text-gray-900 dark:text-white'>
-                  {skill}
-                </span>
+                <span className='font-medium text-gray-900'>{skill}</span>
               </div>
             ))}
           </div>

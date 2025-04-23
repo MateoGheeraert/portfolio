@@ -30,8 +30,8 @@ export default async function VisitorLayout({
     <div className='min-h-screen flex flex-col'>
       <Navbar locale={locale as Locale} dictionary={dictionary} />
       <main className='flex-grow'>{children}</main>
-      <footer className='py-6 bg-gray-100 dark:bg-gray-900'>
-        <div className='container mx-auto px-4 text-center text-gray-600 dark:text-gray-400'>
+      <footer className='py-6 bg-gray-100'>
+        <div className='container mx-auto px-4 text-center text-gray-600'>
           © {new Date().getFullYear()} Mateo Gheeraert. All rights reserved.
         </div>
       </footer>

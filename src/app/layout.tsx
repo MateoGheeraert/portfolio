@@ -17,7 +17,7 @@ export default function RootLayout({
       <head>
         <link href='/favicon.ico' rel='icon' sizes='any' />
       </head>
-      <body className='min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white'>
+      <body className='min-h-screen bg-white text-gray-900'>
         <Providers>{children}</Providers>
       </body>
     </html>

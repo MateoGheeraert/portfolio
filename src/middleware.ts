@@ -1,33 +1,36 @@
 import { NextRequest, NextResponse } from "next/server";
 import { defaultLocale, locales } from "./i18n/config";
 
+const PUBLIC_FILE = /\.(.*)$/;
+
 export function middleware(request: NextRequest) {
-  // Check if there is any supported locale in the pathname
   const pathname = request.nextUrl.pathname;
 
-  // Check if the pathname starts with one of the supported locales
+  // Skip Next.js internals and static files
+  if (
+    pathname.startsWith("/_next") ||
+    pathname.startsWith("/api") ||
+    pathname.startsWith("/favicon.ico") ||
+    PUBLIC_FILE.test(pathname)
+  ) {
+    return NextResponse.next();
+  }
+
+  // Check if pathname already includes a supported locale
   const pathnameHasLocale = locales.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );
 
-  if (pathnameHasLocale) return NextResponse.next();
+  if (pathnameHasLocale) {
+    return NextResponse.next();
+  }
 
-  // If pathname doesn't have a supported locale, redirect to the default locale
+  // Redirect to default locale
   const locale = defaultLocale;
 
-  // e.g. incoming request is /products
-  // The new URL is /en/products
-  return NextResponse.redirect(
-    new URL(
-      `/${locale}${pathname.startsWith("/") ? "" : "/"}${pathname}`,
-      request.url
-    )
-  );
+  return NextResponse.redirect(new URL(`/${locale}${pathname}`, request.url));
 }
 
 export const config = {
-  matcher: [
-    // Skip all internal paths (_next/)
-    "/((?!_next|api|favicon.ico).*)",
-  ],
+  matcher: ["/((?!_next|api|favicon.ico|.*\\..*).*)"],
 };

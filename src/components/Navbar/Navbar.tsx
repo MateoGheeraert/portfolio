@@ -64,13 +64,10 @@ export const Navbar = ({ locale, dictionary }: NavbarProps) => {
   ];
 
   return (
-    <header className='sticky top-0 z-10 bg-white/80 dark:bg-gray-900/80 backdrop-blur py-4 shadow-sm'>
+    <header className='sticky top-0 z-10 bg-white/80 backdrop-blur py-4 shadow-sm'>
       <div className='container mx-auto px-4'>
         <div className='flex justify-between items-center'>
-          <Link
-            href={`/${locale}`}
-            className='font-bold text-xl text-gray-900 dark:text-white'
-          >
+          <Link href={`/${locale}`} className='font-bold text-xl text-gray-900'>
             Mateo Gheeraert
           </Link>
 
@@ -82,8 +79,8 @@ export const Navbar = ({ locale, dictionary }: NavbarProps) => {
                 href={`/${locale}${link.href}`}
                 className={`flex items-center gap-1 px-3 py-2 rounded-md transition-colors ${
                   isActive(link.href)
-                    ? "bg-gray-100 dark:bg-gray-800 text-blue-600 dark:text-blue-400"
-                    : "hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
+                    ? "bg-gray-100 text-blue-600"
+                    : "hover:bg-gray-100 text-gray-700"
                 }`}
               >
                 {link.icon}
@@ -95,14 +92,14 @@ export const Navbar = ({ locale, dictionary }: NavbarProps) => {
             <div className='relative'>
               <button
                 onClick={() => setLanguageMenuOpened(!languageMenuOpened)}
-                className='flex items-center gap-1 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300'
+                className='flex items-center gap-1 px-3 py-2 rounded-md hover:bg-gray-100 text-gray-700'
               >
                 <span>{languages[locale as keyof typeof languages]}</span>
                 <CaretDown size={16} />
               </button>
 
               {languageMenuOpened && (
-                <div className='absolute right-0 mt-2 py-1 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black/5 min-w-max'>
+                <div className='absolute right-0 mt-2 py-1 rounded-md shadow-lg bg-white ring-1 ring-black/5 min-w-max'>
                   {locales.map((loc) => (
                     <Link
                       key={loc}
@@ -110,7 +107,7 @@ export const Navbar = ({ locale, dictionary }: NavbarProps) => {
                         new RegExp(`^/${locale}`),
                         `/${loc}`
                       )}
-                      className='block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
+                      className='block px-4 py-2 text-sm hover:bg-gray-100 text-gray-700'
                       onClick={() => setLanguageMenuOpened(false)}
                     >
                       {languages[loc as keyof typeof languages]}
@@ -124,7 +121,7 @@ export const Navbar = ({ locale, dictionary }: NavbarProps) => {
           {/* Mobile Menu Button */}
           <button
             onClick={toggleMenu}
-            className='md:hidden p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300'
+            className='md:hidden p-2 rounded-md hover:bg-gray-100 text-gray-700'
           >
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -156,7 +153,7 @@ export const Navbar = ({ locale, dictionary }: NavbarProps) => {
       {/* Mobile Navigation */}
       {opened && (
         <div className='md:hidden px-4 py-2 mt-2'>
-          <div className='h-px w-full bg-gray-200 dark:bg-gray-700 my-2'></div>
+          <div className='h-px w-full bg-gray-200 my-2'></div>
           <nav className='flex flex-col space-y-2'>
             {links.map((link) => (
               <Link
@@ -164,8 +161,8 @@ export const Navbar = ({ locale, dictionary }: NavbarProps) => {
                 href={`/${locale}${link.href}`}
                 className={`flex items-center gap-2 p-2 rounded-md ${
                   isActive(link.href)
-                    ? "bg-gray-100 dark:bg-gray-800 text-blue-600 dark:text-blue-400"
-                    : "hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
+                    ? "bg-gray-100 text-blue-600"
+                    : "hover:bg-gray-100 text-gray-700"
                 }`}
                 onClick={toggleMenu}
               >
@@ -174,9 +171,9 @@ export const Navbar = ({ locale, dictionary }: NavbarProps) => {
               </Link>
             ))}
 
-            <div className='h-px w-full bg-gray-200 dark:bg-gray-700 my-2'></div>
+            <div className='h-px w-full bg-gray-200 my-2'></div>
 
-            <div className='px-2 font-medium text-sm text-gray-700 dark:text-gray-300'>
+            <div className='px-2 font-medium text-sm text-gray-700'>
               Language
             </div>
 
@@ -184,7 +181,7 @@ export const Navbar = ({ locale, dictionary }: NavbarProps) => {
               <Link
                 key={loc}
                 href={pathname.replace(new RegExp(`^/${locale}`), `/${loc}`)}
-                className='flex items-center p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300'
+                className='flex items-center p-2 rounded-md hover:bg-gray-100 text-gray-700'
                 onClick={toggleMenu}
               >
                 {languages[loc as keyof typeof languages]}
