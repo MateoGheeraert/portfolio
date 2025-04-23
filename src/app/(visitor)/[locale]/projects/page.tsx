@@ -1,0 +1,41 @@
+import { Locale } from "@/i18n/config";
+import { getDictionary } from "@/i18n/dictionaries";
+
+interface ProjectsPageProps {
+  params: { locale: string };
+}
+
+export default async function ProjectsPage({
+  params: { locale },
+}: ProjectsPageProps) {
+  const dictionary = await getDictionary(locale as Locale);
+
+  return (
+    <div className='container mx-auto px-4 py-16 max-w-4xl'>
+      <h1 className='text-4xl font-bold mb-8 text-gray-900 dark:text-white'>
+        {dictionary.navigation.projects}
+      </h1>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+        {/* Project cards will go here */}
+        <div className='bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden'>
+          <div className='p-6'>
+            <h3 className='text-xl font-semibold mb-2 text-gray-900 dark:text-white'>
+              Project Title
+            </h3>
+            <p className='text-gray-600 dark:text-gray-400 mb-4'>
+              Project description will go here.
+            </p>
+            <div className='flex flex-wrap gap-2 mb-4'>
+              <span className='px-2 py-1 text-xs rounded bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'>
+                React
+              </span>
+              <span className='px-2 py-1 text-xs rounded bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200'>
+                TypeScript
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

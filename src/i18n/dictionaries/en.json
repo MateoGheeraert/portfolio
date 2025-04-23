@@ -1,0 +1,18 @@
+{
+  "navigation": {
+    "home": "Home",
+    "projects": "Projects",
+    "blog": "Blog",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Hi, I'm Mateo Gheeraert",
+    "subtitle": "Full-Stack Developer",
+    "description": "I build modern web applications with a focus on user experience and performance."
+  },
+  "cta": {
+    "view_projects": "View Projects",
+    "contact_me": "Contact Me"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "navigation": {
+    "home": "Home",
+    "projects": "Projecten",
+    "blog": "Blog",
+    "about": "Over mij",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Hallo, ik ben Mateo Gheeraert",
+    "subtitle": "Full-Stack Ontwikkelaar",
+    "description": "Ik bouw moderne webapplicaties met een focus op gebruikservaring en prestaties."
+  },
+  "cta": {
+    "view_projects": "Bekijk Projecten",
+    "contact_me": "Neem Contact Op"
+  }
+}
