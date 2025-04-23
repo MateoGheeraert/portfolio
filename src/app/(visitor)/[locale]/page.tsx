@@ -2,6 +2,7 @@ import { Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import Link from "next/link";
 import Image from "next/image";
+import TechCard from "@/components/TechCard";
 
 interface HomePageProps {
   params: { locale: string };
@@ -161,26 +162,21 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
             </p>
           </div>
 
-          <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4'>
-            {[
-              "TypeScript",
-              "React",
-              "Next.js",
-              "Node.js",
-              "Tailwind CSS",
-              "PostgreSQL",
-            ].map((skill) => (
-              <div
-                key={skill}
-                className='flex flex-col items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow'
-              >
-                <div className='w-16 h-16 mb-4 flex items-center justify-center bg-blue-100 rounded-full'>
-                  {/* Placeholder for skill icon */}
-                </div>
-                <span className='font-medium text-gray-900'>{skill}</span>
-              </div>
-            ))}
-          </div>
+          <TechCard
+            technologies={[
+              { name: "TypeScript", logo: "typescript.png" },
+              { name: "React", logo: "react.png" },
+              { name: "Next.js", logo: "nextjs.png" },
+              { name: "Node.js", logo: "nodejs.png" },
+              { name: "Tailwind CSS", logo: "tailwind.png" },
+              { name: "PostgreSQL", logo: "postgresql.png" },
+              { name: "Java", logo: "java.png" },
+              { name: "C#", logo: "csharp.png" },
+              { name: "Kotlin", logo: "kotlin.png" },
+              { name: "Angular", logo: "angular.png" },
+              { name: "Swift", logo: "swift.png" },
+            ]}
+          />
         </div>
       </div>
     </div>
