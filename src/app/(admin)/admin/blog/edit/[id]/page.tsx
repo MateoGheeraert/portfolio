@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import BlogPostForm from "@/components/admin/BlogPostForm";
-import { supabaseAdmin } from "@/dal/db";
 import { BlogPost } from "@/dal/blog";
+import { getAdminBlogPostById } from "../../actions";
 
 export default function EditBlogPostPage() {
   const params = useParams();
@@ -15,32 +15,24 @@ export default function EditBlogPostPage() {
 
   useEffect(() => {
     async function fetchPost() {
-      if (!params.id) {
+      if (!params.id || typeof params.id !== "string") {
         setError("No blog post ID provided");
         setLoading(false);
         return;
       }
 
       try {
-        const { data, error } = await supabaseAdmin
-          .from("blog")
-          .select("*")
-          .eq("id", params.id)
-          .single();
+        const result = await getAdminBlogPostById(params.id);
 
-        if (error) throw error;
+        if (result.error) {
+          throw new Error(result.error);
+        }
 
-        // Format post data
-        const formattedPost = {
-          ...data,
-          tags: Array.isArray(data.tags)
-            ? data.tags
-            : typeof data.tags === "string"
-            ? data.tags.split(",").map((tag: string) => tag.trim())
-            : [],
-        };
-
-        setPost(formattedPost as BlogPost);
+        if (result.post) {
+          setPost(result.post);
+        } else {
+          setError("Blog post not found");
+        }
       } catch (error: any) {
         console.error("Error fetching blog post:", error);
         setError(error.message || "Failed to fetch blog post");

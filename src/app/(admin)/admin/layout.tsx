@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { signOut, isAuthenticated } from "@/utils/auth";
+import { QueryProvider } from "@/components/providers/QueryProvider";
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -97,82 +98,86 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
   // Admin layout with sidebar
   return (
-    <div className='min-h-screen bg-gray-100'>
-      <nav className='bg-white shadow-sm'>
-        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-          <div className='flex justify-between h-16'>
-            <div className='flex'>
-              <div className='flex-shrink-0 flex items-center'>
-                <Link
-                  href='/admin/dashboard'
-                  className='text-xl font-bold text-gray-900'
+    <QueryProvider>
+      <div className='min-h-screen bg-gray-100'>
+        <nav className='bg-white shadow-sm'>
+          <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+            <div className='flex justify-between h-16'>
+              <div className='flex'>
+                <div className='flex-shrink-0 flex items-center'>
+                  <Link
+                    href='/admin/dashboard'
+                    className='text-xl font-bold text-gray-900'
+                  >
+                    Admin Panel
+                  </Link>
+                </div>
+              </div>
+              <div className='flex items-center'>
+                <button
+                  onClick={handleSignOut}
+                  className='px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100'
                 >
-                  Admin Panel
-                </Link>
+                  Sign Out
+                </button>
               </div>
             </div>
-            <div className='flex items-center'>
-              <button
-                onClick={handleSignOut}
-                className='px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100'
-              >
-                Sign Out
-              </button>
-            </div>
           </div>
-        </div>
-      </nav>
+        </nav>
 
-      <div className='flex max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6'>
-        <div className='w-64 mr-8'>
-          <div className='bg-white overflow-hidden shadow rounded-lg divide-y divide-gray-200'>
-            <div className='px-4 py-5 sm:px-6'>
-              <h3 className='text-lg font-medium text-gray-900'>Navigation</h3>
-            </div>
-            <div className='px-4 py-5 sm:p-6'>
-              <nav className='space-y-1'>
-                <Link
-                  href='/admin/dashboard'
-                  className={`block px-3 py-2 rounded-md ${
-                    pathname === "/admin/dashboard"
-                      ? "bg-blue-50 text-blue-700"
-                      : "text-gray-700 hover:bg-gray-50"
-                  }`}
-                >
-                  Dashboard
-                </Link>
-                <Link
-                  href='/admin/projects'
-                  className={`block px-3 py-2 rounded-md ${
-                    pathname === "/admin/projects" ||
-                    pathname.startsWith("/admin/projects/")
-                      ? "bg-blue-50 text-blue-700"
-                      : "text-gray-700 hover:bg-gray-50"
-                  }`}
-                >
-                  Projects
-                </Link>
-                <Link
-                  href='/admin/blog'
-                  className={`block px-3 py-2 rounded-md ${
-                    pathname === "/admin/blog" ||
-                    pathname.startsWith("/admin/blog/")
-                      ? "bg-blue-50 text-blue-700"
-                      : "text-gray-700 hover:bg-gray-50"
-                  }`}
-                >
-                  Blog Posts
-                </Link>
-              </nav>
+        <div className='flex max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6'>
+          <div className='w-64 mr-8'>
+            <div className='bg-white overflow-hidden shadow rounded-lg divide-y divide-gray-200'>
+              <div className='px-4 py-5 sm:px-6'>
+                <h3 className='text-lg font-medium text-gray-900'>
+                  Navigation
+                </h3>
+              </div>
+              <div className='px-4 py-5 sm:p-6'>
+                <nav className='space-y-1'>
+                  <Link
+                    href='/admin/dashboard'
+                    className={`block px-3 py-2 rounded-md ${
+                      pathname === "/admin/dashboard"
+                        ? "bg-blue-50 text-blue-700"
+                        : "text-gray-700 hover:bg-gray-50"
+                    }`}
+                  >
+                    Dashboard
+                  </Link>
+                  <Link
+                    href='/admin/projects'
+                    className={`block px-3 py-2 rounded-md ${
+                      pathname === "/admin/projects" ||
+                      pathname.startsWith("/admin/projects/")
+                        ? "bg-blue-50 text-blue-700"
+                        : "text-gray-700 hover:bg-gray-50"
+                    }`}
+                  >
+                    Projects
+                  </Link>
+                  <Link
+                    href='/admin/blog'
+                    className={`block px-3 py-2 rounded-md ${
+                      pathname === "/admin/blog" ||
+                      pathname.startsWith("/admin/blog/")
+                        ? "bg-blue-50 text-blue-700"
+                        : "text-gray-700 hover:bg-gray-50"
+                    }`}
+                  >
+                    Blog Posts
+                  </Link>
+                </nav>
+              </div>
             </div>
           </div>
-        </div>
-        <div className='flex-1'>
-          <div className='bg-white overflow-hidden shadow rounded-lg'>
-            <div className='px-4 py-5 sm:p-6'>{children}</div>
+          <div className='flex-1'>
+            <div className='bg-white overflow-hidden shadow rounded-lg'>
+              <div className='px-4 py-5 sm:p-6'>{children}</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </QueryProvider>
   );
 }

@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { supabaseAdmin } from "@/dal/db";
 import { BlogPost } from "@/dal/blog";
+import { fetchAdminBlogPosts, deleteAdminBlogPost } from "./actions";
 
 export default function AdminBlogPage() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -15,24 +15,8 @@ export default function AdminBlogPage() {
   useEffect(() => {
     async function fetchPosts() {
       try {
-        const { data, error } = await supabaseAdmin
-          .from("blog")
-          .select("*")
-          .order("created_at", { ascending: false });
-
-        if (error) throw error;
-
-        // Format blog data
-        const formattedPosts = data.map((post) => ({
-          ...post,
-          tags: Array.isArray(post.tags)
-            ? post.tags
-            : typeof post.tags === "string"
-            ? post.tags.split(",").map((tag: string) => tag.trim())
-            : [],
-        }));
-
-        setPosts(formattedPosts);
+        const data = await fetchAdminBlogPosts();
+        setPosts(data);
       } catch (error) {
         console.error("Error fetching blog posts:", error);
       } finally {
@@ -44,18 +28,20 @@ export default function AdminBlogPage() {
   }, []);
 
   // Delete a blog post
-  const deletePost = async (id: string) => {
+  const handleDeletePost = async (id: string) => {
     if (isDeleting) return;
 
     setIsDeleting(true);
     try {
-      const { error } = await supabaseAdmin.from("blog").delete().eq("id", id);
+      const result = await deleteAdminBlogPost(id);
 
-      if (error) throw error;
-
-      // Update the state
-      setPosts(posts.filter((post) => post.id !== id));
-      setDeleteId(null);
+      if (result.success) {
+        // Update the state
+        setPosts(posts.filter((post) => post.id !== id));
+        setDeleteId(null);
+      } else {
+        console.error("Failed to delete blog post:", result.error);
+      }
     } catch (error) {
       console.error("Error deleting blog post:", error);
     } finally {
@@ -145,7 +131,7 @@ export default function AdminBlogPage() {
                       {deleteId === post.id ? (
                         <div className='flex gap-2 items-center'>
                           <button
-                            onClick={() => deletePost(post.id)}
+                            onClick={() => handleDeletePost(post.id)}
                             disabled={isDeleting}
                             className='text-red-600 hover:text-red-900 disabled:opacity-50'
                           >

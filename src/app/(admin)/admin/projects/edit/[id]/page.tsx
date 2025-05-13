@@ -1,66 +1,56 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import ProjectForm from "@/components/admin/ProjectForm";
-import { supabaseAdmin } from "@/dal/db";
 import { Project } from "@/dal/projects";
+import { getAdminProjectById } from "../../actions";
+import { useQuery } from "@tanstack/react-query";
 
 export default function EditProjectPage() {
   const params = useParams();
   const router = useRouter();
-  const [project, setProject] = useState<Project | undefined>(undefined);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    async function fetchProject() {
-      if (!params.id) {
-        setError("No project ID provided");
-        setLoading(false);
-        return;
+  // Use TanStack Query to fetch the project data
+  const {
+    data,
+    isLoading,
+    error: queryError,
+  } = useQuery({
+    queryKey: ["admin-project", params.id],
+    queryFn: async () => {
+      if (!params.id || typeof params.id !== "string") {
+        throw new Error("No project ID provided");
       }
 
-      try {
-        const { data, error } = await supabaseAdmin
-          .from("projects")
-          .select("*")
-          .eq("id", params.id)
-          .single();
+      const result = await getAdminProjectById(params.id);
 
-        if (error) throw error;
-
-        // Format project data
-        const formattedProject = {
-          ...data,
-          techstack: Array.isArray(data.techstack)
-            ? data.techstack
-            : typeof data.techstack === "string"
-            ? data.techstack.split(",").map((tech: string) => tech.trim())
-            : [],
-        };
-
-        setProject(formattedProject as Project);
-      } catch (error: any) {
-        console.error("Error fetching project:", error);
-        setError(error.message || "Failed to fetch project");
-      } finally {
-        setLoading(false);
+      if (result.error) {
+        throw new Error(result.error);
       }
-    }
 
-    fetchProject();
-  }, [params.id]);
+      if (!result.project) {
+        throw new Error("Project not found");
+      }
 
-  if (loading) {
+      return result.project;
+    },
+    retry: false,
+    enabled: !!params.id && typeof params.id === "string",
+  });
+
+  if (isLoading) {
     return <div className='py-4'>Loading project...</div>;
   }
 
-  if (error) {
+  if (queryError) {
     return (
       <div className='py-4 px-4 bg-red-50 text-red-800 rounded-md'>
         <h2 className='text-lg font-medium'>Error</h2>
-        <p>{error}</p>
+        <p>
+          {queryError instanceof Error
+            ? queryError.message
+            : "Failed to fetch project"}
+        </p>
         <button
           onClick={() => router.push("/admin/projects")}
           className='mt-4 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
@@ -71,7 +61,7 @@ export default function EditProjectPage() {
     );
   }
 
-  if (!project) {
+  if (!data) {
     return (
       <div className='py-4 px-4 bg-yellow-50 text-yellow-800 rounded-md'>
         <h2 className='text-lg font-medium'>Project Not Found</h2>
@@ -89,7 +79,7 @@ export default function EditProjectPage() {
   return (
     <div>
       <h1 className='text-2xl font-bold mb-6'>Edit Project</h1>
-      <ProjectForm project={project} mode='edit' />
+      <ProjectForm project={data} mode='edit' />
     </div>
   );
 }

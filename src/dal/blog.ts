@@ -13,8 +13,13 @@ export interface BlogPost {
 
 /**
  * Fetches all blog posts from the database
+ * @throws Error if not called from the server
  */
 export async function getAllBlogPosts(): Promise<BlogPost[]> {
+  if (!supabaseAdmin) {
+    throw new Error("This function can only be called from the server");
+  }
+
   const { data, error } = await supabaseAdmin
     .from("blog")
     .select("*")
@@ -38,8 +43,13 @@ export async function getAllBlogPosts(): Promise<BlogPost[]> {
 
 /**
  * Fetches a single blog post by ID
+ * @throws Error if not called from the server
  */
 export async function getBlogPostById(id: string): Promise<BlogPost | null> {
+  if (!supabaseAdmin) {
+    throw new Error("This function can only be called from the server");
+  }
+
   const { data, error } = await supabaseAdmin
     .from("blog")
     .select("*")
@@ -58,13 +68,13 @@ export async function getBlogPostById(id: string): Promise<BlogPost | null> {
 
   // Parse tags string to array if needed
   return data
-    ? {
+    ? ({
         ...data,
         tags: Array.isArray(data.tags)
           ? data.tags
           : typeof data.tags === "string"
           ? data.tags.split(",").map((tag: string) => tag.trim())
           : [],
-      }
+      } as BlogPost)
     : null;
 }

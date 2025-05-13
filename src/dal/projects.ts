@@ -5,16 +5,21 @@ export interface Project {
   title: string;
   description: string;
   techstack: string[];
-  image_url?: string;
-  github_url?: string;
-  demo_url?: string;
+  image_url?: string | null;
+  github_url?: string | null;
+  demo_url?: string | null;
   created_at: string;
 }
 
 /**
  * Fetches all projects from the database
+ * @throws Error if not called from the server
  */
 export async function getAllProjects(): Promise<Project[]> {
+  if (!supabaseAdmin) {
+    throw new Error("This function can only be called from the server");
+  }
+
   const { data, error } = await supabaseAdmin
     .from("projects")
     .select("*")
@@ -38,10 +43,15 @@ export async function getAllProjects(): Promise<Project[]> {
 
 /**
  * Fetches a single project by ID
+ * @throws Error if not called from the server
  */
 export async function getProjectById(id: string): Promise<Project | null> {
+  if (!supabaseAdmin) {
+    throw new Error("This function can only be called from the server");
+  }
+
   const { data, error } = await supabaseAdmin
-    .from("Projects")
+    .from("projects")
     .select("*")
     .eq("id", id)
     .single();
@@ -58,13 +68,13 @@ export async function getProjectById(id: string): Promise<Project | null> {
 
   // Parse techstack string to array if needed
   return data
-    ? {
+    ? ({
         ...data,
         techstack: Array.isArray(data.techstack)
           ? data.techstack
           : typeof data.techstack === "string"
           ? data.techstack.split(",").map((tech: string) => tech.trim())
           : [],
-      }
+      } as Project)
     : null;
 }

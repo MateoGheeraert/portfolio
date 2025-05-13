@@ -1,72 +1,44 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import { supabaseAdmin } from "@/dal/db";
 import { Project } from "@/dal/projects";
+import { fetchAdminProjects, deleteAdminProject } from "./actions";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 
 export default function AdminProjectsPage() {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
   const [deleteId, setDeleteId] = useState<string | null>(null);
-  const [isDeleting, setIsDeleting] = useState(false);
+  const queryClient = useQueryClient();
 
-  // Fetch projects
-  useEffect(() => {
-    async function fetchProjects() {
-      try {
-        const { data, error } = await supabaseAdmin
-          .from("projects")
-          .select("*")
-          .order("created_at", { ascending: false });
+  // Use TanStack Query to fetch projects
+  const { data: projects = [], isLoading } = useQuery({
+    queryKey: ["admin-projects"],
+    queryFn: async () => {
+      const data = await fetchAdminProjects();
+      return data;
+    },
+  });
 
-        if (error) throw error;
-
-        // Format projects data
-        const formattedProjects = data.map((project) => ({
-          ...project,
-          techstack: Array.isArray(project.techstack)
-            ? project.techstack
-            : typeof project.techstack === "string"
-            ? project.techstack.split(",").map((tech: string) => tech.trim())
-            : [],
-        }));
-
-        setProjects(formattedProjects);
-      } catch (error) {
-        console.error("Error fetching projects:", error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchProjects();
-  }, []);
+  // Delete project mutation
+  const deleteMutation = useMutation({
+    mutationFn: (id: string) => deleteAdminProject(id),
+    onSuccess: () => {
+      // Invalidate and refetch projects list after deletion
+      queryClient.invalidateQueries({ queryKey: ["admin-projects"] });
+      setDeleteId(null);
+    },
+    onError: (error) => {
+      console.error("Error deleting project:", error);
+    },
+  });
 
   // Delete a project
-  const deleteProject = async (id: string) => {
-    if (isDeleting) return;
-
-    setIsDeleting(true);
-    try {
-      const { error } = await supabaseAdmin
-        .from("projects")
-        .delete()
-        .eq("id", id);
-
-      if (error) throw error;
-
-      // Update the state
-      setProjects(projects.filter((project) => project.id !== id));
-      setDeleteId(null);
-    } catch (error) {
-      console.error("Error deleting project:", error);
-    } finally {
-      setIsDeleting(false);
-    }
+  const handleDeleteProject = async (id: string) => {
+    if (deleteMutation.isPending) return;
+    deleteMutation.mutate(id);
   };
 
-  if (loading) {
+  if (isLoading) {
     return <div className='py-4'>Loading projects...</div>;
   }
 
@@ -146,11 +118,13 @@ export default function AdminProjectsPage() {
                       {deleteId === project.id ? (
                         <div className='flex gap-2 items-center'>
                           <button
-                            onClick={() => deleteProject(project.id)}
-                            disabled={isDeleting}
+                            onClick={() => handleDeleteProject(project.id)}
+                            disabled={deleteMutation.isPending}
                             className='text-red-600 hover:text-red-900 disabled:opacity-50'
                           >
-                            {isDeleting ? "Deleting..." : "Confirm"}
+                            {deleteMutation.isPending
+                              ? "Deleting..."
+                              : "Confirm"}
                           </button>
                           <button
                             onClick={() => setDeleteId(null)}
