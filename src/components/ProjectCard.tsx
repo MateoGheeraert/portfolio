@@ -10,15 +10,31 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project }: ProjectCardProps) {
+  // Helper function to validate image URL
+  const isValidImageUrl = (url: string): boolean => {
+    if (!url || typeof url !== "string") return false;
+    try {
+      const urlObj = new URL(url);
+      return urlObj.protocol === "http:" || urlObj.protocol === "https:";
+    } catch {
+      // If it's not a valid URL, check if it's a relative path
+      return url.startsWith("/");
+    }
+  };
+
   return (
     <div className='bg-white rounded-lg shadow-lg overflow-hidden flex flex-col h-full'>
-      {project.image_url && (
+      {project.image_url && isValidImageUrl(project.image_url) && (
         <div className='relative h-48 w-full'>
           <Image
             src={project.image_url}
             alt={project.title}
             fill
             className='object-cover'
+            onError={() => {
+              // Hide the image container if image fails to load
+              console.warn(`Failed to load image: ${project.image_url}`);
+            }}
           />
         </div>
       )}

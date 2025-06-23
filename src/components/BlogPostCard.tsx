@@ -21,16 +21,31 @@ export default function BlogPostCard({ post, locale }: BlogPostCardProps) {
   };
 
   const formattedDate = formatDate(post.created_at);
+  // Helper function to validate image URL
+  const isValidImageUrl = (url: string): boolean => {
+    if (!url || typeof url !== "string") return false;
+    try {
+      const urlObj = new URL(url);
+      return urlObj.protocol === "http:" || urlObj.protocol === "https:";
+    } catch {
+      // If it's not a valid URL, check if it's a relative path
+      return url.startsWith("/");
+    }
+  };
 
   return (
     <article className='bg-white rounded-lg shadow-lg overflow-hidden flex flex-col'>
-      {post.image_url && (
+      {post.image_url && isValidImageUrl(post.image_url) && (
         <div className='relative h-48 w-full'>
           <Image
             src={post.image_url}
             alt={post.title}
             fill
             className='object-cover'
+            onError={() => {
+              // Hide the image container if image fails to load
+              console.warn(`Failed to load image: ${post.image_url}`);
+            }}
           />
         </div>
       )}
