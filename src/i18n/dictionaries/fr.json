@@ -14,5 +14,9 @@
   "cta": {
     "view_projects": "Voir les Projets",
     "contact_me": "Me Contacter"
+  },
+  "theme": {
+    "toggle_dark": "Passer au mode sombre",
+    "toggle_light": "Passer au mode clair"
   }
 }

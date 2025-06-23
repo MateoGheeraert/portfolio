@@ -34,7 +34,7 @@ export default function BlogPostCard({ post, locale }: BlogPostCardProps) {
   };
 
   return (
-    <article className='bg-white rounded-lg shadow-lg overflow-hidden flex flex-col'>
+    <article className='bg-white dark:bg-gray-800 rounded-lg shadow-lg dark:shadow-gray-700/20 overflow-hidden flex flex-col border border-gray-100 dark:border-gray-700 transition-colors duration-300'>
       {post.image_url && isValidImageUrl(post.image_url) && (
         <div className='relative h-48 w-full'>
           <Image
@@ -50,20 +50,22 @@ export default function BlogPostCard({ post, locale }: BlogPostCardProps) {
         </div>
       )}
       <div className='p-6 flex-grow'>
-        <h2 className='text-2xl font-semibold mb-2 text-gray-900'>
+        <h2 className='text-2xl font-semibold mb-2 text-gray-900 dark:text-white transition-colors duration-300'>
           {post.title}
         </h2>
-        <div className='flex items-center text-sm text-gray-500 mb-4'>
+        <div className='flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4 transition-colors duration-300'>
           <span>{formattedDate}</span>
         </div>
-        <p className='text-gray-600 mb-4'>{post.description}</p>
+        <p className='text-gray-600 dark:text-gray-300 mb-4 transition-colors duration-300'>
+          {post.description}
+        </p>
 
         {post.tags && post.tags.length > 0 && (
           <div className='flex flex-wrap gap-2 mb-4'>
             {post.tags.map((tag, index) => (
               <span
                 key={`${tag}-${index}`}
-                className='px-2 py-1 text-xs rounded bg-purple-100 text-purple-800'
+                className='px-2 py-1 text-xs rounded bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 transition-colors duration-300'
               >
                 {tag}
               </span>
@@ -73,7 +75,7 @@ export default function BlogPostCard({ post, locale }: BlogPostCardProps) {
 
         <Link
           href={`/${locale}/blog/${post.id}`}
-          className='text-blue-600 font-medium hover:underline inline-block'
+          className='text-blue-600 dark:text-blue-400 font-medium hover:underline inline-block transition-colors duration-300'
         >
           Read more →
         </Link>

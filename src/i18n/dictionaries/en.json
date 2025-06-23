@@ -14,5 +14,9 @@
   "cta": {
     "view_projects": "View Projects",
     "contact_me": "Contact Me"
+  },
+  "theme": {
+    "toggle_dark": "Switch to dark mode",
+    "toggle_light": "Switch to light mode"
   }
 }

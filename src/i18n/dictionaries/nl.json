@@ -14,5 +14,9 @@
   "cta": {
     "view_projects": "Bekijk Projecten",
     "contact_me": "Neem Contact Op"
+  },
+  "theme": {
+    "toggle_dark": "Schakel naar donkere modus",
+    "toggle_light": "Schakel naar lichte modus"
   }
 }

@@ -23,7 +23,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   };
 
   return (
-    <div className='bg-white rounded-lg shadow-lg overflow-hidden flex flex-col h-full'>
+    <div className='bg-white dark:bg-gray-800 rounded-lg shadow-lg dark:shadow-gray-700/20 overflow-hidden flex flex-col h-full border border-gray-100 dark:border-gray-700 transition-colors duration-300 hover:shadow-xl dark:hover:shadow-gray-700/30'>
       {project.image_url && isValidImageUrl(project.image_url) && (
         <div className='relative h-48 w-full'>
           <Image
@@ -39,15 +39,17 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         </div>
       )}
       <div className='p-6 flex-grow'>
-        <h3 className='text-xl font-semibold mb-2 text-gray-900'>
+        <h3 className='text-xl font-semibold mb-2 text-gray-900 dark:text-white transition-colors duration-300'>
           {project.title}
         </h3>
-        <p className='text-gray-600 mb-4'>{project.description}</p>
+        <p className='text-gray-600 dark:text-gray-300 mb-4 transition-colors duration-300'>
+          {project.description}
+        </p>
         <div className='flex flex-wrap gap-2 mb-4'>
           {project.techstack.map((tech, index) => (
             <span
               key={`${tech}-${index}`}
-              className='px-2 py-1 text-xs rounded bg-blue-100 text-blue-800'
+              className='px-2 py-1 text-xs rounded bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 transition-colors duration-300'
             >
               {tech}
             </span>
@@ -62,7 +64,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               href={project.github_url}
               target='_blank'
               rel='noopener noreferrer'
-              className='flex items-center text-sm text-gray-700 hover:text-gray-900'
+              className='flex items-center text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-300'
             >
               <GithubLogo size={18} className='mr-1' />
               GitHub
@@ -74,7 +76,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               href={project.demo_url}
               target='_blank'
               rel='noopener noreferrer'
-              className='flex items-center text-sm text-gray-700 hover:text-gray-900'
+              className='flex items-center text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-300'
             >
               <ArrowSquareOut size={18} className='mr-1' />
               Demo
