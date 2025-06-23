@@ -18,5 +18,25 @@
   "theme": {
     "toggle_dark": "Schakel naar donkere modus",
     "toggle_light": "Schakel naar lichte modus"
+  },
+  "contact": {
+    "title": "Laten We Contact Maken",
+    "description": "Ik hoor graag van je! Of je nu een project in gedachten hebt, wilt samenwerken, of gewoon hallo wilt zeggen, aarzel niet om contact op te nemen.",
+    "form": {
+      "name_label": "Naam",
+      "name_placeholder": "Je volledige naam",
+      "email_label": "E-mail",
+      "email_placeholder": "jouw.email@voorbeeld.com",
+      "subject_label": "Onderwerp",
+      "subject_placeholder": "Waar gaat dit over?",
+      "message_label": "Bericht",
+      "message_placeholder": "Vertel me meer over je project of vraag...",
+      "submit_button": "Verstuur Bericht",
+      "sending": "Versturen...",
+      "success_title": "Bericht Verzonden!",
+      "success_description": "Bedankt voor je bericht! Ik neem zo snel mogelijk contact met je op.",
+      "error_title": "Er ging iets mis",
+      "error_description": "Het versturen van je bericht is mislukt. Probeer het opnieuw of neem direct contact met me op via mateogheeraert04@gmail.com"
+    }
   }
 }

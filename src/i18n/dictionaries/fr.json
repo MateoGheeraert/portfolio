@@ -18,5 +18,25 @@
   "theme": {
     "toggle_dark": "Passer au mode sombre",
     "toggle_light": "Passer au mode clair"
+  },
+  "contact": {
+    "title": "Restons en Contact",
+    "description": "J'aimerais avoir de vos nouvelles ! Que vous ayez un projet en tête, souhaitiez collaborer, ou simplement dire bonjour, n'hésitez pas à me contacter.",
+    "form": {
+      "name_label": "Nom",
+      "name_placeholder": "Votre nom complet",
+      "email_label": "E-mail",
+      "email_placeholder": "votre.email@exemple.com",
+      "subject_label": "Sujet",
+      "subject_placeholder": "De quoi s'agit-il ?",
+      "message_label": "Message",
+      "message_placeholder": "Parlez-moi de votre projet ou de votre demande...",
+      "submit_button": "Envoyer le Message",
+      "sending": "Envoi en cours...",
+      "success_title": "Message Envoyé !",
+      "success_description": "Merci de m'avoir contacté ! Je vous répondrai dès que possible.",
+      "error_title": "Une erreur s'est produite",
+      "error_description": "Échec de l'envoi de votre message. Veuillez réessayer ou me contacter directement à mateogheeraert04@gmail.com"
+    }
   }
 }

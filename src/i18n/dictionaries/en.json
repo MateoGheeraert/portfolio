@@ -18,5 +18,25 @@
   "theme": {
     "toggle_dark": "Switch to dark mode",
     "toggle_light": "Switch to light mode"
+  },
+  "contact": {
+    "title": "Let's Get In Touch",
+    "description": "I'd love to hear from you! Whether you have a project in mind, want to collaborate, or just want to say hello, feel free to reach out.",
+    "form": {
+      "name_label": "Name",
+      "name_placeholder": "Your full name",
+      "email_label": "Email",
+      "email_placeholder": "your.email@example.com",
+      "subject_label": "Subject",
+      "subject_placeholder": "What's this about?",
+      "message_label": "Message",
+      "message_placeholder": "Tell me more about your project or inquiry...",
+      "submit_button": "Send Message",
+      "sending": "Sending...",
+      "success_title": "Message Sent!",
+      "success_description": "Thank you for reaching out! I'll get back to you as soon as possible.",
+      "error_title": "Something went wrong",
+      "error_description": "Failed to send your message. Please try again or contact me directly at mateogheeraert04@gmail.com"
+    }
   }
 }
