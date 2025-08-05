@@ -114,11 +114,34 @@
       "experience": {
         "title": "Technical Experience",
         "content": "Over the years, I've taken on a wide range of technical challenges: from building secure APIs with Spring Boot and JWT, to creating cross-platform mobile apps using React Native and Expo, to deploying containerized fullstack applications with Docker, Kubernetes, and CI/CD pipelines. I'm also currently diving into NestJS and GraphQL for a personal project that helps manage agile development workflows."
-      },
-      "learning": {
+      },      "learning": {
         "title": "Always Learning, Always Building",
         "content_intro": "I'm always exploring new technologies, always building, and always learning. Whether it's experimenting with UX improvements, optimizing performance, or writing clean and scalable code — I care deeply about the quality of what I create.",
         "content_outro": "Thanks for visiting my portfolio! If you're curious about what I've built so far, head over to the Projects page. Want to chat or collaborate? You can reach out via the Contact page. I also share some thoughts and lessons learned on my Blog."
+      },
+      "timeline": {
+        "title": "My Journey",
+        "subtitle": "Education & Experience",
+        "items": {
+          "high_school": {
+            "period": "2020 - 2022",
+            "title": "High School - Informaticabeheer",
+            "institution": "De Heilige Familie van Ieper",
+            "description": "Focused on IT management and foundational computer science concepts."
+          },
+          "bachelor": {
+            "period": "2022 - 2025",
+            "title": "Bachelor in Applied Computer Sciences",
+            "institution": "VIVES University of Applied Sciences, Kortrijk",
+            "description": "Specialized in Software Engineering. Graduated with extensive knowledge in full-stack development, databases, and modern programming languages."
+          },
+          "internship": {
+            "period": "2024 - 2025",
+            "title": "Full-Stack AI Developer Internship",
+            "institution": "Adomate",
+            "description": "50-day internship where I integrated various AI APIs including Google Vertex AI and OpenAI into their web platform, building intelligent solutions and enhancing user experiences."
+          }
+        }
       }
     }
   },

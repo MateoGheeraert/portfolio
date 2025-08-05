@@ -114,11 +114,34 @@
       "experience": {
         "title": "Expérience Technique",
         "content": "Au fil des années, j'ai relevé un large éventail de défis techniques : de la construction d'APIs sécurisées avec Spring Boot et JWT, à la création d'applications mobiles multiplateformes utilisant React Native et Expo, au déploiement d'applications fullstack conteneurisées avec Docker, Kubernetes et des pipelines CI/CD. Je me plonge actuellement dans NestJS et GraphQL pour un projet personnel qui aide à gérer les flux de travail de développement agile."
-      },
-      "learning": {
+      },      "learning": {
         "title": "Toujours Apprendre, Toujours Construire",
         "content_intro": "J'explore toujours de nouvelles technologies, toujours en train de construire, et toujours en train d'apprendre. Que ce soit pour expérimenter des améliorations UX, optimiser les performances, ou écrire du code propre et évolutif — je me soucie profondément de la qualité de ce que je crée.",
         "content_outro": "Merci de visiter mon portfolio ! Si vous êtes curieux de ce que j'ai construit jusqu'à présent, rendez-vous sur la page Projets. Vous voulez discuter ou collaborer ? Vous pouvez me contacter via la page Contact. Je partage aussi quelques réflexions et leçons apprises sur mon Blog."
+      },
+      "timeline": {
+        "title": "Mon Parcours",
+        "subtitle": "Éducation & Expérience",
+        "items": {
+          "high_school": {
+            "period": "2020 - 2022",
+            "title": "Lycée - Informaticabeheer",
+            "institution": "De Heilige Familie van Ieper",
+            "description": "Axé sur la gestion informatique et les concepts fondamentaux de l'informatique."
+          },
+          "bachelor": {
+            "period": "2022 - 2025",
+            "title": "Bachelor en Informatique Appliquée",
+            "institution": "Université des Sciences Appliquées VIVES, Courtrai",
+            "description": "Spécialisé en Génie Logiciel. Diplômé avec une connaissance approfondie du développement full-stack, des bases de données et des langages de programmation modernes."
+          },
+          "internship": {
+            "period": "2024 - 2025",
+            "title": "Stage Développeur Full-Stack IA",
+            "institution": "Adomate",
+            "description": "Stage de 50 jours où j'ai intégré diverses API d'IA incluant Google Vertex AI et OpenAI dans leur plateforme web, construisant des solutions intelligentes et améliorant les expériences utilisateur."
+          }
+        }
       }
     }
   },
