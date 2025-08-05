@@ -24,7 +24,7 @@ export default async function AboutPage({
           <div className='lg:col-span-4 flex justify-center lg:justify-start'>
             <div className='relative h-80 w-80 lg:h-96 lg:w-96 overflow-hidden rounded-2xl shadow-lg border-4 border-white dark:border-gray-600 transition-colors duration-300'>
               <Image
-                src='/mateo.png'
+                src='/mateo2.jpg'
                 alt='Mateo Gheeraert'
                 fill
                 style={{ objectFit: "cover" }}
@@ -96,7 +96,6 @@ export default async function AboutPage({
               {dictionary.about.sections.education.content}
             </p>
           </div>
-
           <div className='bg-white dark:bg-gray-900 p-6 rounded-xl shadow-md hover:shadow-lg dark:shadow-gray-700/20 dark:hover:shadow-gray-700/30 transition-all duration-300 border border-gray-100 dark:border-gray-700'>
             <div className='w-12 h-12 bg-yellow-500 dark:bg-yellow-600 text-white rounded-lg flex items-center justify-center mb-4 transition-colors duration-300'>
               <svg
@@ -121,7 +120,6 @@ export default async function AboutPage({
               {dictionary.about.sections.leadership.content}
             </p>
           </div>
-
           <div className='bg-white dark:bg-gray-900 p-6 rounded-xl shadow-md hover:shadow-lg dark:shadow-gray-700/20 dark:hover:shadow-gray-700/30 transition-all duration-300 border border-gray-100 dark:border-gray-700 md:col-span-2'>
             <div className='w-12 h-12 bg-green-500 dark:bg-green-600 text-white rounded-lg flex items-center justify-center mb-4 transition-colors duration-300'>
               <svg
@@ -145,6 +143,124 @@ export default async function AboutPage({
             <p className='text-gray-600 dark:text-gray-400 leading-relaxed transition-colors duration-300'>
               {dictionary.about.sections.experience.content}
             </p>
+          </div>{" "}
+        </div>
+      </div>
+
+      {/* Timeline section */}
+      <div className='bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl dark:shadow-gray-700/20 mb-12 transition-colors duration-300'>
+        <div className='text-center mb-10'>
+          <h3 className='text-3xl font-bold text-gray-800 dark:text-gray-100 mb-2 transition-colors duration-300'>
+            {dictionary.about.sections.timeline.title}
+          </h3>
+          <p className='text-gray-600 dark:text-gray-400 transition-colors duration-300'>
+            {dictionary.about.sections.timeline.subtitle}
+          </p>
+        </div>
+
+        <div className='relative'>
+          {/* Timeline line */}
+          <div className='absolute left-1/2 transform -translate-x-px h-full w-0.5 bg-blue-200 dark:bg-blue-700 transition-colors duration-300'></div>
+
+          {/* Timeline items */}
+          <div className='space-y-12'>
+            {/* High School */}
+            <div className='relative flex items-center'>
+              <div className='flex-1 pr-8 text-right'>
+                <div className='bg-gray-50 dark:bg-gray-700 p-6 rounded-xl shadow-md transition-colors duration-300'>
+                  <div className='text-sm font-semibold text-blue-600 dark:text-blue-400 mb-1 transition-colors duration-300'>
+                    {
+                      dictionary.about.sections.timeline.items.high_school
+                        .period
+                    }
+                  </div>
+                  <h4 className='text-lg font-bold text-gray-800 dark:text-gray-100 mb-2 transition-colors duration-300'>
+                    {dictionary.about.sections.timeline.items.high_school.title}
+                  </h4>
+                  <div className='text-sm font-medium text-gray-600 dark:text-gray-300 mb-2 transition-colors duration-300'>
+                    {
+                      dictionary.about.sections.timeline.items.high_school
+                        .institution
+                    }
+                  </div>
+                  <p className='text-gray-600 dark:text-gray-400 text-sm transition-colors duration-300'>
+                    {
+                      dictionary.about.sections.timeline.items.high_school
+                        .description
+                    }
+                  </p>
+                </div>
+              </div>
+              <div className='absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-blue-500 dark:bg-blue-400 rounded-full border-4 border-white dark:border-gray-800 transition-colors duration-300'></div>
+              <div className='flex-1 pl-8'></div>
+            </div>
+
+            {/* Bachelor */}
+            <div className='relative flex items-center'>
+              <div className='flex-1 pr-8'></div>
+              <div className='absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-blue-500 dark:bg-blue-400 rounded-full border-4 border-white dark:border-gray-800 transition-colors duration-300'></div>
+              <div className='flex-1 pl-8'>
+                <div className='bg-gray-50 dark:bg-gray-700 p-6 rounded-xl shadow-md transition-colors duration-300'>
+                  <div className='text-sm font-semibold text-blue-600 dark:text-blue-400 mb-1 transition-colors duration-300'>
+                    {dictionary.about.sections.timeline.items.bachelor.period}
+                  </div>
+                  <h4 className='text-lg font-bold text-gray-800 dark:text-gray-100 mb-2 transition-colors duration-300'>
+                    {dictionary.about.sections.timeline.items.bachelor.title}
+                  </h4>
+                  <div className='text-sm font-medium text-gray-600 dark:text-gray-300 mb-2 transition-colors duration-300'>
+                    {
+                      dictionary.about.sections.timeline.items.bachelor
+                        .institution
+                    }
+                  </div>
+                  <p className='text-gray-600 dark:text-gray-400 text-sm transition-colors duration-300'>
+                    {
+                      dictionary.about.sections.timeline.items.bachelor
+                        .description
+                    }
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Internship */}
+            <div className='relative flex items-center'>
+              <div className='flex-1 pr-8 text-right'>
+                <div className='bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 p-6 rounded-xl shadow-md border-2 border-blue-200 dark:border-blue-700 transition-colors duration-300'>
+                  <div className='text-sm font-semibold text-blue-600 dark:text-blue-400 mb-1 transition-colors duration-300'>
+                    {dictionary.about.sections.timeline.items.internship.period}
+                  </div>
+                  <h4 className='text-lg font-bold text-gray-800 dark:text-gray-100 mb-2 transition-colors duration-300'>
+                    {dictionary.about.sections.timeline.items.internship.title}
+                  </h4>
+                  <div className='text-sm font-medium text-gray-600 dark:text-gray-300 mb-2 transition-colors duration-300'>
+                    {
+                      dictionary.about.sections.timeline.items.internship
+                        .institution
+                    }
+                  </div>
+                  <p className='text-gray-600 dark:text-gray-400 text-sm transition-colors duration-300'>
+                    {
+                      dictionary.about.sections.timeline.items.internship
+                        .description
+                    }
+                  </p>
+                  <div className='flex flex-wrap gap-2 mt-3 justify-end'>
+                    <span className='px-3 py-1 text-xs font-medium rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 transition-colors duration-300'>
+                      Google Vertex AI
+                    </span>
+                    <span className='px-3 py-1 text-xs font-medium rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 transition-colors duration-300'>
+                      OpenAI
+                    </span>
+                    <span className='px-3 py-1 text-xs font-medium rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 transition-colors duration-300'>
+                      Full-Stack AI
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className='absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full border-4 border-white dark:border-gray-800 transition-colors duration-300'></div>
+              <div className='flex-1 pl-8'></div>
+            </div>
           </div>
         </div>
       </div>
