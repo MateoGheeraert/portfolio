@@ -64,7 +64,7 @@ export default async function BlogPostDetailPage({
               d='M10 19l-7-7m0 0l7-7m-7 7h18'
             />
           </svg>
-          Back to Blog
+          {dictionary.blog.back_to_blog}
         </Link>
 
         {/* Blog Post Header */}
@@ -119,7 +119,7 @@ export default async function BlogPostDetailPage({
                     📝
                   </span>
                 </div>
-                Article Content
+                {dictionary.blog.article_content}
               </h2>
               <div
                 className='prose prose-lg prose-gray dark:prose-invert max-w-none'
@@ -150,7 +150,7 @@ export default async function BlogPostDetailPage({
                       />
                     </svg>
                   </div>
-                  Tags
+                  {dictionary.blog.tags}
                 </h2>
                 <div className='flex flex-wrap gap-3'>
                   {blogPost.tags.map((tag, index) => (
@@ -171,7 +171,7 @@ export default async function BlogPostDetailPage({
             {/* Blog Post Info */}
             <div className='bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-700/20 p-6 border border-gray-100 dark:border-gray-700'>
               <h3 className='text-lg font-bold text-gray-900 dark:text-white mb-4'>
-                Article Details
+                {dictionary.blog.article_details}
               </h3>
 
               <div className='space-y-4'>
@@ -190,7 +190,7 @@ export default async function BlogPostDetailPage({
                     />
                   </svg>
                   <div>
-                    <p className='text-sm'>Published</p>
+                    <p className='text-sm'>{dictionary.blog.published}</p>
                     <p className='font-medium text-gray-900 dark:text-white'>
                       {new Date(blogPost.created_at).toLocaleDateString(
                         locale,
@@ -220,7 +220,7 @@ export default async function BlogPostDetailPage({
                       />
                     </svg>
                     <div>
-                      <p className='text-sm'>Read Time</p>
+                      <p className='text-sm'>{dictionary.blog.read_time}</p>
                       <p className='font-medium text-gray-900 dark:text-white'>
                         {blogPost.read_time} min read
                       </p>
@@ -233,7 +233,7 @@ export default async function BlogPostDetailPage({
             {/* Quick Navigation */}
             <div className='bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-700/20 p-6 border border-gray-100 dark:border-gray-700'>
               <h3 className='text-lg font-bold text-gray-900 dark:text-white mb-4'>
-                Quick Navigation
+                {dictionary.blog.quick_navigation}
               </h3>
 
               <div className='space-y-3'>
@@ -254,14 +254,14 @@ export default async function BlogPostDetailPage({
                       d='M10 19l-7-7m0 0l7-7m-7 7h18'
                     />
                   </svg>
-                  All Blog Posts
+                  {dictionary.blog.all_blog_posts}
                 </Link>
 
                 <Link
                   href={`/${locale}/contact`}
                   className='flex items-center justify-center gap-3 w-full px-4 py-3 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-900 dark:text-white font-medium rounded-lg transition-colors duration-200'
                 >
-                  💬 Contact Me
+                  💬 {dictionary.blog.contact_me}
                 </Link>
               </div>
             </div>

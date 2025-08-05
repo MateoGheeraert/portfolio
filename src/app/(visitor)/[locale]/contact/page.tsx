@@ -17,23 +17,12 @@ interface ContactPageProps {
   params: { locale: string };
 }
 
-const contactFormSchema = z.object({
-  name: z
-    .string()
-    .min(1, "Name is required")
-    .min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
-  subject: z
-    .string()
-    .min(1, "Subject is required")
-    .min(3, "Subject must be at least 3 characters"),
-  message: z
-    .string()
-    .min(1, "Message is required")
-    .min(10, "Message must be at least 10 characters"),
-});
-
-type ContactFormData = z.infer<typeof contactFormSchema>;
+type ContactFormData = {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+};
 
 export default function ContactPage({ params: { locale } }: ContactPageProps) {
   const [dictionary, setDictionary] = useState<any>(null);
@@ -51,6 +40,52 @@ export default function ContactPage({ params: { locale } }: ContactPageProps) {
     };
     loadDictionary();
   }, [locale]);
+
+  // Create validation schema with dictionary
+  const contactFormSchema = z.object({
+    name: z
+      .string()
+      .min(
+        1,
+        dictionary?.contact?.form?.validation_name_required ||
+          "Name is required"
+      )
+      .min(
+        2,
+        dictionary?.contact?.form?.validation_name_min ||
+          "Name must be at least 2 characters"
+      ),
+    email: z
+      .string()
+      .email(
+        dictionary?.contact?.form?.validation_email_invalid ||
+          "Please enter a valid email address"
+      ),
+    subject: z
+      .string()
+      .min(
+        1,
+        dictionary?.contact?.form?.validation_subject_required ||
+          "Subject is required"
+      )
+      .min(
+        3,
+        dictionary?.contact?.form?.validation_subject_min ||
+          "Subject must be at least 3 characters"
+      ),
+    message: z
+      .string()
+      .min(
+        1,
+        dictionary?.contact?.form?.validation_message_required ||
+          "Message is required"
+      )
+      .min(
+        10,
+        dictionary?.contact?.form?.validation_message_min ||
+          "Message must be at least 10 characters"
+      ),
+  });
 
   const {
     register,
@@ -272,7 +307,7 @@ export default function ContactPage({ params: { locale } }: ContactPageProps) {
         <div className='mt-8 pt-8 border-t border-gray-200 dark:border-gray-700'>
           <div className='text-center'>
             <p className='text-gray-600 dark:text-gray-400 text-sm'>
-              Or reach out directly at{" "}
+              {dictionary.contact.direct_contact}{" "}
               <a
                 href='mailto:mateogheeraert04@gmail.com'
                 className='text-blue-600 dark:text-blue-400 hover:underline'

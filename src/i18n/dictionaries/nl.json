@@ -36,7 +36,93 @@
       "success_title": "Bericht Verzonden!",
       "success_description": "Bedankt voor je bericht! Ik neem zo snel mogelijk contact met je op.",
       "error_title": "Er ging iets mis",
-      "error_description": "Het versturen van je bericht is mislukt. Probeer het opnieuw of neem direct contact met me op via mateogheeraert04@gmail.com"
+      "error_description": "Het versturen van je bericht is mislukt. Probeer het opnieuw of neem direct contact met me op via mateogheeraert04@gmail.com",
+      "validation_name_required": "Naam is verplicht",
+      "validation_name_min": "Naam moet minstens 2 karakters bevatten",
+      "validation_email_invalid": "Voer een geldig e-mailadres in",
+      "validation_subject_required": "Onderwerp is verplicht",
+      "validation_subject_min": "Onderwerp moet minstens 3 karakters bevatten",
+      "validation_message_required": "Bericht is verplicht",
+      "validation_message_min": "Bericht moet minstens 10 karakters bevatten"
+    },
+    "direct_contact": "Of neem direct contact op via"
+  },
+  "home": {
+    "featured_projects": {
+      "title": "Uitgelichte Projecten",
+      "description": "Hier zijn enkele van mijn recente projecten. Bekijk mijn projectenpagina voor meer.",
+      "no_projects": "Nog geen projecten beschikbaar. Kom binnenkort terug voor updates!",
+      "view_project": "Bekijk Project",
+      "view_all": "Bekijk Alle Projecten"
+    },
+    "skills": {
+      "title": "Vaardigheden & Technologieën",
+      "description": "Dit zijn de technologieën en tools waarmee ik regelmatig werk."
     }
+  },
+  "projects": {
+    "title": "Projecten",
+    "description": "Verken mijn portfolio van projecten die verschillende technologieën en creatieve oplossingen tonen. Elk project vertegenwoordigt een unieke uitdaging en leerervaring.",
+    "no_projects": {
+      "title": "Geen projecten gevonden",
+      "description": "Het lijkt erop dat er momenteel geen projecten zijn om weer te geven. Kom later terug voor updates!"
+    },
+    "back_to_projects": "Terug naar Projecten",
+    "project_not_found": {
+      "title": "Project Niet Gevonden",
+      "description_error": "Er is iets misgegaan bij het laden van dit project.",
+      "description_not_found": "Het project dat je zoekt bestaat niet."
+    },
+    "project_description": "Projectbeschrijving",
+    "technology_stack": "Technologie Stack",
+    "project_information": "Projectinformatie",
+    "created": "Gemaakt",
+    "quick_links": "Snelle Links",
+    "view_live_demo": "Bekijk Live Demo",
+    "view_source_code": "Bekijk Broncode",
+    "no_links_available": "Geen externe links beschikbaar"
+  },
+  "blog": {
+    "title": "Blog",
+    "no_posts": "Geen blogberichten gevonden.",
+    "back_to_blog": "Terug naar Blog",
+    "article_content": "Artikelinhoud",
+    "article_details": "Artikeldetails",
+    "published": "Gepubliceerd",
+    "tags": "Tags",
+    "read_time": "Leestijd",
+    "quick_navigation": "Snelle Navigatie",
+    "all_blog_posts": "Alle Blogberichten",
+    "contact_me": "Neem Contact Op"
+  },
+  "about": {
+    "title": "Over Mij",
+    "hero": {
+      "greeting": "Hallo daar! Ik ben",
+      "name": "Mateo Gheeraert",
+      "bio": "Een 20-jarige softwareontwikkelaar uit Merkem, België met bijna vijf jaar ervaring in softwareontwikkeling. Ik ben gepassioneerd over het omzetten van ideeën in echte, bruikbare digitale oplossingen. Ik hou ervan om dingen te bouwen die goed werken en er geweldig uitzien."
+    },
+    "sections": {
+      "education": {
+        "title": "Onderwijs & Vaardigheden",
+        "content": "Ik studeer momenteel Softwareontwikkeling aan VIVES Hogeschool voor Toegepaste Wetenschappen in Kortrijk, waar ik mijn vaardigheden in JavaScript, React, Node.js, Java, C#, Kotlin, Swift en Angular heb aangescherpt. Ik werk met zowel SQL als NoSQL databases, en ik ben vooral geïnteresseerd in het gebruik van MongoDB voor de meeste van mijn persoonlijke projecten."
+      },
+      "leadership": {
+        "title": "Leiderschap & Gemeenschap",
+        "content": "Buiten school ben ik zeer betrokken bij jeugdwerk als voorzitter van KLJ Merkem. Ik organiseer evenementen, leid een fantastisch team van vrijwilligers, en heb zelfs onze officiële website kljmerkem.be gebouwd. Deze rol heeft me veel geleerd over leiderschap, teamwork en creativiteit blijven — vaardigheden die ik meeneem in elk softwareproject waaraan ik werk."
+      },
+      "experience": {
+        "title": "Technische Ervaring",
+        "content": "Door de jaren heen heb ik een breed scala aan technische uitdagingen aangegaan: van het bouwen van veilige API's met Spring Boot en JWT, tot het maken van cross-platform mobiele apps met React Native en Expo, tot het deployen van gecontaineriseerde fullstack applicaties met Docker, Kubernetes en CI/CD pipelines. Ik duik momenteel ook in NestJS en GraphQL voor een persoonlijk project dat helpt bij het beheren van agile ontwikkelingsworkflows."
+      },
+      "learning": {
+        "title": "Altijd Leren, Altijd Bouwen",
+        "content_intro": "Ik verken altijd nieuwe technologieën, ben altijd aan het bouwen, en altijd aan het leren. Of het nu gaat om experimenteren met UX-verbeteringen, prestaties optimaliseren, of schone en schaalbare code schrijven — ik geef veel om de kwaliteit van wat ik creëer.",
+        "content_outro": "Bedankt voor het bezoeken van mijn portfolio! Als je nieuwsgierig bent naar wat ik tot nu toe heb gebouwd, ga dan naar de Projectenpagina. Wil je chatten of samenwerken? Je kunt contact opnemen via de Contactpagina. Ik deel ook enkele gedachten en geleerde lessen op mijn Blog."
+      }
+    }
+  },
+  "footer": {
+    "rights": "Alle rechten voorbehouden."
   }
 }

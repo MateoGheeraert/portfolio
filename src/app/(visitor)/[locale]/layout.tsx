@@ -31,7 +31,8 @@ export default async function VisitorLayout({
       <main className='flex-grow'>{children}</main>
       <footer className='py-6 bg-gray-100 dark:bg-gray-800 transition-colors duration-300'>
         <div className='container mx-auto px-4 text-center text-gray-600 dark:text-gray-400'>
-          © {new Date().getFullYear()} Mateo Gheeraert. All rights reserved.
+          © {new Date().getFullYear()} Mateo Gheeraert.{" "}
+          {dictionary.footer.rights}
         </div>
       </footer>
     </div>

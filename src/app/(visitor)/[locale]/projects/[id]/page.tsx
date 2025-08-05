@@ -172,19 +172,24 @@ export default function ProjectDetailPage({
             </svg>
           </div>
           <h1 className='text-4xl font-bold text-gray-900 dark:text-white mb-4'>
-            {error || "Project Not Found"}
+            {error ||
+              dictionary?.projects?.project_not_found?.title ||
+              "Project Not Found"}
           </h1>
           <p className='text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-md mx-auto'>
             {error
-              ? "Something went wrong while loading this project."
-              : "The project you're looking for doesn't exist."}
+              ? dictionary?.projects?.project_not_found?.description_error ||
+                "Something went wrong while loading this project."
+              : dictionary?.projects?.project_not_found
+                  ?.description_not_found ||
+                "The project you're looking for doesn't exist."}
           </p>
           <Link
             href={`/${locale}/projects`}
             className='inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-medium rounded-lg transition-colors duration-200'
           >
             <ArrowLeft size={20} />
-            Back to Projects
+            {dictionary?.projects?.back_to_projects || "Back to Projects"}
           </Link>
         </div>
       </div>
@@ -203,7 +208,7 @@ export default function ProjectDetailPage({
             size={20}
             className='transition-transform group-hover:-translate-x-1'
           />
-          Back to Projects
+          {dictionary.projects.back_to_projects}
         </Link>
 
         {/* Project Header */}
@@ -248,7 +253,7 @@ export default function ProjectDetailPage({
                     📝
                   </span>
                 </div>
-                About this project
+                {dictionary.projects.project_description}
               </h2>
               <p className='text-gray-700 dark:text-gray-300 leading-relaxed text-lg'>
                 {project.description}
@@ -264,7 +269,7 @@ export default function ProjectDetailPage({
                     className='text-green-600 dark:text-green-400'
                   />
                 </div>
-                Technologies Used
+                {dictionary.projects.technology_stack}
               </h2>
               <div className='grid grid-cols-2 md:grid-cols-3 gap-4'>
                 {project.techstack.map((tech, index) => (
@@ -287,14 +292,14 @@ export default function ProjectDetailPage({
             {/* Project Info */}
             <div className='bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-700/20 p-6 border border-gray-100 dark:border-gray-700'>
               <h3 className='text-lg font-bold text-gray-900 dark:text-white mb-4'>
-                Project Details
+                {dictionary.projects.project_information}
               </h3>
 
               <div className='space-y-4'>
                 <div className='flex items-center gap-3 text-gray-600 dark:text-gray-400'>
                   <CalendarBlank size={18} />
                   <div>
-                    <p className='text-sm'>Created</p>
+                    <p className='text-sm'>{dictionary.projects.created}</p>
                     <p className='font-medium text-gray-900 dark:text-white'>
                       {new Date(project.created_at).toLocaleDateString(locale, {
                         year: "numeric",
@@ -310,7 +315,7 @@ export default function ProjectDetailPage({
             {/* Action Buttons */}
             <div className='bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-700/20 p-6 border border-gray-100 dark:border-gray-700'>
               <h3 className='text-lg font-bold text-gray-900 dark:text-white mb-4'>
-                Quick Actions
+                {dictionary.projects.quick_links}
               </h3>
 
               <div className='space-y-3'>
@@ -322,7 +327,7 @@ export default function ProjectDetailPage({
                     className='flex items-center justify-center gap-3 w-full px-4 py-3 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-medium rounded-lg transition-colors duration-200'
                   >
                     <ArrowSquareOut size={18} />
-                    View Live Demo
+                    {dictionary.projects.view_live_demo}
                   </Link>
                 )}
 
@@ -334,14 +339,14 @@ export default function ProjectDetailPage({
                     className='flex items-center justify-center gap-3 w-full px-4 py-3 bg-gray-900 hover:bg-gray-800 dark:bg-gray-700 dark:hover:bg-gray-600 text-white font-medium rounded-lg transition-colors duration-200'
                   >
                     <GithubLogo size={18} />
-                    View Source Code
+                    {dictionary.projects.view_source_code}
                   </Link>
                 )}
 
                 {!project.demo_url && !project.github_url && (
                   <div className='text-center py-4'>
                     <p className='text-gray-500 dark:text-gray-400 text-sm'>
-                      No external links available
+                      {dictionary.projects.no_links_available}
                     </p>
                   </div>
                 )}

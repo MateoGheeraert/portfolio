@@ -98,11 +98,10 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
         <div className='container mx-auto px-4'>
           <div className='text-center mb-12'>
             <h2 className='text-3xl font-bold mb-4 text-gray-900 dark:text-white'>
-              Featured Projects
+              {dictionary.home.featured_projects.title}
             </h2>
             <p className='text-gray-600 dark:text-gray-400 max-w-2xl mx-auto'>
-              Here are some of my recent projects. Check out my projects page
-              for more.
+              {dictionary.home.featured_projects.description}
             </p>
           </div>
 
@@ -124,7 +123,7 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
                 </svg>
               </div>
               <p className='text-gray-600 dark:text-gray-400'>
-                No projects available yet. Check back soon for updates!
+                {dictionary.home.featured_projects.no_projects}
               </p>
             </div>
           ) : (
@@ -196,7 +195,7 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
                       href={`/${locale}/projects/${project.id}`}
                       className='inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium transition-colors duration-200'
                     >
-                      View Project
+                      {dictionary.home.featured_projects.view_project}
                       <svg
                         className='w-4 h-4 ml-1 transition-transform group-hover:translate-x-1'
                         fill='none'
@@ -223,7 +222,7 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
               href={`/${locale}/projects`}
               className='px-6 py-3 border border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-md font-medium inline-flex items-center transition-colors'
             >
-              View All Projects
+              {dictionary.home.featured_projects.view_all}
               <svg
                 className='w-5 h-5 ml-2'
                 fill='none'
@@ -248,10 +247,10 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
         <div className='container mx-auto px-4'>
           <div className='text-center mb-12'>
             <h2 className='text-3xl font-bold mb-4 text-gray-900 dark:text-white'>
-              Skills & Technologies
+              {dictionary.home.skills.title}
             </h2>
             <p className='text-gray-600 dark:text-gray-400 max-w-2xl mx-auto'>
-              These are the technologies and tools I work with regularly.
+              {dictionary.home.skills.description}
             </p>
           </div>
 

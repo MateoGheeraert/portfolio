@@ -36,7 +36,93 @@
       "success_title": "Message Sent!",
       "success_description": "Thank you for reaching out! I'll get back to you as soon as possible.",
       "error_title": "Something went wrong",
-      "error_description": "Failed to send your message. Please try again or contact me directly at mateogheeraert04@gmail.com"
+      "error_description": "Failed to send your message. Please try again or contact me directly at mateogheeraert04@gmail.com",
+      "validation_name_required": "Name is required",
+      "validation_name_min": "Name must be at least 2 characters",
+      "validation_email_invalid": "Please enter a valid email address",
+      "validation_subject_required": "Subject is required",
+      "validation_subject_min": "Subject must be at least 3 characters",
+      "validation_message_required": "Message is required",
+      "validation_message_min": "Message must be at least 10 characters"
+    },
+    "direct_contact": "Or reach out directly at"
+  },
+  "home": {
+    "featured_projects": {
+      "title": "Featured Projects",
+      "description": "Here are some of my recent projects. Check out my projects page for more.",
+      "no_projects": "No projects available yet. Check back soon for updates!",
+      "view_project": "View Project",
+      "view_all": "View All Projects"
+    },
+    "skills": {
+      "title": "Skills & Technologies",
+      "description": "These are the technologies and tools I work with regularly."
     }
+  },
+  "projects": {
+    "title": "Projects",
+    "description": "Explore my portfolio of projects showcasing various technologies and creative solutions. Each project represents a unique challenge and learning experience.",
+    "no_projects": {
+      "title": "No projects found",
+      "description": "It looks like there aren't any projects to display right now. Check back later for updates!"
+    },
+    "back_to_projects": "Back to Projects",
+    "project_not_found": {
+      "title": "Project Not Found",
+      "description_error": "Something went wrong while loading this project.",
+      "description_not_found": "The project you're looking for doesn't exist."
+    },
+    "project_description": "Project Description",
+    "technology_stack": "Technology Stack",
+    "project_information": "Project Information",
+    "created": "Created",
+    "quick_links": "Quick Links",
+    "view_live_demo": "View Live Demo",
+    "view_source_code": "View Source Code",
+    "no_links_available": "No external links available"
+  },
+  "blog": {
+    "title": "Blog",
+    "no_posts": "No blog posts found.",
+    "back_to_blog": "Back to Blog",
+    "article_content": "Article Content",
+    "article_details": "Article Details",
+    "published": "Published",
+    "tags": "Tags",
+    "read_time": "Read Time",
+    "quick_navigation": "Quick Navigation",
+    "all_blog_posts": "All Blog Posts",
+    "contact_me": "Contact Me"
+  },
+  "about": {
+    "title": "About Me",
+    "hero": {
+      "greeting": "Hi there! I'm",
+      "name": "Mateo Gheeraert",
+      "bio": "A 20-year-old software developer from Merkem, Belgium with almost five years of experience in software development. I'm passionate about turning ideas into real, usable digital solutions. I love building things that work well and look great."
+    },
+    "sections": {
+      "education": {
+        "title": "Education & Skills",
+        "content": "I'm currently studying Software Development at VIVES University of Applied Sciences in Kortrijk, where I've been sharpening my skills in JavaScript, React, Node.js, Java, C#, Kotlin, Swift, and Angular. I work with both SQL and NoSQL databases, and I'm especially into using MongoDB for most of my personal projects."
+      },
+      "leadership": {
+        "title": "Leadership & Community",
+        "content": "Outside of school, I'm very involved in youth work as the president of KLJ Merkem. I organize events, lead a fantastic team of volunteers, and even built our official website kljmerkem.be. Being in this role has taught me a lot about leadership, teamwork, and staying creative — skills that I bring into every software project I work on."
+      },
+      "experience": {
+        "title": "Technical Experience",
+        "content": "Over the years, I've taken on a wide range of technical challenges: from building secure APIs with Spring Boot and JWT, to creating cross-platform mobile apps using React Native and Expo, to deploying containerized fullstack applications with Docker, Kubernetes, and CI/CD pipelines. I'm also currently diving into NestJS and GraphQL for a personal project that helps manage agile development workflows."
+      },
+      "learning": {
+        "title": "Always Learning, Always Building",
+        "content_intro": "I'm always exploring new technologies, always building, and always learning. Whether it's experimenting with UX improvements, optimizing performance, or writing clean and scalable code — I care deeply about the quality of what I create.",
+        "content_outro": "Thanks for visiting my portfolio! If you're curious about what I've built so far, head over to the Projects page. Want to chat or collaborate? You can reach out via the Contact page. I also share some thoughts and lessons learned on my Blog."
+      }
+    }
+  },
+  "footer": {
+    "rights": "All rights reserved."
   }
 }

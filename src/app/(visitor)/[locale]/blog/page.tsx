@@ -19,7 +19,7 @@ export default async function BlogPage({ params: { locale } }: BlogPageProps) {
 
       {blogPosts.length === 0 ? (
         <p className='text-gray-600 dark:text-gray-400 text-center py-10'>
-          No blog posts found.
+          {dictionary.blog.no_posts}
         </p>
       ) : (
         <div className='space-y-8'>

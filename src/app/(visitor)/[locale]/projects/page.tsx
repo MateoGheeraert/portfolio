@@ -37,7 +37,13 @@ function ProjectsLoadingSkeleton() {
   );
 }
 
-async function ProjectsList({ locale }: { locale: Locale }) {
+async function ProjectsList({
+  locale,
+  dictionary,
+}: {
+  locale: Locale;
+  dictionary: any;
+}) {
   const projects = await fetchProjects();
 
   if (projects.length === 0) {
@@ -59,11 +65,10 @@ async function ProjectsList({ locale }: { locale: Locale }) {
           </svg>
         </div>
         <h3 className='text-xl font-semibold text-gray-900 dark:text-white mb-2'>
-          No projects found
+          {dictionary.projects.no_projects.title}
         </h3>
         <p className='text-gray-600 dark:text-gray-400 max-w-md mx-auto'>
-          It looks like there aren&apos;t any projects to display right now.
-          Check back later for updates!
+          {dictionary.projects.no_projects.description}
         </p>
       </div>
     );
@@ -93,15 +98,13 @@ export default async function ProjectsPage({
             <span className='absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-blue-600 dark:bg-blue-400 rounded-full'></span>
           </h1>
           <p className='text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed'>
-            Explore my portfolio of projects showcasing various technologies and
-            creative solutions. Each project represents a unique challenge and
-            learning experience.
+            {dictionary.projects.description}
           </p>
         </div>
 
         {/* Projects Grid */}
         <Suspense fallback={<ProjectsLoadingSkeleton />}>
-          <ProjectsList locale={locale} />
+          <ProjectsList locale={locale} dictionary={dictionary} />
         </Suspense>
       </div>
     </div>
