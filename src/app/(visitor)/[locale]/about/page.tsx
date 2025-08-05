@@ -24,7 +24,7 @@ export default async function AboutPage({
           <div className='lg:col-span-4 flex justify-center lg:justify-start'>
             <div className='relative h-80 w-80 lg:h-96 lg:w-96 overflow-hidden rounded-2xl shadow-lg border-4 border-white dark:border-gray-600 transition-colors duration-300'>
               <Image
-                src='/mateo.png'
+                src='/mateo2.jpg'
                 alt='Mateo Gheeraert'
                 fill
                 style={{ objectFit: "cover" }}
