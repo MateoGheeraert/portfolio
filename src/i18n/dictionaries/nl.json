@@ -114,7 +114,8 @@
       "experience": {
         "title": "Technische Ervaring",
         "content": "Door de jaren heen heb ik een breed scala aan technische uitdagingen aangegaan: van het bouwen van veilige API's met Spring Boot en JWT, tot het maken van cross-platform mobiele apps met React Native en Expo, tot het deployen van gecontaineriseerde fullstack applicaties met Docker, Kubernetes en CI/CD pipelines. Ik duik momenteel ook in NestJS en GraphQL voor een persoonlijk project dat helpt bij het beheren van agile ontwikkelingsworkflows."
-      },      "learning": {
+      },
+      "learning": {
         "title": "Altijd Leren, Altijd Bouwen",
         "content_intro": "Ik verken altijd nieuwe technologieën, ben altijd aan het bouwen, en altijd aan het leren. Of het nu gaat om experimenteren met UX-verbeteringen, prestaties optimaliseren, of schone en schaalbare code schrijven — ik geef veel om de kwaliteit van wat ik creëer.",
         "content_outro": "Bedankt voor het bezoeken van mijn portfolio! Als je nieuwsgierig bent naar wat ik tot nu toe heb gebouwd, ga dan naar de Projectenpagina. Wil je chatten of samenwerken? Je kunt contact opnemen via de Contactpagina. Ik deel ook enkele gedachten en geleerde lessen op mijn Blog."

@@ -96,7 +96,6 @@ export default async function AboutPage({
               {dictionary.about.sections.education.content}
             </p>
           </div>
-
           <div className='bg-white dark:bg-gray-900 p-6 rounded-xl shadow-md hover:shadow-lg dark:shadow-gray-700/20 dark:hover:shadow-gray-700/30 transition-all duration-300 border border-gray-100 dark:border-gray-700'>
             <div className='w-12 h-12 bg-yellow-500 dark:bg-yellow-600 text-white rounded-lg flex items-center justify-center mb-4 transition-colors duration-300'>
               <svg
@@ -121,7 +120,6 @@ export default async function AboutPage({
               {dictionary.about.sections.leadership.content}
             </p>
           </div>
-
           <div className='bg-white dark:bg-gray-900 p-6 rounded-xl shadow-md hover:shadow-lg dark:shadow-gray-700/20 dark:hover:shadow-gray-700/30 transition-all duration-300 border border-gray-100 dark:border-gray-700 md:col-span-2'>
             <div className='w-12 h-12 bg-green-500 dark:bg-green-600 text-white rounded-lg flex items-center justify-center mb-4 transition-colors duration-300'>
               <svg
@@ -145,7 +143,8 @@ export default async function AboutPage({
             <p className='text-gray-600 dark:text-gray-400 leading-relaxed transition-colors duration-300'>
               {dictionary.about.sections.experience.content}
             </p>
-          </div>        </div>
+          </div>{" "}
+        </div>
       </div>
 
       {/* Timeline section */}
@@ -170,16 +169,25 @@ export default async function AboutPage({
               <div className='flex-1 pr-8 text-right'>
                 <div className='bg-gray-50 dark:bg-gray-700 p-6 rounded-xl shadow-md transition-colors duration-300'>
                   <div className='text-sm font-semibold text-blue-600 dark:text-blue-400 mb-1 transition-colors duration-300'>
-                    {dictionary.about.sections.timeline.items.high_school.period}
+                    {
+                      dictionary.about.sections.timeline.items.high_school
+                        .period
+                    }
                   </div>
                   <h4 className='text-lg font-bold text-gray-800 dark:text-gray-100 mb-2 transition-colors duration-300'>
                     {dictionary.about.sections.timeline.items.high_school.title}
                   </h4>
                   <div className='text-sm font-medium text-gray-600 dark:text-gray-300 mb-2 transition-colors duration-300'>
-                    {dictionary.about.sections.timeline.items.high_school.institution}
+                    {
+                      dictionary.about.sections.timeline.items.high_school
+                        .institution
+                    }
                   </div>
                   <p className='text-gray-600 dark:text-gray-400 text-sm transition-colors duration-300'>
-                    {dictionary.about.sections.timeline.items.high_school.description}
+                    {
+                      dictionary.about.sections.timeline.items.high_school
+                        .description
+                    }
                   </p>
                 </div>
               </div>
@@ -200,10 +208,16 @@ export default async function AboutPage({
                     {dictionary.about.sections.timeline.items.bachelor.title}
                   </h4>
                   <div className='text-sm font-medium text-gray-600 dark:text-gray-300 mb-2 transition-colors duration-300'>
-                    {dictionary.about.sections.timeline.items.bachelor.institution}
+                    {
+                      dictionary.about.sections.timeline.items.bachelor
+                        .institution
+                    }
                   </div>
                   <p className='text-gray-600 dark:text-gray-400 text-sm transition-colors duration-300'>
-                    {dictionary.about.sections.timeline.items.bachelor.description}
+                    {
+                      dictionary.about.sections.timeline.items.bachelor
+                        .description
+                    }
                   </p>
                 </div>
               </div>
@@ -220,10 +234,16 @@ export default async function AboutPage({
                     {dictionary.about.sections.timeline.items.internship.title}
                   </h4>
                   <div className='text-sm font-medium text-gray-600 dark:text-gray-300 mb-2 transition-colors duration-300'>
-                    {dictionary.about.sections.timeline.items.internship.institution}
+                    {
+                      dictionary.about.sections.timeline.items.internship
+                        .institution
+                    }
                   </div>
                   <p className='text-gray-600 dark:text-gray-400 text-sm transition-colors duration-300'>
-                    {dictionary.about.sections.timeline.items.internship.description}
+                    {
+                      dictionary.about.sections.timeline.items.internship
+                        .description
+                    }
                   </p>
                   <div className='flex flex-wrap gap-2 mt-3 justify-end'>
                     <span className='px-3 py-1 text-xs font-medium rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 transition-colors duration-300'>
