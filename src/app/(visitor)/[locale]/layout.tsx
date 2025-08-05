@@ -25,14 +25,14 @@ export default async function VisitorLayout({
 
   // Get the dictionary based on the locale
   const dictionary = await getDictionary(locale as Locale);
-
   return (
-    <div className='min-h-screen flex flex-col'>
+    <div className='min-h-screen flex flex-col bg-white dark:bg-gray-900 transition-colors duration-300'>
       <Navbar locale={locale as Locale} dictionary={dictionary} />
       <main className='flex-grow'>{children}</main>
-      <footer className='py-6 bg-gray-100'>
-        <div className='container mx-auto px-4 text-center text-gray-600'>
-          © {new Date().getFullYear()} Mateo Gheeraert. All rights reserved.
+      <footer className='py-6 bg-gray-100 dark:bg-gray-800 transition-colors duration-300'>
+        <div className='container mx-auto px-4 text-center text-gray-600 dark:text-gray-400'>
+          © {new Date().getFullYear()} Mateo Gheeraert.{" "}
+          {dictionary.footer.rights}
         </div>
       </footer>
     </div>

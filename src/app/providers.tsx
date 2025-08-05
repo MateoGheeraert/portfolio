@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useState, useEffect } from "react";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 
 export interface ProvidersProps {
   children: React.ReactNode;
@@ -19,5 +20,5 @@ export const Providers = ({ children }: ProvidersProps) => {
     return null;
   }
 
-  return <>{children}</>;
+  return <ThemeProvider>{children}</ThemeProvider>;
 };

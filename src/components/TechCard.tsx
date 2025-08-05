@@ -17,9 +17,9 @@ export default function TechCard({ technologies }: TechCardProps) {
       {technologies.map((tech) => (
         <div
           key={tech.name}
-          className='flex flex-col items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow border border-gray-200'
+          className='flex flex-col items-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md dark:shadow-gray-700/20 dark:hover:shadow-gray-700/30 transition-all duration-300 border border-gray-200 dark:border-gray-700'
         >
-          <div className='w-16 h-16 mb-4 flex items-center justify-center bg-blue-100 rounded-full p-2'>
+          <div className='w-16 h-16 mb-4 flex items-center justify-center bg-blue-100 dark:bg-blue-900/30 rounded-full p-2 transition-colors duration-300'>
             <Image
               src={`/logos/${tech.logo}`}
               alt={`${tech.name} logo`}
@@ -28,7 +28,9 @@ export default function TechCard({ technologies }: TechCardProps) {
               className='object-contain'
             />
           </div>
-          <span className='font-medium text-gray-900'>{tech.name}</span>
+          <span className='font-medium text-gray-900 dark:text-white transition-colors duration-300'>
+            {tech.name}
+          </span>
         </div>
       ))}
     </div>

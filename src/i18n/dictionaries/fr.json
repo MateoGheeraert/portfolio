@@ -14,5 +14,115 @@
   "cta": {
     "view_projects": "Voir les Projets",
     "contact_me": "Me Contacter"
+  },
+  "theme": {
+    "toggle_dark": "Passer au mode sombre",
+    "toggle_light": "Passer au mode clair"
+  },
+  "contact": {
+    "title": "Restons en Contact",
+    "description": "J'aimerais avoir de vos nouvelles ! Que vous ayez un projet en tête, souhaitiez collaborer, ou simplement dire bonjour, n'hésitez pas à me contacter.",
+    "form": {
+      "name_label": "Nom",
+      "name_placeholder": "Votre nom complet",
+      "email_label": "E-mail",
+      "email_placeholder": "votre.email@exemple.com",
+      "subject_label": "Sujet",
+      "subject_placeholder": "De quoi s'agit-il ?",
+      "message_label": "Message",
+      "message_placeholder": "Parlez-moi de votre projet ou de votre demande...",
+      "submit_button": "Envoyer le Message",
+      "sending": "Envoi en cours...",
+      "success_title": "Message Envoyé !",
+      "success_description": "Merci de m'avoir contacté ! Je vous répondrai dès que possible.",
+      "error_title": "Une erreur s'est produite",
+      "error_description": "Échec de l'envoi de votre message. Veuillez réessayer ou me contacter directement à mateogheeraert04@gmail.com",
+      "validation_name_required": "Le nom est requis",
+      "validation_name_min": "Le nom doit contenir au moins 2 caractères",
+      "validation_email_invalid": "Veuillez entrer une adresse e-mail valide",
+      "validation_subject_required": "Le sujet est requis",
+      "validation_subject_min": "Le sujet doit contenir au moins 3 caractères",
+      "validation_message_required": "Le message est requis",
+      "validation_message_min": "Le message doit contenir au moins 10 caractères"
+    },
+    "direct_contact": "Ou contactez-moi directement à"
+  },
+  "home": {
+    "featured_projects": {
+      "title": "Projets en Vedette",
+      "description": "Voici quelques-uns de mes projets récents. Consultez ma page projets pour en voir plus.",
+      "no_projects": "Aucun projet disponible pour le moment. Revenez bientôt pour des mises à jour !",
+      "view_project": "Voir le Projet",
+      "view_all": "Voir Tous les Projets"
+    },
+    "skills": {
+      "title": "Compétences & Technologies",
+      "description": "Voici les technologies et outils avec lesquels je travaille régulièrement."
+    }
+  },
+  "projects": {
+    "title": "Projets",
+    "description": "Explorez mon portfolio de projets présentant diverses technologies et solutions créatives. Chaque projet représente un défi unique et une expérience d'apprentissage.",
+    "no_projects": {
+      "title": "Aucun projet trouvé",
+      "description": "Il semble qu'il n'y ait aucun projet à afficher pour le moment. Revenez plus tard pour des mises à jour !"
+    },
+    "back_to_projects": "Retour aux Projets",
+    "project_not_found": {
+      "title": "Projet Non Trouvé",
+      "description_error": "Une erreur s'est produite lors du chargement de ce projet.",
+      "description_not_found": "Le projet que vous recherchez n'existe pas."
+    },
+    "project_description": "Description du Projet",
+    "technology_stack": "Stack Technologique",
+    "project_information": "Informations du Projet",
+    "created": "Créé",
+    "quick_links": "Liens Rapides",
+    "view_live_demo": "Voir la Démo Live",
+    "view_source_code": "Voir le Code Source",
+    "no_links_available": "Aucun lien externe disponible"
+  },
+  "blog": {
+    "title": "Blog",
+    "no_posts": "Aucun article de blog trouvé.",
+    "back_to_blog": "Retour au Blog",
+    "article_content": "Contenu de l'Article",
+    "article_details": "Détails de l'Article",
+    "published": "Publié",
+    "tags": "Étiquettes",
+    "read_time": "Temps de Lecture",
+    "quick_navigation": "Navigation Rapide",
+    "all_blog_posts": "Tous les Articles",
+    "contact_me": "Me Contacter"
+  },
+  "about": {
+    "title": "À Propos de Moi",
+    "hero": {
+      "greeting": "Salut ! Je suis",
+      "name": "Mateo Gheeraert",
+      "bio": "Un développeur logiciel de 20 ans de Merkem, en Belgique, avec près de cinq ans d'expérience en développement logiciel. Je suis passionné par la transformation d'idées en solutions numériques réelles et utilisables. J'aime construire des choses qui fonctionnent bien et qui sont belles."
+    },
+    "sections": {
+      "education": {
+        "title": "Éducation & Compétences",
+        "content": "J'étudie actuellement le Développement Logiciel à l'Université des Sciences Appliquées VIVES de Courtrai, où j'ai perfectionné mes compétences en JavaScript, React, Node.js, Java, C#, Kotlin, Swift et Angular. Je travaille avec des bases de données SQL et NoSQL, et j'ai une préférence particulière pour MongoDB dans mes projets personnels."
+      },
+      "leadership": {
+        "title": "Leadership & Communauté",
+        "content": "En dehors de l'école, je suis très impliqué dans le travail de jeunesse en tant que président de KLJ Merkem. J'organise des événements, dirige une équipe fantastique de bénévoles, et j'ai même construit notre site web officiel kljmerkem.be. Occuper ce rôle m'a beaucoup appris sur le leadership, le travail d'équipe et la créativité — des compétences que j'apporte dans chaque projet logiciel sur lequel je travaille."
+      },
+      "experience": {
+        "title": "Expérience Technique",
+        "content": "Au fil des années, j'ai relevé un large éventail de défis techniques : de la construction d'APIs sécurisées avec Spring Boot et JWT, à la création d'applications mobiles multiplateformes utilisant React Native et Expo, au déploiement d'applications fullstack conteneurisées avec Docker, Kubernetes et des pipelines CI/CD. Je me plonge actuellement dans NestJS et GraphQL pour un projet personnel qui aide à gérer les flux de travail de développement agile."
+      },
+      "learning": {
+        "title": "Toujours Apprendre, Toujours Construire",
+        "content_intro": "J'explore toujours de nouvelles technologies, toujours en train de construire, et toujours en train d'apprendre. Que ce soit pour expérimenter des améliorations UX, optimiser les performances, ou écrire du code propre et évolutif — je me soucie profondément de la qualité de ce que je crée.",
+        "content_outro": "Merci de visiter mon portfolio ! Si vous êtes curieux de ce que j'ai construit jusqu'à présent, rendez-vous sur la page Projets. Vous voulez discuter ou collaborer ? Vous pouvez me contacter via la page Contact. Je partage aussi quelques réflexions et leçons apprises sur mon Blog."
+      }
+    }
+  },
+  "footer": {
+    "rights": "Tous droits réservés."
   }
 }
