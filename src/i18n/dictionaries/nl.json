@@ -21,22 +21,22 @@
   },
   "contact": {
     "title": "Laten We Contact Maken",
-    "description": "Ik hoor graag van je! Of je nu een project in gedachten hebt, wilt samenwerken, of gewoon hallo wilt zeggen, aarzel niet om contact op te nemen.",
+    "description": "Ik hoor graag van je! Of u nu een project in gedachten hebt, wilt samenwerken, of gewoon hallo wilt zeggen, aarzel niet om contact op te nemen.",
     "form": {
       "name_label": "Naam",
-      "name_placeholder": "Je volledige naam",
+      "name_placeholder": "Uw volledige naam",
       "email_label": "E-mail",
       "email_placeholder": "jouw.email@voorbeeld.com",
       "subject_label": "Onderwerp",
       "subject_placeholder": "Waar gaat dit over?",
       "message_label": "Bericht",
-      "message_placeholder": "Vertel me meer over je project of vraag...",
+      "message_placeholder": "Vertel me meer over uw project of vraag...",
       "submit_button": "Verstuur Bericht",
       "sending": "Versturen...",
       "success_title": "Bericht Verzonden!",
-      "success_description": "Bedankt voor je bericht! Ik neem zo snel mogelijk contact met je op.",
+      "success_description": "Bedankt voor uw bericht! Ik neem zo snel mogelijk contact met u op.",
       "error_title": "Er ging iets mis",
-      "error_description": "Het versturen van je bericht is mislukt. Probeer het opnieuw of neem direct contact met me op via mateogheeraert04@gmail.com",
+      "error_description": "Het versturen van u bericht is mislukt. Probeer het opnieuw of neem direct contact met me op via mateogheeraert04@gmail.com",
       "validation_name_required": "Naam is verplicht",
       "validation_name_min": "Naam moet minstens 2 karakters bevatten",
       "validation_email_invalid": "Voer een geldig e-mailadres in",
@@ -71,7 +71,7 @@
     "project_not_found": {
       "title": "Project Niet Gevonden",
       "description_error": "Er is iets misgegaan bij het laden van dit project.",
-      "description_not_found": "Het project dat je zoekt bestaat niet."
+      "description_not_found": "Het project dat u zoekt bestaat niet."
     },
     "project_description": "Projectbeschrijving",
     "technology_stack": "Technologie Stack",
@@ -118,7 +118,7 @@
       "learning": {
         "title": "Altijd Leren, Altijd Bouwen",
         "content_intro": "Ik verken altijd nieuwe technologieën, ben altijd aan het bouwen, en altijd aan het leren. Of het nu gaat om experimenteren met UX-verbeteringen, prestaties optimaliseren, of schone en schaalbare code schrijven — ik geef veel om de kwaliteit van wat ik creëer.",
-        "content_outro": "Bedankt voor het bezoeken van mijn portfolio! Als je nieuwsgierig bent naar wat ik tot nu toe heb gebouwd, ga dan naar de Projectenpagina. Wil je chatten of samenwerken? Je kunt contact opnemen via de Contactpagina. Ik deel ook enkele gedachten en geleerde lessen op mijn Blog."
+        "content_outro": "Bedankt voor het bezoeken van mijn portfolio! Als u nieuwsgierig bent naar wat ik tot nu toe heb gebouwd, ga dan naar de Projectenpagina. Wil u chatten of samenwerken? u kunt contact opnemen via de Contactpagina. Ik deel ook enkele gedachten en geleerde lessen op mijn Blog."
       },
       "timeline": {
         "title": "Mijn Reis",
