@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { BlogPost } from "@/dal/blog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { MarkdownEditor } from "@/components/ui/markdown-editor";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -176,19 +177,17 @@ export default function BlogPostForm({ post, mode }: BlogPostFormProps) {
 
           {/* Content Section */}
           <div className='space-y-4'>
-            <h3 className='text-lg font-semibold text-gray-900'>Content</h3>
-
-            <FormField
+            <h3 className='text-lg font-semibold text-gray-900'>Content</h3>            <FormField
               control={form.control}
               name='content_english'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>English Content</FormLabel>
                   <FormControl>
-                    <Textarea
-                      placeholder='Full content of the blog post in English'
-                      className='min-h-64'
-                      {...field}
+                    <MarkdownEditor
+                      value={field.value}
+                      onChange={field.onChange}
+                      placeholder='Full content of the blog post in English (supports markdown)'
                     />
                   </FormControl>
                   <FormMessage />
@@ -203,28 +202,26 @@ export default function BlogPostForm({ post, mode }: BlogPostFormProps) {
                 <FormItem>
                   <FormLabel>Dutch Content</FormLabel>
                   <FormControl>
-                    <Textarea
-                      placeholder='Volledige inhoud van de blogpost in het Nederlands'
-                      className='min-h-64'
-                      {...field}
+                    <MarkdownEditor
+                      value={field.value}
+                      onChange={field.onChange}
+                      placeholder='Volledige inhoud van de blogpost in het Nederlands (ondersteunt markdown)'
                     />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
-            />
-
-            <FormField
+            />            <FormField
               control={form.control}
               name='content_french'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>French Content</FormLabel>
                   <FormControl>
-                    <Textarea
-                      placeholder='Contenu complet du blog en français'
-                      className='min-h-64'
-                      {...field}
+                    <MarkdownEditor
+                      value={field.value}
+                      onChange={field.onChange}
+                      placeholder='Contenu complet du blog en français (prend en charge le markdown)'
                     />
                   </FormControl>
                   <FormMessage />

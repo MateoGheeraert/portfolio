@@ -1,6 +1,7 @@
 "use client";
 
 import { LocalizedProject } from "@/dal/projects";
+import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowSquareOut, GithubLogo, Eye } from "@phosphor-icons/react";
@@ -44,10 +45,12 @@ export default function ProjectCard({ project, locale }: ProjectCardProps) {
       <div className='p-6 flex-grow flex flex-col'>
         <h3 className='text-xl font-bold mb-3 text-gray-900 dark:text-white transition-colors duration-300 group-hover:text-blue-600 dark:group-hover:text-blue-400'>
           {project.title}
-        </h3>
-        <p className='text-gray-600 dark:text-gray-300 mb-4 leading-relaxed transition-colors duration-300 line-clamp-3'>
-          {project.description}
-        </p>
+        </h3>        <div className='text-gray-600 dark:text-gray-300 mb-4 leading-relaxed transition-colors duration-300 line-clamp-3'>
+          <MarkdownRenderer 
+            content={project.description} 
+            className="prose-sm [&>*:first-child]:mt-0 [&>*:last-child]:mb-0"
+          />
+        </div>
 
         {/* Tech Stack */}
         <div className='flex flex-wrap gap-2 mb-6'>

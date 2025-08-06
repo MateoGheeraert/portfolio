@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Project } from "@/dal/projects";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { MarkdownEditor } from "@/components/ui/markdown-editor";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -255,18 +256,17 @@ export default function ProjectForm({ project, mode }: ProjectFormProps) {
             <h3 className='text-lg font-medium text-gray-900 dark:text-white'>
               Content
             </h3>
-            <div className='space-y-4'>
-              <FormField
+            <div className='space-y-4'>              <FormField
                 control={form.control}
                 name='content_english'
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Content (English)</FormLabel>
                     <FormControl>
-                      <Textarea
-                        placeholder='Project content in English'
-                        className='min-h-32'
-                        {...field}
+                      <MarkdownEditor
+                        value={field.value}
+                        onChange={field.onChange}
+                        placeholder='Project content in English (supports markdown)'
                       />
                     </FormControl>
                     <FormMessage />
@@ -280,10 +280,10 @@ export default function ProjectForm({ project, mode }: ProjectFormProps) {
                   <FormItem>
                     <FormLabel>Content (Dutch)</FormLabel>
                     <FormControl>
-                      <Textarea
-                        placeholder='Project content in Dutch'
-                        className='min-h-32'
-                        {...field}
+                      <MarkdownEditor
+                        value={field.value}
+                        onChange={field.onChange}
+                        placeholder='Project content in Dutch (ondersteunt markdown)'
                       />
                     </FormControl>
                     <FormMessage />
@@ -297,10 +297,10 @@ export default function ProjectForm({ project, mode }: ProjectFormProps) {
                   <FormItem>
                     <FormLabel>Content (French)</FormLabel>
                     <FormControl>
-                      <Textarea
-                        placeholder='Project content in French'
-                        className='min-h-32'
-                        {...field}
+                      <MarkdownEditor
+                        value={field.value}
+                        onChange={field.onChange}
+                        placeholder='Project content in French (prend en charge le markdown)'
                       />
                     </FormControl>
                     <FormMessage />

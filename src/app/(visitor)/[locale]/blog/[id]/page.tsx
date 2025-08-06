@@ -2,6 +2,7 @@ import { Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { fetchBlogPostById } from "../actions";
 import { notFound } from "next/navigation";
+import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -34,13 +35,6 @@ export default async function BlogPostDetailPage({
     } catch {
       return url.startsWith("/");
     }
-  };
-
-  // Helper function to format content with basic markdown-like formatting
-  const formatContent = (content: string): string => {
-    return content
-      .replace(/\n\n/g, '</p><p class="mb-4">')
-      .replace(/\n/g, "<br />");
   };
 
   return (
@@ -121,14 +115,7 @@ export default async function BlogPostDetailPage({
                 </div>
                 {dictionary.blog.article_content}
               </h2>
-              <div
-                className='prose prose-lg prose-gray dark:prose-invert max-w-none'
-                dangerouslySetInnerHTML={{
-                  __html: `<p class="mb-4">${formatContent(
-                    blogPost.content
-                  )}</p>`,
-                }}
-              />
+              <MarkdownRenderer content={blogPost.content} />
             </div>
 
             {/* Tags Section */}

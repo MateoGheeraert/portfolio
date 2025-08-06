@@ -4,6 +4,7 @@ import { Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { fetchProjectById } from "../actions";
 import { notFound } from "next/navigation";
+import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -255,9 +256,7 @@ export default function ProjectDetailPage({
                 </div>
                 {dictionary.projects.project_description}
               </h2>
-              <p className='text-gray-700 dark:text-gray-300 leading-relaxed text-lg'>
-                {project.description}
-              </p>
+              <MarkdownRenderer content={project.content} />
             </div>
 
             {/* Technology Stack */}
