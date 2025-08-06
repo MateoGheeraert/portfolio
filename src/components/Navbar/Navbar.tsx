@@ -50,6 +50,11 @@ export const Navbar = ({ locale, dictionary }: NavbarProps) => {
   const links = [
     { href: "/", label: dictionary.navigation.home, icon: <House size={20} /> },
     {
+      href: "/about",
+      label: dictionary.navigation.about,
+      icon: <User size={20} />,
+    },
+    {
       href: "/projects",
       label: dictionary.navigation.projects,
       icon: <Code size={20} />,
@@ -58,11 +63,6 @@ export const Navbar = ({ locale, dictionary }: NavbarProps) => {
       href: "/blog",
       label: dictionary.navigation.blog,
       icon: <List size={20} />,
-    },
-    {
-      href: "/about",
-      label: dictionary.navigation.about,
-      icon: <User size={20} />,
     },
     {
       href: "/contact",
