@@ -92,10 +92,10 @@ export default async function ProjectsPage({
     <div className='min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300'>
       <div className='container mx-auto px-4 py-16 max-w-7xl'>
         {/* Header Section */}
-        <div className='text-center mb-16'>
-          <h1 className='text-5xl font-bold mb-6 text-gray-900 dark:text-white relative inline-block'>
+        <div className='mb-16'>
+          <h1 className='text-5xl font-bold mb-12 text-gray-900 dark:text-white relative transition-colors duration-300'>
             {dictionary.navigation.projects}
-            <span className='absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-blue-600 dark:bg-blue-400 rounded-full'></span>
+            <span className='absolute -bottom-3 left-0 w-24 h-1.5 bg-blue-500 dark:bg-blue-400 rounded-full'></span>
           </h1>
           <p className='text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed'>
             {dictionary.projects.description}

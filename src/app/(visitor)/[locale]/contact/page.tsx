@@ -158,6 +158,7 @@ export default function ContactPage({ params: { locale } }: ContactPageProps) {
       <div className='text-center mb-12'>
         <h1 className='text-4xl font-bold mb-4 text-gray-900 dark:text-white'>
           {dictionary.contact.title}
+          <span className='absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-blue-600 dark:bg-blue-400 rounded-full'></span>
         </h1>
         <p className='text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto'>
           {dictionary.contact.description}
