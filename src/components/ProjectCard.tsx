@@ -32,6 +32,7 @@ export default function ProjectCard({ project, locale }: ProjectCardProps) {
             src={project.image_url}
             alt={project.title}
             fill
+            loading="lazy"
             className='object-cover transition-transform duration-300 group-hover:scale-105'
             onError={() => {
               console.warn(`Failed to load image: ${project.image_url}`);
