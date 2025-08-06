@@ -111,7 +111,7 @@
     "sections": {
       "education": {
         "title": "Éducation & Compétences",
-        "content": "J'étudie actuellement le Développement Logiciel à l'Université des Sciences Appliquées VIVES de Courtrai, où j'ai perfectionné mes compétences en JavaScript, React, Node.js, Java, C#, Kotlin, Swift et Angular. Je travaille avec des bases de données SQL et NoSQL, et j'ai une préférence particulière pour MongoDB dans mes projets personnels."
+        "content": "J'ai obtenu un Bachelor en Informatique Appliquée de l'Université des Sciences Appliquées VIVES de Courtrai, où je me suis spécialisé en Génie Logiciel. Pendant mes études, j'ai maîtrisé JavaScript, React, Node.js, Java, C#, Kotlin, Swift et Angular. Je travaille avec des bases de données SQL et NoSQL, et je suis particulièrement compétent avec MongoDB pour la plupart de mes projets personnels."
       },
       "leadership": {
         "title": "Leadership & Communauté",
@@ -119,7 +119,7 @@
       },
       "experience": {
         "title": "Expérience Technique",
-        "content": "Au fil des années, j'ai relevé un large éventail de défis techniques : de la construction d'APIs sécurisées avec Spring Boot et JWT, à la création d'applications mobiles multiplateformes utilisant React Native et Expo, au déploiement d'applications fullstack conteneurisées avec Docker, Kubernetes et des pipelines CI/CD. Je me plonge actuellement dans NestJS et GraphQL pour un projet personnel qui aide à gérer les flux de travail de développement agile."
+        "content": "Au fil des années, j'ai maîtrisé un large éventail de défis techniques et acquis une expertise approfondie avec les technologies web modernes. J'ai une expertise approfondie en React et Next.js pour le développement frontend, créant des interfaces utilisateur réactives et performantes. Côté backend, je maîtrise Node.js et Spring Boot pour créer des APIs robustes et des applications côté serveur. J'ai également exploré NestJS pour des architectures backend évolutives. Pendant mon stage, j'ai acquis une expérience précieuse en travaillant avec divers outils et APIs d'IA, notamment OpenAI, Gemini et Claude, ainsi qu'avec des outils spécialisés comme ComfyUI pour l'amélioration d'images alimentée par l'IA. J'ai déployé avec succès des applications fullstack conteneurisées en utilisant Docker, Kubernetes et des pipelines CI/CD, démontrant ma capacité à gérer des cycles de développement complets."
       },
       "learning": {
         "title": "Toujours Apprendre, Toujours Construire",
@@ -140,13 +140,13 @@
             "period": "2022 - 2025",
             "title": "Bachelor en Informatique Appliquée",
             "institution": "Université des Sciences Appliquées VIVES, Courtrai",
-            "description": "Spécialisé en Génie Logiciel. Diplômé avec une connaissance approfondie du développement full-stack, des bases de données et des langages de programmation modernes."
+            "description": "Diplômé avec une spécialisation en Génie Logiciel. J'ai acquis une connaissance approfondie du développement full-stack, des bases de données et des langages de programmation modernes, construisant une base solide pour le développement logiciel professionnel."
           },
           "internship": {
             "period": "2024 - 2025",
             "title": "Stage Développeur Full-Stack IA",
             "institution": "Adomate",
-            "description": "Stage de 50 jours où j'ai intégré diverses API d'IA incluant Google Vertex AI et OpenAI dans leur plateforme web, construisant des solutions intelligentes et améliorant les expériences utilisateur."
+            "description": "J'ai complété un stage complet de 50 jours où j'ai intégré avec succès plusieurs APIs d'IA de pointe, notamment OpenAI, Google Vertex AI, Gemini et Claude dans leur plateforme web. J'ai travaillé intensivement avec des outils d'amélioration d'images IA comme ComfyUI, développant des solutions intelligentes qui ont considérablement amélioré les expériences utilisateur et les capacités de la plateforme."
           }
         }
       }

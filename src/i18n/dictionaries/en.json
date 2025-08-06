@@ -111,7 +111,7 @@
     "sections": {
       "education": {
         "title": "Education & Skills",
-        "content": "I'm currently studying Software Development at VIVES University of Applied Sciences in Kortrijk, where I've been sharpening my skills in JavaScript, React, Node.js, Java, C#, Kotlin, Swift, and Angular. I work with both SQL and NoSQL databases, and I'm especially into using MongoDB for most of my personal projects."
+        "content": "I graduated with a Bachelor's degree in Applied Computer Sciences from VIVES University of Applied Sciences in Kortrijk, where I specialized in Software Engineering. During my studies, I mastered JavaScript, React, Node.js, Java, C#, Kotlin, Swift, and Angular. I work with both SQL and NoSQL databases, and I'm especially proficient with MongoDB for most of my personal projects."
       },
       "leadership": {
         "title": "Leadership & Community",
@@ -119,7 +119,7 @@
       },
       "experience": {
         "title": "Technical Experience",
-        "content": "Over the years, I've taken on a wide range of technical challenges: from building secure APIs with Spring Boot and JWT, to creating cross-platform mobile apps using React Native and Expo, to deploying containerized fullstack applications with Docker, Kubernetes, and CI/CD pipelines. I'm also currently diving into NestJS and GraphQL for a personal project that helps manage agile development workflows."
+        "content": "Over the years, I've mastered a wide range of technical challenges and gained extensive experience with modern web technologies. I have deep expertise in React and Next.js for frontend development, building responsive and performant user interfaces. On the backend, I'm proficient with Node.js and Spring Boot for creating robust APIs and server-side applications. I've also explored NestJS for scalable backend architectures. During my internship, I gained valuable experience working with various AI tools and APIs, including OpenAI, Gemini, and Claude, as well as specialized tools like ComfyUI for AI-powered image enhancement. I've successfully deployed containerized fullstack applications using Docker, Kubernetes, and CI/CD pipelines, demonstrating my ability to handle complete development lifecycles."
       },
       "learning": {
         "title": "Always Learning, Always Building",
@@ -140,13 +140,13 @@
             "period": "2022 - 2025",
             "title": "Bachelor in Applied Computer Sciences",
             "institution": "VIVES University of Applied Sciences, Kortrijk",
-            "description": "Specialized in Software Engineering. Graduated with extensive knowledge in full-stack development, databases, and modern programming languages."
+            "description": "Graduated with a major in Software Engineering. Gained extensive knowledge in full-stack development, databases, and modern programming languages, building a strong foundation for professional software development."
           },
           "internship": {
             "period": "2024 - 2025",
             "title": "Full-Stack AI Developer Internship",
             "institution": "Adomate",
-            "description": "50-day internship where I integrated various AI APIs including Google Vertex AI and OpenAI into their web platform, building intelligent solutions and enhancing user experiences."
+            "description": "Completed a comprehensive 50-day internship where I successfully integrated multiple cutting-edge AI APIs including OpenAI, Google Vertex AI, Gemini, and Claude into their web platform. Worked extensively with AI image enhancement tools like ComfyUI, developing intelligent solutions that significantly improved user experiences and platform capabilities."
           }
         }
       }

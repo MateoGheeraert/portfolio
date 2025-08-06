@@ -111,19 +111,19 @@
     "sections": {
       "education": {
         "title": "Onderwijs & Vaardigheden",
-        "content": "Ik studeer momenteel Softwareontwikkeling aan VIVES Hogeschool voor Toegepaste Wetenschappen in Kortrijk, waar ik mijn vaardigheden in JavaScript, React, Node.js, Java, C#, Kotlin, Swift en Angular heb aangescherpt. Ik werk met zowel SQL als NoSQL databases, en ik ben vooral geïnteresseerd in het gebruik van MongoDB voor de meeste van mijn persoonlijke projecten."
+        "content": "Ik ben afgestudeerd met een Bachelor in Toegepaste Informatica aan VIVES Hogeschool in Kortrijk, waar ik me specialiseerde in Software Engineering. Tijdens mijn studie heb ik JavaScript, React, Node.js, Java, C#, Kotlin, Swift en Angular onder de knie gekregen. Ik werk met zowel SQL als NoSQL databases, en ik ben bijzonder bedreven met MongoDB voor de meeste van mijn persoonlijke projecten."
       },
       "leadership": {
         "title": "Leiderschap & Gemeenschap",
-        "content": "Buiten school ben ik zeer betrokken bij jeugdwerk als voorzitter van KLJ Merkem. Ik organiseer evenementen, leid een fantastisch team van vrijwilligers, en heb zelfs onze officiële website kljmerkem.be gebouwd. Deze rol heeft me veel geleerd over leiderschap, teamwork en creativiteit blijven — vaardigheden die ik meeneem in elk softwareproject waaraan ik werk."
+        "content": "Buiten school ben ik zeer betrokken bij jeugdwerk als voorzitter van KLJ Merkem. Ik organiseer evenementen, leid een fantastisch team van vrijwilligers, en heb zelfs onze officiële website kljmerkem.be gebouwd. Deze rol heeft me veel geleerd over leiderschap, teamwork en creativiteit blijven   vaardigheden die ik meeneem in elk softwareproject waaraan ik werk."
       },
       "experience": {
         "title": "Technische Ervaring",
-        "content": "Door de jaren heen heb ik een breed scala aan technische uitdagingen aangegaan: van het bouwen van veilige API's met Spring Boot en JWT, tot het maken van cross-platform mobiele apps met React Native en Expo, tot het deployen van gecontaineriseerde fullstack applicaties met Docker, Kubernetes en CI/CD pipelines. Ik duik momenteel ook in NestJS en GraphQL voor een persoonlijk project dat helpt bij het beheren van agile ontwikkelingsworkflows."
+        "content": "Door de jaren heen heb ik een breed scala aan technische uitdagingen gemeesterd en uitgebreide ervaring opgedaan met moderne webtechnologieën. Ik heb diepgaande expertise in React en Next.js voor frontend ontwikkeling, waarbij ik responsieve en performante gebruikersinterfaces bouw. Aan de backend kant ben ik bedreven in Node.js en Spring Boot voor het creëren van robuuste API's en server-side applicaties. Ik heb ook NestJS verkend voor schaalbare backend architecturen. Tijdens mijn stage heb ik waardevolle ervaring opgedaan met het werken met verschillende AI-tools en API's, waaronder OpenAI, Gemini en Claude, evenals gespecialiseerde tools zoals ComfyUI voor AI-aangedreven beeldverbetering. Ik heb succesvol gecontaineriseerde fullstack applicaties gedeployed met Docker, Kubernetes en CI/CD pipelines, wat mijn vermogen om complete ontwikkelingscycli te beheren toont."
       },
       "learning": {
         "title": "Altijd Leren, Altijd Bouwen",
-        "content_intro": "Ik verken altijd nieuwe technologieën, ben altijd aan het bouwen, en altijd aan het leren. Of het nu gaat om experimenteren met UX-verbeteringen, prestaties optimaliseren, of schone en schaalbare code schrijven — ik geef veel om de kwaliteit van wat ik creëer.",
+        "content_intro": "Ik verken altijd nieuwe technologieën, ben altijd aan het bouwen, en altijd aan het leren. Of het nu gaat om experimenteren met UX-verbeteringen, prestaties optimaliseren, of schone en schaalbare code schrijven   ik geef veel om de kwaliteit van wat ik creëer.",
         "content_outro": "Bedankt voor het bezoeken van mijn portfolio! Als u nieuwsgierig bent naar wat ik tot nu toe heb gebouwd, ga dan naar de Projectenpagina. Wil u chatten of samenwerken? u kunt contact opnemen via de Contactpagina. Ik deel ook enkele gedachten en geleerde lessen op mijn Blog."
       },
       "timeline": {
@@ -140,13 +140,13 @@
             "period": "2022 - 2025",
             "title": "Bachelor Toegepaste Informatica",
             "institution": "VIVES Hogeschool, Kortrijk",
-            "description": "Gespecialiseerd in Software Engineering. Afgestudeerd met uitgebreide kennis van full-stack ontwikkeling, databases en moderne programmeertalen."
+            "description": "Afgestudeerd met een hoofdrichting in Software Engineering. Uitgebreide kennis opgedaan in full-stack ontwikkeling, databases en moderne programmeertalen, waarbij een sterke basis voor professionele softwareontwikkeling werd gelegd."
           },
           "internship": {
             "period": "2024 - 2025",
             "title": "Full-Stack AI Developer Stage",
             "institution": "Adomate",
-            "description": "50-dagen stage waarbij ik verschillende AI-API's integreerde, waaronder Google Vertex AI en OpenAI, in hun webplatform om intelligente oplossingen te bouwen en gebruikerservaringen te verbeteren."
+            "description": "Voltooide een uitgebreide stage van 50 dagen waarbij ik succesvol meerdere geavanceerde AI-API's integreerde, waaronder OpenAI, Google Vertex AI, Gemini en Claude in hun webplatform. Werkte intensief met AI-beeldverbeteringstools zoals ComfyUI, waarbij ik intelligente oplossingen ontwikkelde die de gebruikerservaringen en platformcapaciteiten aanzienlijk verbeterden."
           }
         }
       }

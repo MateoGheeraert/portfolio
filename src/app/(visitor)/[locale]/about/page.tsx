@@ -43,30 +43,6 @@ export default async function AboutPage({
             <p className='text-xl text-gray-700 dark:text-gray-300 leading-relaxed transition-colors duration-300'>
               {dictionary.about.hero.bio}
             </p>
-
-            <div className='flex flex-wrap gap-3 pt-4'>
-              <span className='px-4 py-2 text-sm font-medium rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 shadow-sm transition-colors duration-300'>
-                TypeScript
-              </span>
-              <span className='px-4 py-2 text-sm font-medium rounded-full bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 shadow-sm transition-colors duration-300'>
-                React
-              </span>
-              <span className='px-4 py-2 text-sm font-medium rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 shadow-sm transition-colors duration-300'>
-                Next.js
-              </span>
-              <span className='px-4 py-2 text-sm font-medium rounded-full bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 shadow-sm transition-colors duration-300'>
-                Node.js
-              </span>
-              <span className='px-4 py-2 text-sm font-medium rounded-full bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 shadow-sm transition-colors duration-300'>
-                Java
-              </span>
-              <span className='px-4 py-2 text-sm font-medium rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-300 shadow-sm transition-colors duration-300'>
-                C#
-              </span>
-              <span className='px-4 py-2 text-sm font-medium rounded-full bg-teal-100 dark:bg-teal-900/30 text-teal-800 dark:text-teal-300 shadow-sm transition-colors duration-300'>
-                MongoDB
-              </span>
-            </div>
           </div>
         </div>
 
