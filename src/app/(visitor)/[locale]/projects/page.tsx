@@ -44,7 +44,7 @@ async function ProjectsList({
   locale: Locale;
   dictionary: any;
 }) {
-  const projects = await fetchProjects();
+  const projects = await fetchProjects(locale);
 
   if (projects.length === 0) {
     return (

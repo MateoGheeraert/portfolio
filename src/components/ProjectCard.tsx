@@ -1,11 +1,11 @@
 "use client";
 
-import { Project } from "@/dal/projects";
+import { LocalizedProject } from "@/dal/projects";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowSquareOut, GithubLogo, Eye } from "@phosphor-icons/react";
 interface ProjectCardProps {
-  project: Project;
+  project: LocalizedProject;
   locale: string;
 }
 
@@ -77,10 +77,9 @@ export default function ProjectCard({ project, locale }: ProjectCardProps) {
           >
             <Eye size={16} />
             View Details
-          </Link>
-
+          </Link>{" "}
           <div className='flex items-center gap-3'>
-            {project.github_url && (
+            {project.github_url && project.github_url.trim() !== "" && (
               <Link
                 href={project.github_url}
                 target='_blank'
@@ -92,7 +91,7 @@ export default function ProjectCard({ project, locale }: ProjectCardProps) {
               </Link>
             )}
 
-            {project.demo_url && (
+            {project.demo_url && project.demo_url.trim() !== "" && (
               <Link
                 href={project.demo_url}
                 target='_blank'

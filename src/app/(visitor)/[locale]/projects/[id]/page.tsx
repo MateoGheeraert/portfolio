@@ -14,7 +14,7 @@ import {
   Stack,
 } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
-import { Project } from "@/dal/projects";
+import { Project, LocalizedProject } from "@/dal/projects";
 import { LoadingSkeleton } from "@/components/ui/loading-spinner";
 
 interface ProjectDetailPageProps {
@@ -27,7 +27,7 @@ interface ProjectDetailPageProps {
 export default function ProjectDetailPage({
   params: { locale, id },
 }: ProjectDetailPageProps) {
-  const [project, setProject] = useState<Project | null>(null);
+  const [project, setProject] = useState<LocalizedProject | null>(null);
   const [dictionary, setDictionary] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -39,7 +39,7 @@ export default function ProjectDetailPage({
         setError(null);
 
         const [projectData, dict] = await Promise.all([
-          fetchProjectById(id),
+          fetchProjectById(id, locale),
           getDictionary(locale),
         ]);
 
@@ -319,7 +319,7 @@ export default function ProjectDetailPage({
               </h3>
 
               <div className='space-y-3'>
-                {project.demo_url && (
+                {project.demo_url && project.demo_url.trim() !== "" && (
                   <Link
                     href={project.demo_url}
                     target='_blank'
@@ -331,7 +331,7 @@ export default function ProjectDetailPage({
                   </Link>
                 )}
 
-                {project.github_url && (
+                {project.github_url && project.github_url.trim() !== "" && (
                   <Link
                     href={project.github_url}
                     target='_blank'
@@ -343,13 +343,14 @@ export default function ProjectDetailPage({
                   </Link>
                 )}
 
-                {!project.demo_url && !project.github_url && (
-                  <div className='text-center py-4'>
-                    <p className='text-gray-500 dark:text-gray-400 text-sm'>
-                      {dictionary.projects.no_links_available}
-                    </p>
-                  </div>
-                )}
+                {(!project.demo_url || project.demo_url.trim() === "") &&
+                  (!project.github_url || project.github_url.trim() === "") && (
+                    <div className='text-center py-4'>
+                      <p className='text-gray-500 dark:text-gray-400 text-sm'>
+                        {dictionary.projects.no_links_available}
+                      </p>
+                    </div>
+                  )}
               </div>
             </div>
           </div>

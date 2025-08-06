@@ -5,7 +5,7 @@ import Image from "next/image";
 import TechCard from "@/components/TechCard";
 import TypewriterEffect from "@/components/TypewriterEffect";
 import { fetchProjects } from "./projects/actions";
-import { Project } from "@/dal/projects";
+import { LocalizedProject } from "@/dal/projects";
 
 interface HomePageProps {
   params: { locale: string };
@@ -15,9 +15,9 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
   const dictionary = await getDictionary(locale as Locale);
 
   // Fetch projects and get the first 3 for featured section
-  let featuredProjects: Project[] = [];
+  let featuredProjects: LocalizedProject[] = [];
   try {
-    const allProjects = await fetchProjects();
+    const allProjects = await fetchProjects(locale as Locale);
     featuredProjects = allProjects.slice(0, 3);
   } catch (error) {
     console.error("Error fetching featured projects:", error);
