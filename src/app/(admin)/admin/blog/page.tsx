@@ -106,10 +106,14 @@ export default function AdminBlogPage() {
               </tr>
             </thead>
             <tbody className='divide-y divide-gray-200 bg-white'>
-              {posts.map((post) => (
-                <tr key={post.id}>
+              {posts.map((post) => (                <tr key={post.id}>
                   <td className='whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6'>
-                    {post.title}
+                    <div className="space-y-1">
+                      <div className="font-medium">{post.title_english || 'No English title'}</div>
+                      <div className="text-xs text-gray-500">
+                        NL: {post.title_dutch || '-'} | FR: {post.title_french || '-'}
+                      </div>
+                    </div>
                   </td>
                   <td className='whitespace-nowrap px-3 py-4 text-sm text-gray-500'>
                     {post.tags && post.tags.length > 0
