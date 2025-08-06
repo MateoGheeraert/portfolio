@@ -15,6 +15,12 @@
     "view_projects": "View Projects",
     "contact_me": "Contact Me"
   },
+  "tooltip": {
+    "greeting": "Hey there!",
+    "question": "Do you want to know more about me?",
+    "action": "Go to About page",
+    "button": "About Me"
+  },
   "theme": {
     "toggle_dark": "Switch to dark mode",
     "toggle_light": "Switch to light mode"

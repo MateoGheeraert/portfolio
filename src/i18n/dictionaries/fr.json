@@ -15,6 +15,12 @@
     "view_projects": "Voir les Projets",
     "contact_me": "Me Contacter"
   },
+  "tooltip": {
+    "greeting": "Salut !",
+    "question": "Tu veux en savoir plus sur moi ?",
+    "action": "Va à la page À propos",
+    "button": "À propos de moi"
+  },
   "theme": {
     "toggle_dark": "Passer au mode sombre",
     "toggle_light": "Passer au mode clair"

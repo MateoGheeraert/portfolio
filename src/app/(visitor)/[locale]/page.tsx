@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import TechCard from "@/components/TechCard";
 import TypewriterEffect from "@/components/TypewriterEffect";
+import ImageTooltip from "@/components/ImageTooltip";
 import { fetchProjects } from "./projects/actions";
 import { LocalizedProject } from "@/dal/projects";
 
@@ -87,16 +88,24 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
                 </Link>
               </div>
             </div>
-          </div>
+          </div>{" "}
           <div className='md:col-span-5 order-1 md:order-2 flex items-center justify-center'>
-            <Image
-              src='/mateo.png'
-              alt='Mateo profile picture'
-              width={300}
-              height={300}
-              priority
-              unoptimized
-            />
+            <ImageTooltip
+              greeting={dictionary.tooltip.greeting}
+              question={dictionary.tooltip.question}
+              action={dictionary.tooltip.action}
+              button={dictionary.tooltip.button}
+              locale={locale}
+            >
+              <Image
+                src='/mateo.png'
+                alt='Mateo profile picture'
+                width={300}
+                height={300}
+                priority
+                unoptimized
+              />
+            </ImageTooltip>
           </div>
         </div>
       </div>
