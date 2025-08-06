@@ -32,7 +32,7 @@ export default function ProjectCard({ project, locale }: ProjectCardProps) {
             src={project.image_url}
             alt={project.title}
             fill
-            loading="lazy"
+            loading='lazy'
             className='object-cover transition-transform duration-300 group-hover:scale-105'
             onError={() => {
               console.warn(`Failed to load image: ${project.image_url}`);
@@ -46,13 +46,13 @@ export default function ProjectCard({ project, locale }: ProjectCardProps) {
       <div className='p-6 flex-grow flex flex-col'>
         <h3 className='text-xl font-bold mb-3 text-gray-900 dark:text-white transition-colors duration-300 group-hover:text-blue-600 dark:group-hover:text-blue-400'>
           {project.title}
-        </h3>        <div className='text-gray-600 dark:text-gray-300 mb-4 leading-relaxed transition-colors duration-300 line-clamp-3'>
-          <MarkdownRenderer 
-            content={project.description} 
-            className="prose-sm [&>*:first-child]:mt-0 [&>*:last-child]:mb-0"
+        </h3>{" "}
+        <div className='text-gray-600 dark:text-gray-300 mb-4 leading-relaxed transition-colors duration-300 line-clamp-3'>
+          <MarkdownRenderer
+            content={project.description}
+            className='prose-sm [&>*:first-child]:mt-0 [&>*:last-child]:mb-0'
           />
         </div>
-
         {/* Tech Stack */}
         <div className='flex flex-wrap gap-2 mb-6'>
           {project.techstack.slice(0, 4).map((tech, index) => (
@@ -69,10 +69,8 @@ export default function ProjectCard({ project, locale }: ProjectCardProps) {
             </span>
           )}
         </div>
-
         {/* Spacer to push actions to bottom */}
         <div className='flex-grow' />
-
         {/* Action Buttons */}
         <div className='flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700'>
           <Link

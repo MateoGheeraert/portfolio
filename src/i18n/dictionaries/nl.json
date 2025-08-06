@@ -15,6 +15,12 @@
     "view_projects": "Bekijk Projecten",
     "contact_me": "Neem Contact Op"
   },
+  "tooltip": {
+    "greeting": "Hallo daar!",
+    "question": "Wil je meer over mij weten?",
+    "action": "Ga naar de Over mij pagina",
+    "button": "Over mij"
+  },
   "theme": {
     "toggle_dark": "Schakel naar donkere modus",
     "toggle_light": "Schakel naar lichte modus"

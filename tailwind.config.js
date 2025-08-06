@@ -72,9 +72,20 @@ module.exports = {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(-50%)" },
         },
+        "fade-in": {
+          "0%": {
+            transform: "translateY(10px)",
+            opacity: "0",
+          },
+          "100%": {
+            transform: "translateY(0px)",
+            opacity: "1",
+          },
+        },
       },
       animation: {
         "scroll-horizontal": "scroll-horizontal 20s linear infinite",
+        "fade-in": "fade-in 0.3s ease-out",
       },
     },
   },
