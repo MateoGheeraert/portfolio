@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Project } from "@/dal/projects";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { MarkdownEditor } from "@/components/ui/markdown-editor";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -25,8 +26,14 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 // Define the form schema with Zod
 const projectFormSchema = z.object({
-  title: z.string().min(1, { message: "Title is required" }),
-  description: z.string().min(1, { message: "Description is required" }),
+  title_dutch: z.string().min(1, { message: "Dutch title is required" }),
+  title_english: z.string().min(1, { message: "English title is required" }),
+  title_french: z.string().min(1, { message: "French title is required" }),
+  content_dutch: z.string().min(1, { message: "Dutch content is required" }),
+  content_english: z
+    .string()
+    .min(1, { message: "English content is required" }),
+  content_french: z.string().min(1, { message: "French content is required" }),
   techstack: z
     .string()
     .min(1, { message: "At least one technology is required" }),
@@ -46,12 +53,17 @@ export default function ProjectForm({ project, mode }: ProjectFormProps) {
   const router = useRouter();
   const queryClient = useQueryClient();
   const [error, setError] = useState<string | null>(null);
-
   // Default values for the form
   const defaultValues: Partial<ProjectFormValues> = {
-    title: project?.title || "",
-    description: project?.description || "",
-    techstack: project?.techstack.join(", ") || "",
+    title_dutch: project?.title_dutch || "",
+    title_english: project?.title_english || "",
+    title_french: project?.title_french || "",
+    content_dutch: project?.content_dutch || "",
+    content_english: project?.content_english || "",
+    content_french: project?.content_french || "",
+    techstack: Array.isArray(project?.techstack)
+      ? project.techstack.join(", ")
+      : "",
     image_url: project?.image_url || "",
     github_url: project?.github_url || "",
     demo_url: project?.demo_url || "",
@@ -62,7 +74,6 @@ export default function ProjectForm({ project, mode }: ProjectFormProps) {
     resolver: zodResolver(projectFormSchema),
     defaultValues,
   });
-
   // Create project mutation
   const createMutation = useMutation({
     mutationFn: async (data: ProjectFormValues) => {
@@ -73,8 +84,12 @@ export default function ProjectForm({ project, mode }: ProjectFormProps) {
         .filter((item) => item !== "");
 
       const projectData = {
-        title: data.title,
-        description: data.description,
+        title_dutch: data.title_dutch,
+        title_english: data.title_english,
+        title_french: data.title_french,
+        content_dutch: data.content_dutch,
+        content_english: data.content_english,
+        content_french: data.content_french,
         techstack,
         image_url:
           data.image_url && data.image_url.trim() !== ""
@@ -120,10 +135,13 @@ export default function ProjectForm({ project, mode }: ProjectFormProps) {
         .split(",")
         .map((item) => item.trim())
         .filter((item) => item !== "");
-
       const projectData = {
-        title: data.title,
-        description: data.description,
+        title_dutch: data.title_dutch,
+        title_english: data.title_english,
+        title_french: data.title_french,
+        content_dutch: data.content_dutch,
+        content_english: data.content_english,
+        content_french: data.content_french,
         techstack,
         image_url:
           data.image_url && data.image_url.trim() !== ""
@@ -179,41 +197,118 @@ export default function ProjectForm({ project, mode }: ProjectFormProps) {
     <div className='space-y-6'>
       {error && (
         <div className='bg-red-50 text-red-800 p-4 rounded-md'>{error}</div>
-      )}
-
+      )}{" "}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
-          <FormField
-            control={form.control}
-            name='title'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Title</FormLabel>
-                <FormControl>
-                  <Input placeholder='Project title' {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          {/* Multi-language Title Fields */}
+          <div className='space-y-4'>
+            <h3 className='text-lg font-medium text-gray-900 dark:text-white'>
+              Titles
+            </h3>
+            <div className='grid grid-cols-1 gap-4'>
+              <FormField
+                control={form.control}
+                name='title_english'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Title (English)</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder='Project title in English'
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name='title_dutch'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Title (Dutch)</FormLabel>
+                    <FormControl>
+                      <Input placeholder='Project title in Dutch' {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name='title_french'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Title (French)</FormLabel>
+                    <FormControl>
+                      <Input placeholder='Project title in French' {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </div>
 
-          <FormField
-            control={form.control}
-            name='description'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Description</FormLabel>
-                <FormControl>
-                  <Textarea
-                    placeholder='Project description'
-                    className='min-h-32'
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          {/* Multi-language Content Fields */}
+          <div className='space-y-4'>
+            <h3 className='text-lg font-medium text-gray-900 dark:text-white'>
+              Content
+            </h3>
+            <div className='space-y-4'>              <FormField
+                control={form.control}
+                name='content_english'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Content (English)</FormLabel>
+                    <FormControl>
+                      <MarkdownEditor
+                        value={field.value}
+                        onChange={field.onChange}
+                        placeholder='Project content in English (supports markdown)'
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name='content_dutch'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Content (Dutch)</FormLabel>
+                    <FormControl>
+                      <MarkdownEditor
+                        value={field.value}
+                        onChange={field.onChange}
+                        placeholder='Project content in Dutch (ondersteunt markdown)'
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name='content_french'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Content (French)</FormLabel>
+                    <FormControl>
+                      <MarkdownEditor
+                        value={field.value}
+                        onChange={field.onChange}
+                        placeholder='Project content in French (prend en charge le markdown)'
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </div>
 
           <FormField
             control={form.control}

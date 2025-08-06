@@ -1,11 +1,12 @@
 "use client";
 
-import { BlogPost } from "@/dal/blog";
+import { LocalizedBlogPost } from "@/dal/blog";
+import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
 import Image from "next/image";
 import Link from "next/link";
 
 interface BlogPostCardProps {
-  post: BlogPost;
+  post: LocalizedBlogPost;
   locale: string;
 }
 
@@ -55,10 +56,12 @@ export default function BlogPostCard({ post, locale }: BlogPostCardProps) {
         </h2>
         <div className='flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4 transition-colors duration-300'>
           <span>{formattedDate}</span>
+        </div>        <div className='text-gray-600 dark:text-gray-300 mb-4 transition-colors duration-300 line-clamp-3'>
+          <MarkdownRenderer 
+            content={post.description} 
+            className="prose-sm [&>*:first-child]:mt-0 [&>*:last-child]:mb-0"
+          />
         </div>
-        <p className='text-gray-600 dark:text-gray-300 mb-4 transition-colors duration-300'>
-          {post.description}
-        </p>
 
         {post.tags && post.tags.length > 0 && (
           <div className='flex flex-wrap gap-2 mb-4'>

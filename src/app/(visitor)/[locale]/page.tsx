@@ -3,8 +3,9 @@ import { getDictionary } from "@/i18n/dictionaries";
 import Link from "next/link";
 import Image from "next/image";
 import TechCard from "@/components/TechCard";
+import TypewriterEffect from "@/components/TypewriterEffect";
 import { fetchProjects } from "./projects/actions";
-import { Project } from "@/dal/projects";
+import { LocalizedProject } from "@/dal/projects";
 
 interface HomePageProps {
   params: { locale: string };
@@ -14,9 +15,9 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
   const dictionary = await getDictionary(locale as Locale);
 
   // Fetch projects and get the first 3 for featured section
-  let featuredProjects: Project[] = [];
+  let featuredProjects: LocalizedProject[] = [];
   try {
-    const allProjects = await fetchProjects();
+    const allProjects = await fetchProjects(locale as Locale);
     featuredProjects = allProjects.slice(0, 3);
   } catch (error) {
     console.error("Error fetching featured projects:", error);
@@ -40,9 +41,16 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
       <div className='container mx-auto px-4 mb-20'>
         <div className='grid grid-cols-1 md:grid-cols-12 gap-8'>
           <div className='md:col-span-7 order-2 md:order-1'>
+            {" "}
             <div className='space-y-6 py-10'>
-              <h1 className='text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white'>
-                {dictionary.hero.title}
+              <h1 className='text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white min-h-[1.2em]'>
+                <TypewriterEffect
+                  text={dictionary.hero.title}
+                  speed={80}
+                  showCursor={true}
+                  cursorChar='|'
+                  startDelay={800}
+                />
               </h1>
               <h2 className='text-xl md:text-2xl text-blue-600 dark:text-blue-400 font-medium'>
                 {dictionary.hero.subtitle}
