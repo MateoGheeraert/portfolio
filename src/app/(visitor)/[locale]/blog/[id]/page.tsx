@@ -17,7 +17,7 @@ export default async function BlogPostDetailPage({
 }: BlogPostDetailPageProps) {
   // Fetch data on the server
   const [blogPost, dictionary] = await Promise.all([
-    fetchBlogPostById(id),
+    fetchBlogPostById(id, locale),
     getDictionary(locale),
   ]);
 

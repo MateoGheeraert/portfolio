@@ -25,8 +25,8 @@ export async function fetchAdminBlogPosts(): Promise<BlogPost[]> {
       tags: Array.isArray(post.tags)
         ? post.tags
         : typeof post.tags === "string"
-        ? post.tags.split(",").map((tag: string) => tag.trim())
-        : [],
+          ? post.tags.split(",").map((tag: string) => tag.trim())
+          : [],
     })) as BlogPost[];
   } catch (error) {
     console.error("Error fetching blog posts:", error);
@@ -64,8 +64,8 @@ export async function getAdminBlogPostById(
         tags: Array.isArray(data.tags)
           ? data.tags
           : typeof data.tags === "string"
-          ? data.tags.split(",").map((tag: string) => tag.trim())
-          : [],
+            ? data.tags.split(",").map((tag: string) => tag.trim())
+            : [],
       } as BlogPost,
     };
   } catch (error: any) {
@@ -125,8 +125,8 @@ export async function createAdminBlogPost(
         tags: Array.isArray(data.tags)
           ? data.tags
           : typeof data.tags === "string"
-          ? data.tags.split(",").map((tag: string) => tag.trim())
-          : [],
+            ? data.tags.split(",").map((tag: string) => tag.trim())
+            : [],
       } as BlogPost,
     };
   } catch (error: any) {
@@ -166,8 +166,8 @@ export async function updateAdminBlogPost(
         tags: Array.isArray(data.tags)
           ? data.tags
           : typeof data.tags === "string"
-          ? data.tags.split(",").map((tag: string) => tag.trim())
-          : [],
+            ? data.tags.split(",").map((tag: string) => tag.trim())
+            : [],
       } as BlogPost,
     };
   } catch (error: any) {

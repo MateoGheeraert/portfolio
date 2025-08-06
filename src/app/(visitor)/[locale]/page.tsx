@@ -40,9 +40,11 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
       {/* Hero Section */}
       <div className='container mx-auto px-4 mb-20'>
         <div className='grid grid-cols-1 md:grid-cols-12 gap-8'>
-          <div className='md:col-span-7 order-2 md:order-1'>            <div className='space-y-6 py-10'>
+          <div className='md:col-span-7 order-2 md:order-1'>
+            {" "}
+            <div className='space-y-6 py-10'>
               <h1 className='text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white min-h-[1.2em]'>
-                <TypewriterEffect 
+                <TypewriterEffect
                   text={dictionary.hero.title}
                   speed={80}
                   showCursor={true}

@@ -1,11 +1,11 @@
 "use client";
 
-import { BlogPost } from "@/dal/blog";
+import { LocalizedBlogPost } from "@/dal/blog";
 import Image from "next/image";
 import Link from "next/link";
 
 interface BlogPostCardProps {
-  post: BlogPost;
+  post: LocalizedBlogPost;
   locale: string;
 }
 

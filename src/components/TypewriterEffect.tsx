@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 interface TypewriterEffectProps {
   text: string;
@@ -14,22 +14,25 @@ interface TypewriterEffectProps {
 export default function TypewriterEffect({
   text,
   speed = 100,
-  className = '',
+  className = "",
   showCursor = true,
-  cursorChar = '|',
+  cursorChar = "|",
   startDelay = 500,
 }: TypewriterEffectProps) {
-  const [displayText, setDisplayText] = useState('');
+  const [displayText, setDisplayText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showCursorBlink, setShowCursorBlink] = useState(true);
   const [isTypingComplete, setIsTypingComplete] = useState(false);
 
   useEffect(() => {
     if (currentIndex < text.length) {
-      const timeout = setTimeout(() => {
-        setDisplayText(prev => prev + text[currentIndex]);
-        setCurrentIndex(prev => prev + 1);
-      }, currentIndex === 0 ? startDelay : speed);
+      const timeout = setTimeout(
+        () => {
+          setDisplayText((prev) => prev + text[currentIndex]);
+          setCurrentIndex((prev) => prev + 1);
+        },
+        currentIndex === 0 ? startDelay : speed
+      );
 
       return () => clearTimeout(timeout);
     } else {
@@ -41,7 +44,7 @@ export default function TypewriterEffect({
   useEffect(() => {
     if (isTypingComplete && showCursor) {
       const cursorInterval = setInterval(() => {
-        setShowCursorBlink(prev => !prev);
+        setShowCursorBlink((prev) => !prev);
       }, 500);
 
       return () => clearInterval(cursorInterval);
@@ -52,9 +55,9 @@ export default function TypewriterEffect({
     <span className={className}>
       {displayText}
       {showCursor && (
-        <span 
+        <span
           className={`inline-block transition-opacity duration-100 ${
-            showCursorBlink || !isTypingComplete ? 'opacity-100' : 'opacity-0'
+            showCursorBlink || !isTypingComplete ? "opacity-100" : "opacity-0"
           }`}
         >
           {cursorChar}
