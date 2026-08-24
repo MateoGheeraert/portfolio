@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import BlogPostForm from "@/components/admin/BlogPostForm";
-import { BlogPost } from "@/dal/blog";
+import type { BlogPost } from "@/dal/blog";
 import { getAdminBlogPostById } from "../../actions";
 
 export default function EditBlogPostPage() {

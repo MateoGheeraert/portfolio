@@ -1,15 +1,18 @@
 import Image from "next/image";
 import { Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
+import { getProfileSettings } from "@/dal/profile";
 
 interface AboutPageProps {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }
 
-export default async function AboutPage({
-  params: { locale },
-}: AboutPageProps) {
-  const dictionary = await getDictionary(locale as Locale);
+export default async function AboutPage({ params }: AboutPageProps) {
+  const { locale } = await params;
+  const [dictionary, profile] = await Promise.all([
+    getDictionary(locale as Locale),
+    getProfileSettings(),
+  ]);
 
   return (
     <div className='container mx-auto px-4 py-16 max-w-5xl'>
@@ -24,7 +27,8 @@ export default async function AboutPage({
           <div className='lg:col-span-4 flex justify-center lg:justify-start'>
             <div className='relative h-80 w-80 lg:h-96 lg:w-96 overflow-hidden rounded-2xl shadow-lg border-4 border-white dark:border-gray-600 transition-colors duration-300'>
               <Image
-                src='/mateo2.jpg'
+                src={profile.aboutImageUrl}
+                unoptimized
                 alt='Mateo Gheeraert'
                 fill
                 style={{ objectFit: "cover" }}

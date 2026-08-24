@@ -6,14 +6,19 @@ import TechCard from "@/components/TechCard";
 import TypewriterEffect from "@/components/TypewriterEffect";
 import ImageTooltip from "@/components/ImageTooltip";
 import { fetchProjects } from "./projects/actions";
-import { LocalizedProject } from "@/dal/projects";
+import type { LocalizedProject } from "@/dal/projects";
+import { getProfileSettings } from "@/dal/profile";
 
 interface HomePageProps {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }
 
-export default async function HomePage({ params: { locale } }: HomePageProps) {
-  const dictionary = await getDictionary(locale as Locale);
+export default async function HomePage({ params }: HomePageProps) {
+  const { locale } = await params;
+  const [dictionary, profile] = await Promise.all([
+    getDictionary(locale as Locale),
+    getProfileSettings(),
+  ]);
 
   // Fetch projects and get the first 3 for featured section
   let featuredProjects: LocalizedProject[] = [];
@@ -98,7 +103,7 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
               locale={locale}
             >
               <Image
-                src='/mateo.png'
+                src={profile.homeImageUrl}
                 alt='Mateo profile picture'
                 width={300}
                 height={300}

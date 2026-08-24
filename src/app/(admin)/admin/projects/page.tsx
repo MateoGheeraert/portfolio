@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Project } from "@/dal/projects";
+import type { Project } from "@/dal/projects";
 import { fetchAdminProjects, deleteAdminProject } from "./actions";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 

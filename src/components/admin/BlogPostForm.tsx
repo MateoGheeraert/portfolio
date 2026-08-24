@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { BlogPost } from "@/dal/blog";
+import type { BlogPost } from "@/dal/blog";
+import { MediaUpload } from "@/components/admin/MediaUpload";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { MarkdownEditor } from "@/components/ui/markdown-editor";
@@ -228,6 +229,39 @@ export default function BlogPostForm({ post, mode }: BlogPostFormProps) {
                 </FormItem>
               )}
             />
+            <div className="rounded-lg border border-dashed p-4">
+              <h4 className="font-medium text-gray-900">Post attachments</h4>
+              <p className="mb-3 mt-1 text-sm text-gray-600">
+                Upload images or documents. Links are added to all three language versions so you can move or rename them in the editor.
+              </p>
+              <MediaUpload
+                area="blog"
+                multiple
+                label="Upload images or documents"
+                onUploaded={(files) => {
+                  const markdown = files
+                    .map((file) =>
+                      file.isImage
+                        ? `![${file.name}](${file.url})`
+                        : `[${file.name}](${file.url})`,
+                    )
+                    .join("\n\n");
+                  (
+                    [
+                      "content_english",
+                      "content_dutch",
+                      "content_french",
+                    ] as const
+                  ).forEach((field) => {
+                    const current = form.getValues(field);
+                    form.setValue(field, `${current}\n\n${markdown}`.trim(), {
+                      shouldDirty: true,
+                      shouldValidate: true,
+                    });
+                  });
+                }}
+              />
+            </div>
           </div>
 
           {/* Meta Information */}
@@ -284,6 +318,19 @@ export default function BlogPostForm({ post, mode }: BlogPostFormProps) {
                   <FormMessage />
                 </FormItem>
               )}
+            />
+            <MediaUpload
+              area="blog"
+              accept="image/*"
+              label="Upload featured image"
+              onUploaded={([file]) => {
+                if (file) {
+                  form.setValue("image_url", file.url, {
+                    shouldDirty: true,
+                    shouldValidate: true,
+                  });
+                }
+              }}
             />
           </div>
 

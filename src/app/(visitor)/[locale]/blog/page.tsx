@@ -4,10 +4,11 @@ import BlogPostCard from "@/components/BlogPostCard";
 import { fetchBlogPosts } from "./actions";
 
 interface BlogPageProps {
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 }
 
-export default async function BlogPage({ params: { locale } }: BlogPageProps) {
+export default async function BlogPage({ params }: BlogPageProps) {
+  const { locale } = await params;
   const dictionary = await getDictionary(locale);
   const blogPosts = await fetchBlogPosts(locale);
 

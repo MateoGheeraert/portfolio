@@ -6,7 +6,7 @@ import { Suspense } from "react";
 import { LoadingSkeleton } from "@/components/ui/loading-spinner";
 
 interface ProjectsPageProps {
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 }
 
 function ProjectsLoadingSkeleton() {
@@ -84,8 +84,9 @@ async function ProjectsList({
 }
 
 export default async function ProjectsPage({
-  params: { locale },
+  params,
 }: ProjectsPageProps) {
+  const { locale } = await params;
   const dictionary = await getDictionary(locale);
 
   return (

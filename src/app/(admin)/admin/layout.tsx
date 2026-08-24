@@ -167,6 +167,16 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                   >
                     Blog Posts
                   </Link>
+                  <Link
+                    href='/admin/profile'
+                    className={`block px-3 py-2 rounded-md ${
+                      pathname.startsWith("/admin/profile")
+                        ? "bg-blue-50 text-blue-700"
+                        : "text-gray-700 hover:bg-gray-50"
+                    }`}
+                  >
+                    Profile pictures
+                  </Link>
                 </nav>
               </div>
             </div>

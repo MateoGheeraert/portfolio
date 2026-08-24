@@ -1,6 +1,6 @@
 "use client";
 
-import { LocalizedBlogPost } from "@/dal/blog";
+import type { LocalizedBlogPost } from "@/dal/blog";
 import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
 import Image from "next/image";
 import Link from "next/link";

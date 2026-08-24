@@ -14,20 +14,21 @@ import {
   CalendarBlank,
   Stack,
 } from "@phosphor-icons/react";
-import { useEffect, useState } from "react";
-import { Project, LocalizedProject } from "@/dal/projects";
+import { use, useEffect, useState } from "react";
+import type { LocalizedProject } from "@/dal/projects";
 import { LoadingSkeleton } from "@/components/ui/loading-spinner";
 
 interface ProjectDetailPageProps {
-  params: {
+  params: Promise<{
     locale: Locale;
     id: string;
-  };
+  }>;
 }
 
 export default function ProjectDetailPage({
-  params: { locale, id },
+  params,
 }: ProjectDetailPageProps) {
+  const { locale, id } = use(params);
   const [project, setProject] = useState<LocalizedProject | null>(null);
   const [dictionary, setDictionary] = useState<any>(null);
   const [loading, setLoading] = useState(true);

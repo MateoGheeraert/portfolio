@@ -17,7 +17,7 @@ A modern, multilingual portfolio website built with Next.js, featuring a full-st
 - **Admin Dashboard**: Secure authentication system for content management
 - **Project Management**: Full CRUD operations for portfolio projects
 - **Blog System**: Create, edit, and manage blog posts with markdown support
-- **Media Management**: Image upload and optimization
+- **Media Management**: Upload images and documents directly from the admin area
 - **Multi-language Content**: Manage content in three languages (EN/NL/FR)
 
 ### Technical Features
@@ -33,7 +33,7 @@ A modern, multilingual portfolio website built with Next.js, featuring a full-st
 
 ### Frontend
 
-- **Framework**: Next.js 14 (App Router)
+- **Framework**: Next.js 16 (App Router)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS + CSS Variables
 - **UI Components**: Radix UI + shadcn/ui components
@@ -106,9 +106,8 @@ portfolio/
 
 ### Prerequisites
 
-- Node.js 18.0 or later
+- Node.js 22.0 or later
 - npm or yarn package manager
-- Docker and Docker Compose (for local database)
 - Supabase account (for production database)
 
 ### Installation
@@ -134,6 +133,8 @@ portfolio/
    NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
    SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+   # Optional comma-separated allowlist for admin accounts
+   ADMIN_EMAILS=you@example.com
 
    # Email Service (Resend)
    RESEND_API_KEY=your_resend_api_key
@@ -176,19 +177,13 @@ portfolio/
 
 ### Admin Setup
 
-1. **Create an admin user** (Development only)
+1. Create the admin user in Supabase Authentication.
+2. Add its email address to `ADMIN_EMAILS` (recommended).
+3. Navigate to `/admin` and log in with those credentials.
 
-   ```bash
-   # Call the API endpoint to create a test admin
-   curl -X POST http://localhost:3000/api/create-test-admin
-   ```
-
-   This creates a test admin with:
-   - Email: `admin@example.com`
-   - Password: `admin123`
-
-2. **Access the admin panel**
-   Navigate to `/admin` and log in with your credentials.
+On the first upload the app creates a public `portfolio-media` Storage bucket.
+Uploaded images, PDFs, Office documents, text files, and CSV files are limited to
+10 MB. Blog attachments are inserted into the Markdown content automatically.
 
 ## 🌐 Internationalization
 
@@ -352,9 +347,6 @@ npm run build
 npm run start
 ```
 
-### Docker Deployment
-
-The project includes Docker configuration for containerized deployment.
 
 ## 📈 Performance
 

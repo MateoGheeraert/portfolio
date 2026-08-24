@@ -2,7 +2,7 @@
 
 import { useParams, useRouter } from "next/navigation";
 import ProjectForm from "@/components/admin/ProjectForm";
-import { Project } from "@/dal/projects";
+import type { Project } from "@/dal/projects";
 import { getAdminProjectById } from "../../actions";
 import { useQuery } from "@tanstack/react-query";
 

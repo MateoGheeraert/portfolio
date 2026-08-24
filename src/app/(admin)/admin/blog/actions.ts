@@ -1,13 +1,15 @@
 "use server";
 
 import { supabaseAdmin } from "@/dal/db";
-import { BlogPost } from "@/dal/blog";
+import type { BlogPost } from "@/dal/blog";
+import { requireAdminUser } from "@/lib/supabase/admin";
 
 /**
  * Server action to fetch all blog posts for admin
  */
 export async function fetchAdminBlogPosts(): Promise<BlogPost[]> {
   try {
+    await requireAdminUser();
     if (!supabaseAdmin) {
       throw new Error("Database client is not available");
     }
@@ -41,6 +43,7 @@ export async function getAdminBlogPostById(
   id: string
 ): Promise<{ post?: BlogPost; error?: string }> {
   try {
+    await requireAdminUser();
     if (!supabaseAdmin) {
       throw new Error("Database client is not available");
     }
@@ -81,6 +84,7 @@ export async function deleteAdminBlogPost(
   id: string
 ): Promise<{ success: boolean; error?: string }> {
   try {
+    await requireAdminUser();
     if (!supabaseAdmin) {
       throw new Error("Database client is not available");
     }
@@ -106,6 +110,7 @@ export async function createAdminBlogPost(
   blogData: Omit<BlogPost, "id" | "created_at">
 ): Promise<{ success: boolean; post?: BlogPost; error?: string }> {
   try {
+    await requireAdminUser();
     if (!supabaseAdmin) {
       throw new Error("Database client is not available");
     }
@@ -146,6 +151,7 @@ export async function updateAdminBlogPost(
   blogData: Partial<Omit<BlogPost, "id" | "created_at">>
 ): Promise<{ success: boolean; post?: BlogPost; error?: string }> {
   try {
+    await requireAdminUser();
     if (!supabaseAdmin) {
       throw new Error("Database client is not available");
     }

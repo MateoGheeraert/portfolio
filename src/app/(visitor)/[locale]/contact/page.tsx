@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { use, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -14,7 +14,7 @@ import { Label } from "@/components/ui/label";
 import { CheckCircle, XCircle, PaperPlaneTilt } from "@phosphor-icons/react";
 
 interface ContactPageProps {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }
 
 type ContactFormData = {
@@ -24,7 +24,8 @@ type ContactFormData = {
   message: string;
 };
 
-export default function ContactPage({ params: { locale } }: ContactPageProps) {
+export default function ContactPage({ params }: ContactPageProps) {
+  const { locale } = use(params);
   const [dictionary, setDictionary] = useState<any>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{

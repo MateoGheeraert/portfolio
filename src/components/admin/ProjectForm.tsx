@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Project } from "@/dal/projects";
+import type { Project } from "@/dal/projects";
+import { MediaUpload } from "@/components/admin/MediaUpload";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { MarkdownEditor } from "@/components/ui/markdown-editor";
@@ -342,6 +343,19 @@ export default function ProjectForm({ project, mode }: ProjectFormProps) {
                 <FormMessage />
               </FormItem>
             )}
+          />
+          <MediaUpload
+            area="projects"
+            accept="image/*"
+            label="Upload project image"
+            onUploaded={([file]) => {
+              if (file) {
+                form.setValue("image_url", file.url, {
+                  shouldDirty: true,
+                  shouldValidate: true,
+                });
+              }
+            }}
           />
 
           <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>

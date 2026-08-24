@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { BlogPost } from "@/dal/blog";
+import type { BlogPost } from "@/dal/blog";
 import { fetchAdminBlogPosts, deleteAdminBlogPost } from "./actions";
 
 export default function AdminBlogPage() {

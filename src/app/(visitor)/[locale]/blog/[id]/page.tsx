@@ -7,15 +7,16 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface BlogPostDetailPageProps {
-  params: {
+  params: Promise<{
     locale: Locale;
     id: string;
-  };
+  }>;
 }
 
 export default async function BlogPostDetailPage({
-  params: { locale, id },
+  params,
 }: BlogPostDetailPageProps) {
+  const { locale, id } = await params;
   // Fetch data on the server
   const [blogPost, dictionary] = await Promise.all([
     fetchBlogPostById(id, locale),

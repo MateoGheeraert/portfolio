@@ -1,5 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "11mb",
+    },
+  },
   /* config options here */
   // Remove the i18n config as we're using middleware for app router internationalization
   images: {

@@ -1,6 +1,6 @@
 "use client";
 
-import { LocalizedProject } from "@/dal/projects";
+import type { LocalizedProject } from "@/dal/projects";
 import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
 import Image from "next/image";
 import Link from "next/link";

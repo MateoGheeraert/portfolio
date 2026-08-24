@@ -1,4 +1,6 @@
-import { createClient } from "@supabase/supabase-js";
+import "server-only";
+
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 // Check if public environment variables are defined
 if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
@@ -13,8 +15,8 @@ const customFetch = (url: RequestInfo | URL, init?: RequestInit) => {
   });
 };
 
-// Create public client for client-side operations
-export const supabase = createClient(
+// Server-side public client for read operations.
+export const supabase = createClient<any>(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "",
   {
@@ -26,7 +28,7 @@ export const supabase = createClient(
 
 // Admin client should only be used server-side
 // This section will only run on the server
-let supabaseAdmin: ReturnType<typeof createClient> | null = null;
+let supabaseAdmin: SupabaseClient<any> | null = null;
 
 if (typeof window === "undefined") {
   // Server-side only code
@@ -34,10 +36,14 @@ if (typeof window === "undefined") {
     throw new Error("Missing environment variable: SUPABASE_SERVICE_ROLE_KEY");
   }
 
-  supabaseAdmin = createClient(
+  supabaseAdmin = createClient<any>(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
     process.env.SUPABASE_SERVICE_ROLE_KEY,
     {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false,
+      },
       global: {
         fetch: customFetch,
       },

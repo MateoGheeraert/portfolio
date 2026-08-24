@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { Locale, locales } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { Navbar } from "@/components/Navbar";
-import { Github, Linkedin } from "lucide-react";
+import { GithubLogo, LinkedinLogo } from "@phosphor-icons/react/dist/ssr";
 
 export const metadata: Metadata = {
   description: "Portfolio of Mateo Gheeraert",
@@ -12,13 +12,14 @@ export const metadata: Metadata = {
 
 interface VisitorLayoutProps {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }
 
 export default async function VisitorLayout({
   children,
-  params: { locale },
+  params,
 }: VisitorLayoutProps) {
+  const { locale } = await params;
   // Validate that the locale is supported
   if (!locales.includes(locale as Locale)) {
     notFound();
@@ -40,7 +41,7 @@ export default async function VisitorLayout({
                 className='flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-200'
                 title="GitHub Profile"
               >
-                <Github size={20} />
+                <GithubLogo size={20} />
                 <span className='text-sm font-medium'>GitHub</span>
               </a>
               <a
@@ -50,7 +51,7 @@ export default async function VisitorLayout({
                 className='flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200'
                 title="LinkedIn Profile"
               >
-                <Linkedin size={20} />
+                <LinkedinLogo size={20} />
                 <span className='text-sm font-medium'>LinkedIn</span>
               </a>
             </div>

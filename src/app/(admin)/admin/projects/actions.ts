@@ -1,13 +1,15 @@
 "use server";
 
 import { supabaseAdmin } from "@/dal/db";
-import { Project } from "@/dal/projects";
+import type { Project } from "@/dal/projects";
+import { requireAdminUser } from "@/lib/supabase/admin";
 
 /**
  * Server action to fetch all projects for admin
  */
 export async function fetchAdminProjects(): Promise<Project[]> {
   try {
+    await requireAdminUser();
     if (!supabaseAdmin) {
       throw new Error("Database client is not available");
     }
@@ -41,6 +43,7 @@ export async function getAdminProjectById(
   id: string
 ): Promise<{ project?: Project; error?: string }> {
   try {
+    await requireAdminUser();
     if (!supabaseAdmin) {
       throw new Error("Database client is not available");
     }
@@ -81,6 +84,7 @@ export async function deleteAdminProject(
   id: string
 ): Promise<{ success: boolean; error?: string }> {
   try {
+    await requireAdminUser();
     if (!supabaseAdmin) {
       throw new Error("Database client is not available");
     }
@@ -109,6 +113,7 @@ export async function createAdminProject(
   projectData: Omit<Project, "id" | "created_at">
 ): Promise<{ success: boolean; project?: Project; error?: string }> {
   try {
+    await requireAdminUser();
     if (!supabaseAdmin) {
       throw new Error("Database client is not available");
     }
@@ -149,6 +154,7 @@ export async function updateAdminProject(
   projectData: Partial<Omit<Project, "id" | "created_at">>
 ): Promise<{ success: boolean; project?: Project; error?: string }> {
   try {
+    await requireAdminUser();
     if (!supabaseAdmin) {
       throw new Error("Database client is not available");
     }
