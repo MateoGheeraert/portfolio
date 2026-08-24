@@ -2,7 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import Link from "next/link";
+import { ArrowLeft, Pencil } from "lucide-react";
 import BlogPostForm from "@/components/admin/BlogPostForm";
+import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
+import { AdminEmptyState, AdminLoading } from "@/components/admin/AdminState";
+import { Button } from "@/components/ui/button";
 import type { BlogPost } from "@/dal/blog";
 import { getAdminBlogPostById } from "../../actions";
 
@@ -45,42 +50,24 @@ export default function EditBlogPostPage() {
   }, [params.id]);
 
   if (loading) {
-    return <div className='py-4'>Loading blog post...</div>;
+    return <AdminLoading label="Loading blog post…" />;
   }
 
   if (error) {
     return (
-      <div className='py-4 px-4 bg-red-50 text-red-800 rounded-md'>
-        <h2 className='text-lg font-medium'>Error</h2>
-        <p>{error}</p>
-        <button
-          onClick={() => router.push("/admin/blog")}
-          className='mt-4 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-        >
-          Back to Blog Posts
-        </button>
-      </div>
+      <AdminEmptyState title="Could not load this post" description={error} action={<Button onClick={() => router.push("/admin/blog")}><ArrowLeft />Back to posts</Button>} />
     );
   }
 
   if (!post) {
     return (
-      <div className='py-4 px-4 bg-yellow-50 text-yellow-800 rounded-md'>
-        <h2 className='text-lg font-medium'>Blog Post Not Found</h2>
-        <p>The requested blog post could not be found.</p>
-        <button
-          onClick={() => router.push("/admin/blog")}
-          className='mt-4 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-        >
-          Back to Blog Posts
-        </button>
-      </div>
+      <AdminEmptyState title="Blog post not found" description="The requested blog post could not be found." action={<Button onClick={() => router.push("/admin/blog")}><ArrowLeft />Back to posts</Button>} />
     );
   }
 
   return (
-    <div>
-      <h1 className='text-2xl font-bold mb-6'>Edit Blog Post</h1>
+    <div className="space-y-6">
+      <AdminPageHeader icon={Pencil} title="Edit blog post" description="Update the translations, content, images and attachments for this story." actions={<Button variant="outline" asChild><Link href="/admin/blog"><ArrowLeft />Back</Link></Button>} />
       <BlogPostForm post={post} mode='edit' />
     </div>
   );

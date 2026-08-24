@@ -79,7 +79,7 @@ export function MediaUpload({
         )}
         {uploading ? "Uploading…" : label}
       </Button>
-      <p className="text-xs text-gray-500">
+      <p className="text-xs text-muted-foreground">
         Images, PDF, Office, text and CSV files up to 10 MB.
       </p>
       {error && <p className="text-sm text-red-600">{error}</p>}

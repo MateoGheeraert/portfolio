@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { MarkdownEditor } from "@/components/ui/markdown-editor";
 import { Button } from "@/components/ui/button";
+import { LanguageTabs } from "@/components/admin/LanguageTabs";
+import type { Locale } from "@/i18n/config";
 import {
   Form,
   FormControl,
@@ -50,6 +52,7 @@ export default function BlogPostForm({ post, mode }: BlogPostFormProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [activeLocale, setActiveLocale] = useState<Locale>("en");
   // Default values for the form
   const defaultValues: Partial<BlogFormValues> = {
     title_dutch: post?.title_dutch || "",
@@ -124,19 +127,25 @@ export default function BlogPostForm({ post, mode }: BlogPostFormProps) {
   return (
     <div className='space-y-6'>
       {error && (
-        <div className='bg-red-50 text-red-800 p-4 rounded-md'>{error}</div>
+        <div className='rounded-lg border border-destructive/30 bg-destructive/10 p-4 text-sm text-destructive'>{error}</div>
       )}{" "}
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+        <form onSubmit={form.handleSubmit(onSubmit, (errors) => {
+          const fields = Object.keys(errors).join(" ");
+          if (fields.includes("dutch")) setActiveLocale("nl");
+          else if (fields.includes("french")) setActiveLocale("fr");
+          else setActiveLocale("en");
+        })} className='space-y-8 rounded-xl border bg-card p-5 shadow-sm sm:p-6'>
+          <LanguageTabs value={activeLocale} onValueChange={setActiveLocale} />
           {/* Title Section */}
           <div className='space-y-4'>
-            <h3 className='text-lg font-semibold text-gray-900'>Titles</h3>
-            <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+            <h3 className='text-lg font-semibold text-foreground'>Titles</h3>
+            <div className='grid grid-cols-1 gap-4'>
               <FormField
                 control={form.control}
                 name='title_english'
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className={activeLocale === "en" ? "" : "hidden"}>
                     <FormLabel>English Title</FormLabel>
                     <FormControl>
                       <Input placeholder='English blog post title' {...field} />
@@ -150,7 +159,7 @@ export default function BlogPostForm({ post, mode }: BlogPostFormProps) {
                 control={form.control}
                 name='title_dutch'
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className={activeLocale === "nl" ? "" : "hidden"}>
                     <FormLabel>Dutch Title</FormLabel>
                     <FormControl>
                       <Input placeholder='Nederlandse blog titel' {...field} />
@@ -164,7 +173,7 @@ export default function BlogPostForm({ post, mode }: BlogPostFormProps) {
                 control={form.control}
                 name='title_french'
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className={activeLocale === "fr" ? "" : "hidden"}>
                     <FormLabel>French Title</FormLabel>
                     <FormControl>
                       <Input placeholder='Titre du blog français' {...field} />
@@ -178,11 +187,11 @@ export default function BlogPostForm({ post, mode }: BlogPostFormProps) {
 
           {/* Content Section */}
           <div className='space-y-4'>
-            <h3 className='text-lg font-semibold text-gray-900'>Content</h3>            <FormField
+            <h3 className='text-lg font-semibold text-foreground'>Content</h3>            <FormField
               control={form.control}
               name='content_english'
               render={({ field }) => (
-                <FormItem>
+                <FormItem className={activeLocale === "en" ? "" : "hidden"}>
                   <FormLabel>English Content</FormLabel>
                   <FormControl>
                     <MarkdownEditor
@@ -200,7 +209,7 @@ export default function BlogPostForm({ post, mode }: BlogPostFormProps) {
               control={form.control}
               name='content_dutch'
               render={({ field }) => (
-                <FormItem>
+                <FormItem className={activeLocale === "nl" ? "" : "hidden"}>
                   <FormLabel>Dutch Content</FormLabel>
                   <FormControl>
                     <MarkdownEditor
@@ -216,7 +225,7 @@ export default function BlogPostForm({ post, mode }: BlogPostFormProps) {
               control={form.control}
               name='content_french'
               render={({ field }) => (
-                <FormItem>
+                <FormItem className={activeLocale === "fr" ? "" : "hidden"}>
                   <FormLabel>French Content</FormLabel>
                   <FormControl>
                     <MarkdownEditor
@@ -230,8 +239,8 @@ export default function BlogPostForm({ post, mode }: BlogPostFormProps) {
               )}
             />
             <div className="rounded-lg border border-dashed p-4">
-              <h4 className="font-medium text-gray-900">Post attachments</h4>
-              <p className="mb-3 mt-1 text-sm text-gray-600">
+              <h4 className="font-medium text-foreground">Post attachments</h4>
+              <p className="mb-3 mt-1 text-sm text-muted-foreground">
                 Upload images or documents. Links are added to all three language versions so you can move or rename them in the editor.
               </p>
               <MediaUpload
@@ -266,7 +275,7 @@ export default function BlogPostForm({ post, mode }: BlogPostFormProps) {
 
           {/* Meta Information */}
           <div className='space-y-4'>
-            <h3 className='text-lg font-semibold text-gray-900'>
+            <h3 className='text-lg font-semibold text-foreground'>
               Meta Information
             </h3>
 

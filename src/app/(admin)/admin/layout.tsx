@@ -1,191 +1,120 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+import {
+  ExternalLink, FileText, FolderKanban, ImageIcon, LayoutDashboard,
+  LogOut, PanelsTopLeft, TextQuote,
+} from "lucide-react";
 import { signOut, isAuthenticated } from "@/utils/auth";
 import { QueryProvider } from "@/components/providers/QueryProvider";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
-interface AdminLayoutProps {
-  children: React.ReactNode;
-}
+const navigation = [
+  { href: "/admin/dashboard", label: "Overview", icon: LayoutDashboard },
+  { href: "/admin/projects", label: "Projects", icon: FolderKanban },
+  { href: "/admin/blog", label: "Blog posts", icon: FileText },
+  { href: "/admin/about", label: "About content", icon: TextQuote },
+  { href: "/admin/profile", label: "Profile media", icon: ImageIcon },
+];
 
-export default function AdminLayout({ children }: AdminLayoutProps) {
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const isAuthPage = pathname === "/admin/login";
 
-  // Skip auth check for login and register pages
-  const isAuthPage =
-    pathname === "/admin/login" || pathname === "/admin/register";
-
-  // Check if the user is authenticated
   useEffect(() => {
-    // No need to check auth for login/register pages
     if (isAuthPage) {
       setLoading(false);
       return;
     }
-
-    const checkAuth = async () => {
-      try {
-        const authenticated = await isAuthenticated();
-
+    void isAuthenticated()
+      .then((authenticated) => {
         if (!authenticated) {
-          // Use window.location for a hard refresh to avoid Next.js caching issues
-          window.location.href = `/admin/login?redirect=${encodeURIComponent(
-            pathname
-          )}`;
+          window.location.href = `/admin/login?redirect=${encodeURIComponent(pathname)}`;
           return;
         }
-
         setLoading(false);
-      } catch (err: any) {
-        console.error("Authentication error:", err);
-        setError(err.message || "Authentication failed");
-
-        // On error, redirect to login
-        window.location.href = "/admin/login";
-      }
-    };
-
-    checkAuth();
+      })
+      .catch((authError: unknown) => {
+        setError(authError instanceof Error ? authError.message : "Authentication failed");
+        setLoading(false);
+      });
   }, [pathname, isAuthPage]);
 
   const handleSignOut = useCallback(async () => {
-    try {
-      await signOut();
-      // Use hard navigation to clear state
-      window.location.href = "/admin/login";
-    } catch (error) {
-      console.error("Sign out error:", error);
-    }
-  }, []);
+    await signOut();
+    router.push("/admin/login");
+    router.refresh();
+  }, [router]);
 
-  // Show loading state
   if (loading) {
-    return (
-      <div className='min-h-screen bg-gray-100 flex items-center justify-center'>
-        <p className='text-gray-500'>Loading...</p>
-      </div>
-    );
+    return <div className="flex min-h-screen items-center justify-center bg-muted/40 text-muted-foreground">Loading your workspace…</div>;
   }
-
-  // Show error state if auth failed
-  if (error && !isAuthPage) {
+  if (isAuthPage) return <>{children}</>;
+  if (error) {
     return (
-      <div className='min-h-screen bg-gray-100 flex items-center justify-center'>
-        <div className='bg-white p-8 rounded-lg shadow-md max-w-md w-full'>
-          <h2 className='text-xl font-semibold text-red-600 mb-4'>
-            Authentication Error
-          </h2>
-          <p className='text-gray-700 mb-4'>{error}</p>
-          <button
-            onClick={() => (window.location.href = "/admin/login")}
-            className='w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700'
-          >
-            Go to Login
-          </button>
+      <div className="flex min-h-screen items-center justify-center bg-muted/40 p-4">
+        <div className="w-full max-w-md rounded-xl border bg-card p-6 shadow-sm">
+          <h1 className="text-lg font-semibold">Authentication error</h1>
+          <p className="mt-2 text-sm text-muted-foreground">{error}</p>
+          <Button className="mt-5 w-full" onClick={() => router.push("/admin/login")}>Return to sign in</Button>
         </div>
       </div>
     );
   }
 
-  // Login and register pages don't need the admin layout
-  if (isAuthPage) {
-    return <>{children}</>;
-  }
-
-  // Admin layout with sidebar
   return (
     <QueryProvider>
-      <div className='min-h-screen bg-gray-100'>
-        <nav className='bg-white shadow-sm'>
-          <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-            <div className='flex justify-between h-16'>
-              <div className='flex'>
-                <div className='flex-shrink-0 flex items-center'>
-                  <Link
-                    href='/admin/dashboard'
-                    className='text-xl font-bold text-gray-900'
-                  >
-                    Admin Panel
-                  </Link>
-                </div>
-              </div>
-              <div className='flex items-center'>
-                <button
-                  onClick={handleSignOut}
-                  className='px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100'
-                >
-                  Sign Out
-                </button>
-              </div>
+      <div className="min-h-screen bg-muted/35 text-foreground">
+        <header className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur">
+          <div className="flex h-16 items-center justify-between px-4 md:px-6">
+            <Link href="/admin/dashboard" className="flex items-center gap-3">
+              <span className="rounded-lg bg-primary p-2 text-primary-foreground"><PanelsTopLeft className="h-4 w-4" /></span>
+              <span>
+                <span className="block text-sm font-semibold leading-none">Portfolio Studio</span>
+                <span className="mt-1 block text-xs text-muted-foreground">Content administration</span>
+              </span>
+            </Link>
+            <div className="flex items-center gap-1">
+              <Button variant="ghost" size="sm" asChild>
+                <Link href="/en" target="_blank"><ExternalLink /><span className="hidden sm:inline">View portfolio</span></Link>
+              </Button>
+              <Button variant="ghost" size="sm" onClick={handleSignOut}><LogOut /><span className="hidden sm:inline">Sign out</span></Button>
             </div>
           </div>
-        </nav>
-
-        <div className='flex max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6'>
-          <div className='w-64 mr-8'>
-            <div className='bg-white overflow-hidden shadow rounded-lg divide-y divide-gray-200'>
-              <div className='px-4 py-5 sm:px-6'>
-                <h3 className='text-lg font-medium text-gray-900'>
-                  Navigation
-                </h3>
-              </div>
-              <div className='px-4 py-5 sm:p-6'>
-                <nav className='space-y-1'>
-                  <Link
-                    href='/admin/dashboard'
-                    className={`block px-3 py-2 rounded-md ${
-                      pathname === "/admin/dashboard"
-                        ? "bg-blue-50 text-blue-700"
-                        : "text-gray-700 hover:bg-gray-50"
-                    }`}
-                  >
-                    Dashboard
+        </header>
+        <div className="mx-auto flex max-w-[1500px]">
+          <aside className="hidden min-h-[calc(100vh-4rem)] w-64 shrink-0 border-r bg-background p-4 md:block">
+            <p className="mb-3 px-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">Manage</p>
+            <nav className="space-y-1">
+              {navigation.map(({ href, label, icon: Icon }) => {
+                const active = pathname === href || (href !== "/admin/dashboard" && pathname.startsWith(`${href}/`));
+                return (
+                  <Link key={href} href={href} className={cn(
+                    "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+                    active ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                  )}>
+                    <Icon className="h-4 w-4" />{label}
                   </Link>
-                  <Link
-                    href='/admin/projects'
-                    className={`block px-3 py-2 rounded-md ${
-                      pathname === "/admin/projects" ||
-                      pathname.startsWith("/admin/projects/")
-                        ? "bg-blue-50 text-blue-700"
-                        : "text-gray-700 hover:bg-gray-50"
-                    }`}
-                  >
-                    Projects
-                  </Link>
-                  <Link
-                    href='/admin/blog'
-                    className={`block px-3 py-2 rounded-md ${
-                      pathname === "/admin/blog" ||
-                      pathname.startsWith("/admin/blog/")
-                        ? "bg-blue-50 text-blue-700"
-                        : "text-gray-700 hover:bg-gray-50"
-                    }`}
-                  >
-                    Blog Posts
-                  </Link>
-                  <Link
-                    href='/admin/profile'
-                    className={`block px-3 py-2 rounded-md ${
-                      pathname.startsWith("/admin/profile")
-                        ? "bg-blue-50 text-blue-700"
-                        : "text-gray-700 hover:bg-gray-50"
-                    }`}
-                  >
-                    Profile pictures
-                  </Link>
-                </nav>
-              </div>
+                );
+              })}
+            </nav>
+          </aside>
+          <main className="min-w-0 flex-1 p-4 sm:p-6 lg:p-8">
+            <div className="mb-5 flex gap-2 overflow-x-auto pb-1 md:hidden">
+              {navigation.map(({ href, label, icon: Icon }) => (
+                <Button key={href} variant={pathname === href || pathname.startsWith(`${href}/`) ? "default" : "outline"} size="sm" asChild>
+                  <Link href={href}><Icon />{label}</Link>
+                </Button>
+              ))}
             </div>
-          </div>
-          <div className='flex-1'>
-            <div className='bg-white overflow-hidden shadow rounded-lg'>
-              <div className='px-4 py-5 sm:p-6'>{children}</div>
-            </div>
-          </div>
+            {children}
+          </main>
         </div>
       </div>
     </QueryProvider>

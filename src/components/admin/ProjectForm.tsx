@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { MarkdownEditor } from "@/components/ui/markdown-editor";
 import { Button } from "@/components/ui/button";
+import { LanguageTabs } from "@/components/admin/LanguageTabs";
+import type { Locale } from "@/i18n/config";
 import {
   Form,
   FormControl,
@@ -54,6 +56,7 @@ export default function ProjectForm({ project, mode }: ProjectFormProps) {
   const router = useRouter();
   const queryClient = useQueryClient();
   const [error, setError] = useState<string | null>(null);
+  const [activeLocale, setActiveLocale] = useState<Locale>("en");
   // Default values for the form
   const defaultValues: Partial<ProjectFormValues> = {
     title_dutch: project?.title_dutch || "",
@@ -197,13 +200,19 @@ export default function ProjectForm({ project, mode }: ProjectFormProps) {
   return (
     <div className='space-y-6'>
       {error && (
-        <div className='bg-red-50 text-red-800 p-4 rounded-md'>{error}</div>
+        <div className='rounded-lg border border-destructive/30 bg-destructive/10 p-4 text-sm text-destructive'>{error}</div>
       )}{" "}
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
+        <form onSubmit={form.handleSubmit(onSubmit, (errors) => {
+          const fields = Object.keys(errors).join(" ");
+          if (fields.includes("dutch")) setActiveLocale("nl");
+          else if (fields.includes("french")) setActiveLocale("fr");
+          else setActiveLocale("en");
+        })} className='space-y-6 rounded-xl border bg-card p-5 shadow-sm sm:p-6'>
+          <LanguageTabs value={activeLocale} onValueChange={setActiveLocale} />
           {/* Multi-language Title Fields */}
           <div className='space-y-4'>
-            <h3 className='text-lg font-medium text-gray-900 dark:text-white'>
+            <h3 className='text-lg font-medium text-foreground'>
               Titles
             </h3>
             <div className='grid grid-cols-1 gap-4'>
@@ -211,7 +220,7 @@ export default function ProjectForm({ project, mode }: ProjectFormProps) {
                 control={form.control}
                 name='title_english'
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className={activeLocale === "en" ? "" : "hidden"}>
                     <FormLabel>Title (English)</FormLabel>
                     <FormControl>
                       <Input
@@ -227,7 +236,7 @@ export default function ProjectForm({ project, mode }: ProjectFormProps) {
                 control={form.control}
                 name='title_dutch'
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className={activeLocale === "nl" ? "" : "hidden"}>
                     <FormLabel>Title (Dutch)</FormLabel>
                     <FormControl>
                       <Input placeholder='Project title in Dutch' {...field} />
@@ -240,7 +249,7 @@ export default function ProjectForm({ project, mode }: ProjectFormProps) {
                 control={form.control}
                 name='title_french'
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className={activeLocale === "fr" ? "" : "hidden"}>
                     <FormLabel>Title (French)</FormLabel>
                     <FormControl>
                       <Input placeholder='Project title in French' {...field} />
@@ -254,14 +263,14 @@ export default function ProjectForm({ project, mode }: ProjectFormProps) {
 
           {/* Multi-language Content Fields */}
           <div className='space-y-4'>
-            <h3 className='text-lg font-medium text-gray-900 dark:text-white'>
+            <h3 className='text-lg font-medium text-foreground'>
               Content
             </h3>
             <div className='space-y-4'>              <FormField
                 control={form.control}
                 name='content_english'
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className={activeLocale === "en" ? "" : "hidden"}>
                     <FormLabel>Content (English)</FormLabel>
                     <FormControl>
                       <MarkdownEditor
@@ -278,7 +287,7 @@ export default function ProjectForm({ project, mode }: ProjectFormProps) {
                 control={form.control}
                 name='content_dutch'
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className={activeLocale === "nl" ? "" : "hidden"}>
                     <FormLabel>Content (Dutch)</FormLabel>
                     <FormControl>
                       <MarkdownEditor
@@ -295,7 +304,7 @@ export default function ProjectForm({ project, mode }: ProjectFormProps) {
                 control={form.control}
                 name='content_french'
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className={activeLocale === "fr" ? "" : "hidden"}>
                     <FormLabel>Content (French)</FormLabel>
                     <FormControl>
                       <MarkdownEditor

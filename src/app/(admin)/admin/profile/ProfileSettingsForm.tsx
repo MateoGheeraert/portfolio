@@ -2,9 +2,12 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { CheckCircle2, ImageIcon, LoaderCircle, RotateCcw, Save } from "lucide-react";
 import type { ProfileSettings } from "@/dal/profile";
 import { MediaUpload } from "@/components/admin/MediaUpload";
+import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   resetProfileSettings,
   saveProfileSettings,
@@ -39,13 +42,8 @@ export function ProfileSettingsForm({ initial }: { initial: ProfileSettings }) {
   }
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-2xl font-semibold">Profile pictures</h1>
-        <p className="mt-2 text-gray-600">
-          Upload the images used on your homepage and About page, then save.
-        </p>
-      </div>
+    <div className="space-y-6">
+      <AdminPageHeader icon={ImageIcon} title="Profile pictures" description="Manage the portraits used on your homepage and About page." />
 
       <div className="grid gap-8 md:grid-cols-2">
         {(
@@ -54,9 +52,10 @@ export function ProfileSettingsForm({ initial }: { initial: ProfileSettings }) {
             ["aboutImageUrl", "About page picture"],
           ] as const
         ).map(([key, label]) => (
-          <section key={key} className="space-y-4 rounded-lg border p-5">
-            <h2 className="text-lg font-medium">{label}</h2>
-            <div className="relative aspect-square max-w-64 overflow-hidden rounded-lg bg-gray-100">
+          <Card key={key}>
+            <CardHeader><CardTitle>{label}</CardTitle><CardDescription>Upload a new image and preview it before saving.</CardDescription></CardHeader>
+            <CardContent className="space-y-5">
+            <div className="relative aspect-square max-w-72 overflow-hidden rounded-xl border bg-muted">
               <Image
                 src={settings[key]}
                 alt={label}
@@ -73,17 +72,18 @@ export function ProfileSettingsForm({ initial }: { initial: ProfileSettings }) {
                 file && setSettings((current) => ({ ...current, [key]: file.url }))
               }
             />
-          </section>
+            </CardContent>
+          </Card>
         ))}
       </div>
 
-      {message && <p className="text-sm text-gray-700">{message}</p>}
-      <div className="flex gap-3">
+      {message && <p className="flex items-center gap-2 rounded-lg border bg-card px-4 py-3 text-sm"><CheckCircle2 className="h-4 w-4 text-emerald-500" />{message}</p>}
+      <div className="flex flex-wrap gap-3">
         <Button type="button" onClick={save} disabled={saving}>
-          {saving ? "Saving…" : "Save profile pictures"}
+          {saving ? <LoaderCircle className="animate-spin" /> : <Save />}{saving ? "Saving…" : "Save profile pictures"}
         </Button>
         <Button type="button" variant="outline" onClick={reset} disabled={saving}>
-          Restore defaults
+          <RotateCcw />Restore defaults
         </Button>
       </div>
     </div>

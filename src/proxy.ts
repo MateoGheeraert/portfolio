@@ -9,6 +9,9 @@ export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   if (pathname.startsWith("/admin")) {
+    if (pathname === "/admin/register") {
+      return NextResponse.redirect(new URL("/admin/login", request.url));
+    }
     const isLoginPage = pathname === "/admin/login";
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,

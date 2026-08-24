@@ -18,22 +18,6 @@ export async function signIn(email: string, password: string) {
   }
 }
 
-export async function signUp(email: string, password: string) {
-  try {
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
-
-    if (error) throw error;
-
-    return data;
-  } catch (error) {
-    console.error("Sign up error:", error);
-    throw error;
-  }
-}
-
 export async function signOut() {
   try {
     const { error } = await supabase.auth.signOut();

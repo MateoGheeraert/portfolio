@@ -2,7 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
+import { LoaderCircle, LockKeyhole, LogIn, Mail, PanelsTopLeft } from "lucide-react";
 import { signIn, isAuthenticated } from "@/utils/auth";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState("");
@@ -24,7 +29,7 @@ export default function AdminLoginPage() {
         if (authenticated) {
           window.location.href = redirectPath;
         }
-      } catch (error) {
+      } catch {
         // Ignore error, will allow login form to display
       } finally {
         setAuthCheckComplete(true);
@@ -48,11 +53,11 @@ export default function AdminLoginPage() {
       } else {
         setError("Login failed. Please try again.");
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Login error:", err);
-      let errorMsg = err.message || "Failed to sign in";
+      let errorMsg = err instanceof Error ? err.message : "Failed to sign in";
 
-      if (err.name === "AuthApiError") {
+      if (err instanceof Error && err.name === "AuthApiError") {
         if (err.message.includes("Invalid login credentials")) {
           errorMsg = "Invalid email or password. Please try again.";
         } else if (err.message.includes("Database error")) {
@@ -69,42 +74,34 @@ export default function AdminLoginPage() {
   // Show loading until auth check is complete
   if (!authCheckComplete) {
     return (
-      <div className='min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col justify-center items-center'>
-        <p className='text-gray-700 dark:text-gray-200'>Checking authentication...</p>
+      <div className="flex min-h-screen items-center justify-center bg-muted/30">
+        <div className="flex items-center gap-2 text-sm text-muted-foreground"><LoaderCircle className="h-4 w-4 animate-spin" />Checking authentication…</div>
       </div>
     );
   }
 
   return (
-    <div className='min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col justify-center py-12 sm:px-6 lg:px-8'>
-      <div className='sm:mx-auto sm:w-full sm:max-w-md'>
-        <h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white'>
-          Admin Login
-        </h2>
-      </div>
-
-      <div className='mt-8 sm:mx-auto sm:w-full sm:max-w-md'>
-        <div className='bg-white dark:bg-gray-900 py-8 px-4 shadow sm:rounded-lg sm:px-10'>
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-muted/30 px-4 py-12">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,hsl(var(--primary)/0.12),transparent_35%)]" />
+      <div className="relative w-full max-w-md space-y-6">
+        <div className="flex flex-col items-center text-center">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-lg"><PanelsTopLeft className="h-6 w-6" /></div>
+          <h1 className="text-2xl font-bold tracking-tight">Portfolio Studio</h1>
+          <p className="mt-1 text-sm text-muted-foreground">Sign in to manage your portfolio content.</p>
+        </div>
+        <Card className="shadow-xl">
+          <CardHeader><CardTitle>Welcome back</CardTitle><CardDescription>Use your administrator account to continue.</CardDescription></CardHeader>
+          <CardContent>
           {error && (
-            <div className='bg-red-50 border-l-4 border-red-400 p-4 mb-6'>
-              <div className='flex'>
-                <div className='ml-3'>
-                  <p className='text-sm text-red-700'>{error}</p>
-                </div>
-              </div>
-            </div>
+            <div className="mb-6 rounded-lg border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">{error}</div>
           )}
 
-          <form className='space-y-6' onSubmit={handleLogin}>
-            <div>
-              <label
-                htmlFor='email'
-                className='block text-sm font-medium text-gray-700 dark:text-gray-200'
-              >
-                Email address
-              </label>
-              <div className='mt-1'>
-                <input
+          <form className="space-y-5" onSubmit={handleLogin}>
+            <div className="space-y-2">
+              <Label htmlFor="email">Email address</Label>
+              <div className="relative">
+                <Mail className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <Input
                   id='email'
                   name='email'
                   type='email'
@@ -113,20 +110,16 @@ export default function AdminLoginPage() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className='appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white caret-blue-600 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm'
+                  className="pl-9"
                 />
               </div>
             </div>
 
-            <div>
-              <label
-                htmlFor='password'
-                className='block text-sm font-medium text-gray-700 dark:text-gray-200'
-              >
-                Password
-              </label>
-              <div className='mt-1'>
-                <input
+            <div className="space-y-2">
+              <Label htmlFor="password">Password</Label>
+              <div className="relative">
+                <LockKeyhole className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <Input
                   id='password'
                   name='password'
                   type='password'
@@ -135,23 +128,24 @@ export default function AdminLoginPage() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className='appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white caret-blue-600 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm'
+                  className="pl-9"
                 />
               </div>
             </div>
 
             <div>
-              <button
+              <Button
                 type='submit'
                 disabled={loading}
-                className='w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed'
+                className="w-full"
               >
-                {loading ? "Signing in..." : "Sign in"}
-              </button>
+                {loading ? <LoaderCircle className="animate-spin" /> : <LogIn />}{loading ? "Signing in…" : "Sign in"}
+              </Button>
             </div>
 
           </form>
-        </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
