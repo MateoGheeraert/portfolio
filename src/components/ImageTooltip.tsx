@@ -21,14 +21,25 @@ export default function ImageTooltip({
   locale,
 }: ImageTooltipProps) {
   const [isVisible, setIsVisible] = useState(false);
-  // Clone the image and change the src when hovering
-  const renderImage = () => {
+  // Keep both portraits mounted so the hover image is downloaded immediately.
+  const renderImages = () => {
     if (isValidElement(children)) {
       const childProps = children.props as any;
-      return cloneElement(children as React.ReactElement<any>, {
-        ...childProps,
-        src: isVisible ? "/mateowave.png" : childProps.src,
-      });
+      const sharedClassName = `${childProps.className || ""} col-start-1 row-start-1 transition-opacity duration-200`;
+      return (
+        <div className="grid">
+          {cloneElement(children as React.ReactElement<any>, {
+            ...childProps,
+            className: `${sharedClassName} ${isVisible ? "opacity-0" : "opacity-100"}`,
+          })}
+          {cloneElement(children as React.ReactElement<any>, {
+            ...childProps,
+            src: "/mateowave.png",
+            alt: "Mateo waving",
+            className: `${sharedClassName} ${isVisible ? "opacity-100" : "opacity-0"}`,
+          })}
+        </div>
+      );
     }
     return children;
   };
@@ -39,7 +50,7 @@ export default function ImageTooltip({
         onMouseLeave={() => setIsVisible(false)}
         className='transition-transform duration-300 hover:scale-105 cursor-pointer'
       >
-        {renderImage()}
+        {renderImages()}
       </div>
       {/* Elegant Tooltip Card */}
       {isVisible && (
