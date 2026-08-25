@@ -1,7 +1,7 @@
 "use server";
 
 import { supabaseAdmin } from "@/dal/db";
-import type { BlogPost } from "@/dal/blog";
+import { normalizeBlogTags, type BlogPost } from "@/dal/blog";
 import { requireAdminUser } from "@/lib/supabase/admin";
 
 /**
@@ -24,11 +24,7 @@ export async function fetchAdminBlogPosts(): Promise<BlogPost[]> {
     // Format blog data
     return data.map((post) => ({
       ...post,
-      tags: Array.isArray(post.tags)
-        ? post.tags
-        : typeof post.tags === "string"
-          ? post.tags.split(",").map((tag: string) => tag.trim())
-          : [],
+      tags: normalizeBlogTags(post.tags),
     })) as BlogPost[];
   } catch (error) {
     console.error("Error fetching blog posts:", error);
@@ -64,11 +60,7 @@ export async function getAdminBlogPostById(
     return {
       post: {
         ...data,
-        tags: Array.isArray(data.tags)
-          ? data.tags
-          : typeof data.tags === "string"
-            ? data.tags.split(",").map((tag: string) => tag.trim())
-            : [],
+        tags: normalizeBlogTags(data.tags),
       } as BlogPost,
     };
   } catch (error: any) {
@@ -127,11 +119,7 @@ export async function createAdminBlogPost(
       success: true,
       post: {
         ...data,
-        tags: Array.isArray(data.tags)
-          ? data.tags
-          : typeof data.tags === "string"
-            ? data.tags.split(",").map((tag: string) => tag.trim())
-            : [],
+        tags: normalizeBlogTags(data.tags),
       } as BlogPost,
     };
   } catch (error: any) {
@@ -169,11 +157,7 @@ export async function updateAdminBlogPost(
       success: true,
       post: {
         ...data,
-        tags: Array.isArray(data.tags)
-          ? data.tags
-          : typeof data.tags === "string"
-            ? data.tags.split(",").map((tag: string) => tag.trim())
-            : [],
+        tags: normalizeBlogTags(data.tags),
       } as BlogPost,
     };
   } catch (error: any) {

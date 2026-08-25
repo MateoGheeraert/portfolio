@@ -1,4 +1,4 @@
-import { Locale } from "@/i18n/config";
+import type { Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import BlogPostCard from "@/components/BlogPostCard";
 import { fetchBlogPosts } from "./actions";
@@ -13,22 +13,16 @@ export default async function BlogPage({ params }: BlogPageProps) {
   const blogPosts = await fetchBlogPosts(locale);
 
   return (
-    <div className='container mx-auto px-4 py-16 max-w-4xl'>
-      <h1 className='text-5xl font-bold mb-12 text-gray-900 dark:text-white relative transition-colors duration-300'>
-        {dictionary.navigation.blog}
-        <span className='absolute -bottom-3 left-0 w-12 h-1.5 bg-blue-500 dark:bg-blue-400 rounded-full'></span>
-      </h1>
+    <div className="mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-16 lg:px-10 lg:py-24">
+      <header className="border-b border-gray-300 pb-10 dark:border-gray-700 sm:pb-14">
+        <p className="mb-5 font-mono text-xs uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400">{dictionary.blog.title}</p>
+        <h1 className="text-6xl font-semibold leading-[0.95] tracking-[-0.055em] text-gray-950 dark:text-white sm:text-8xl">{dictionary.navigation.blog}</h1>
+      </header>
 
       {blogPosts.length === 0 ? (
-        <p className='text-gray-600 dark:text-gray-400 text-center py-10'>
-          {dictionary.blog.no_posts}
-        </p>
+        <p className="border-b border-gray-300 py-16 leading-7 text-gray-600 dark:border-gray-700 dark:text-gray-400">{dictionary.blog.no_posts}</p>
       ) : (
-        <div className='space-y-8'>
-          {blogPosts.map((post) => (
-            <BlogPostCard key={post.id} post={post} locale={locale} />
-          ))}
-        </div>
+        <div>{blogPosts.map((post) => <BlogPostCard key={post.id} post={post} locale={locale} />)}</div>
       )}
     </div>
   );

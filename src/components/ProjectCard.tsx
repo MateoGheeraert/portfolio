@@ -1,112 +1,83 @@
-"use client";
-
-import type { LocalizedProject } from "@/dal/projects";
-import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowSquareOut, GithubLogo, Eye } from "@phosphor-icons/react";
+import { ArrowRight, ArrowUpRight, GithubLogo } from "@phosphor-icons/react/dist/ssr";
+import type { LocalizedProject } from "@/dal/projects";
+import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
+
 interface ProjectCardProps {
   project: LocalizedProject;
   locale: string;
+  index: number;
 }
 
-export default function ProjectCard({ project, locale }: ProjectCardProps) {
-  // Helper function to validate image URL
-  const isValidImageUrl = (url: string): boolean => {
-    if (!url || typeof url !== "string") return false;
-    try {
-      const urlObj = new URL(url);
-      return urlObj.protocol === "http:" || urlObj.protocol === "https:";
-    } catch {
-      // If it's not a valid URL, check if it's a relative path
-      return url.startsWith("/");
-    }
-  };
+function isValidImageUrl(url: string): boolean {
+  if (!url || typeof url !== "string") return false;
+  try {
+    const parsed = new URL(url);
+    return parsed.protocol === "http:" || parsed.protocol === "https:";
+  } catch {
+    return url.startsWith("/");
+  }
+}
+
+export default function ProjectCard({ project, locale, index }: ProjectCardProps) {
+  const hasImage = project.image_url && isValidImageUrl(project.image_url);
 
   return (
-    <div className='group bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-700/20 overflow-hidden flex flex-col h-full border border-gray-100 dark:border-gray-700 transition-all duration-300 hover:shadow-xl dark:hover:shadow-gray-700/40 hover:-translate-y-1'>
-      {/* Project Image */}
-      {project.image_url && isValidImageUrl(project.image_url) && (
-        <div className='relative h-48 w-full overflow-hidden'>
+    <article className="grid gap-8 border-t border-gray-300 py-10 dark:border-gray-700 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:py-14 lg:gap-14">
+      <div className="relative aspect-[4/3] overflow-hidden bg-gray-100 dark:bg-gray-800">
+        {hasImage ? (
           <Image
-            src={project.image_url}
+            src={project.image_url!}
             alt={project.title}
             fill
-            loading='lazy'
-            className='object-cover transition-transform duration-300 group-hover:scale-105'
-            onError={() => {
-              console.warn(`Failed to load image: ${project.image_url}`);
-            }}
+            sizes="(min-width: 768px) 45vw, 100vw"
+            className="object-cover transition-transform duration-500 hover:scale-[1.02]"
           />
-          <div className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300' />
-        </div>
-      )}
+        ) : (
+          <div className="flex h-full items-center justify-center font-mono text-5xl text-gray-300 dark:text-gray-700">
+            {String(index + 1).padStart(2, "0")}
+          </div>
+        )}
+      </div>
 
-      {/* Project Content */}
-      <div className='p-6 flex-grow flex flex-col'>
-        <h3 className='text-xl font-bold mb-3 text-gray-900 dark:text-white transition-colors duration-300 group-hover:text-blue-600 dark:group-hover:text-blue-400'>
-          {project.title}
-        </h3>{" "}
-        <div className='text-gray-600 dark:text-gray-300 mb-4 leading-relaxed transition-colors duration-300 line-clamp-3'>
-          <MarkdownRenderer
-            content={project.description}
-            className='prose-sm [&>*:first-child]:mt-0 [&>*:last-child]:mb-0'
-          />
-        </div>
-        {/* Tech Stack */}
-        <div className='flex flex-wrap gap-2 mb-6'>
-          {project.techstack.slice(0, 4).map((tech, index) => (
-            <span
-              key={`${tech}-${index}`}
-              className='px-3 py-1 text-xs font-medium rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 transition-colors duration-300'
-            >
-              {tech}
-            </span>
-          ))}
-          {project.techstack.length > 4 && (
-            <span className='px-3 py-1 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400'>
-              +{project.techstack.length - 4} more
-            </span>
-          )}
-        </div>
-        {/* Spacer to push actions to bottom */}
-        <div className='flex-grow' />
-        {/* Action Buttons */}
-        <div className='flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700'>
-          <Link
-            href={`/${locale}/projects/${project.id}`}
-            className='flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white text-sm font-medium rounded-lg transition-colors duration-200'
-          >
-            <Eye size={16} />
-            View Details
-          </Link>{" "}
-          <div className='flex items-center gap-3'>
-            {project.github_url && project.github_url.trim() !== "" && (
-              <Link
-                href={project.github_url}
-                target='_blank'
-                rel='noopener noreferrer'
-                className='flex items-center justify-center w-9 h-9 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600 hover:text-gray-900 dark:hover:text-white transition-colors duration-200'
-                title='View on GitHub'
-              >
-                <GithubLogo size={18} />
+      <div className="flex flex-col">
+        <div className="flex items-start justify-between gap-6">
+          <span className="font-mono text-xs text-blue-600 dark:text-blue-400">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+          <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
+            {project.github_url && (
+              <Link href={project.github_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 transition-colors hover:text-gray-950 dark:hover:text-white">
+                <GithubLogo size={16} /> GitHub
               </Link>
             )}
-
-            {project.demo_url && project.demo_url.trim() !== "" && (
-              <Link
-                href={project.demo_url}
-                target='_blank'
-                rel='noopener noreferrer'
-                className='flex items-center justify-center w-9 h-9 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600 hover:text-gray-900 dark:hover:text-white transition-colors duration-200'
-                title='View Demo'
-              >
-                <ArrowSquareOut size={18} />
+            {project.demo_url && (
+              <Link href={project.demo_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 transition-colors hover:text-gray-950 dark:hover:text-white">
+                Live <ArrowUpRight size={15} />
               </Link>
             )}
           </div>
         </div>
+
+        <h2 className="mt-8 text-3xl font-semibold leading-tight tracking-[-0.035em] text-gray-950 dark:text-white sm:text-4xl">
+          <Link href={`/${locale}/projects/${project.id}`} className="transition-colors hover:text-blue-600 dark:hover:text-blue-400">
+            {project.title}
+          </Link>
+        </h2>
+
+        <div className="mt-5 line-clamp-4 leading-7 text-gray-600 dark:text-gray-400">
+          <MarkdownRenderer content={project.description} className="prose-sm [&>*:first-child]:mt-0 [&>*:last-child]:mb-0" />
+        </div>
+
+        <div className="mt-7 flex flex-wrap gap-x-5 gap-y-2 border-t border-gray-200 pt-5 font-mono text-xs uppercase tracking-wider text-gray-500 dark:border-gray-800 dark:text-gray-400">
+          {project.techstack.map((tech) => <span key={tech}>{tech}</span>)}
+        </div>
+
+        <Link href={`/${locale}/projects/${project.id}`} aria-label={project.title} className="mt-auto inline-flex w-fit items-center gap-3 pt-8 text-sm font-medium text-gray-950 transition-colors hover:text-blue-600 dark:text-white dark:hover:text-blue-400">
+          <span className="h-px w-10 bg-current" /><ArrowRight size={18} />
+        </Link>
       </div>
-    </div>
+    </article>
   );
 }

@@ -26,6 +26,23 @@ export interface LocalizedBlogPost {
   created_at: string;
 }
 
+export function normalizeBlogTags(value: unknown): string[] {
+  const normalized = (Array.isArray(value) ? value : [value]).flatMap((entry) => {
+    if (typeof entry !== "string") return [];
+    const trimmed = entry.trim();
+    if (!trimmed) return [];
+    if (trimmed.startsWith("[") && trimmed.endsWith("]")) {
+      try {
+        return normalizeBlogTags(JSON.parse(trimmed));
+      } catch {
+        return [trimmed.replace(/^\[|\]$/g, "").replaceAll('"', "").trim()];
+      }
+    }
+    return trimmed.split(",").map((tag) => tag.trim()).filter(Boolean);
+  });
+  return [...new Set(normalized.filter(Boolean))];
+}
+
 /**
  * Helper function to localize a blog post based on the given locale
  */
@@ -84,11 +101,7 @@ export async function getAllBlogPosts(
   const localizedPosts = (data || []).map((post: any) => {
     const blogPost: BlogPost = {
       ...post,
-      tags: Array.isArray(post.tags)
-        ? post.tags
-        : typeof post.tags === "string"
-          ? post.tags.split(",").map((tag: string) => tag.trim())
-          : [],
+      tags: normalizeBlogTags(post.tags),
     };
     return localizeBlogPost(blogPost, locale);
   });
@@ -127,11 +140,7 @@ export async function getBlogPostById(
   const blogPost: BlogPost | null = data
     ? ({
         ...data,
-        tags: Array.isArray(data.tags)
-          ? data.tags
-          : typeof data.tags === "string"
-            ? data.tags.split(",").map((tag: string) => tag.trim())
-            : [],
+        tags: normalizeBlogTags(data.tags),
       } as BlogPost)
     : null;
 
