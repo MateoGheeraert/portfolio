@@ -1,11 +1,12 @@
 import Image from "next/image";
-import { Code2, GraduationCap, Users } from "lucide-react";
 import type { Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { getProfileSettings } from "@/dal/profile";
 import { getAboutContent } from "@/dal/about";
 
-interface AboutPageProps { params: Promise<{ locale: string }> }
+interface AboutPageProps {
+  params: Promise<{ locale: string }>;
+}
 
 export default async function AboutPage({ params }: AboutPageProps) {
   const { locale } = await params;
@@ -15,74 +16,101 @@ export default async function AboutPage({ params }: AboutPageProps) {
     getAboutContent(locale as Locale),
   ]);
   const dictionary = { ...baseDictionary, about };
-  const cards = [
-    { ...dictionary.about.sections.education, icon: GraduationCap, color: "bg-blue-500 dark:bg-blue-600", wide: false },
-    { ...dictionary.about.sections.leadership, icon: Users, color: "bg-amber-500 dark:bg-amber-600", wide: false },
-    { ...dictionary.about.sections.experience, icon: Code2, color: "bg-emerald-500 dark:bg-emerald-600", wide: true },
+  const sections = [
+    dictionary.about.sections.education,
+    dictionary.about.sections.leadership,
+    dictionary.about.sections.experience,
   ];
 
   return (
-    <div className="container mx-auto max-w-5xl px-4 py-16">
-      <h1 className="relative mb-12 text-5xl font-bold text-gray-900 transition-colors dark:text-white">
-        {dictionary.about.title}<span className="absolute -bottom-3 left-0 h-1.5 w-24 rounded-full bg-blue-500 dark:bg-blue-400" />
-      </h1>
+    <div className="mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-16 lg:px-10 lg:py-24">
+      <header className="border-b border-gray-300 pb-8 dark:border-gray-700 sm:pb-12">
+        <p className="mb-5 font-mono text-xs uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400">
+          {dictionary.about.title}
+        </p>
+        <h1 className="max-w-4xl text-5xl font-semibold leading-[0.98] tracking-[-0.045em] text-gray-950 dark:text-white sm:text-7xl lg:text-8xl">
+          {dictionary.about.hero.greeting}{" "}
+          <span className="text-blue-600 dark:text-blue-400">{dictionary.about.hero.name}</span>
+        </h1>
+      </header>
 
-      <div className="mb-12 rounded-2xl bg-gradient-to-br from-white to-blue-50 p-8 shadow-xl transition-colors dark:from-gray-800 dark:to-gray-700 dark:shadow-gray-700/20">
-        <div className="mb-12 grid grid-cols-1 items-center gap-10 lg:grid-cols-12">
-          <div className="flex justify-center lg:col-span-4 lg:justify-start">
-            <div className="relative h-80 w-80 overflow-hidden rounded-2xl border-4 border-white shadow-lg dark:border-gray-600 lg:h-96 lg:w-96">
-              <Image src={profile.aboutImageUrl} unoptimized alt="Mateo Gheeraert" fill className="object-cover transition-transform duration-500 hover:scale-105" />
-            </div>
-          </div>
-          <div className="space-y-6 lg:col-span-8">
-            <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">{dictionary.about.hero.greeting} <span className="text-blue-600 dark:text-blue-400">{dictionary.about.hero.name}</span></h2>
-            <p className="text-xl leading-relaxed text-gray-700 dark:text-gray-300">{dictionary.about.hero.bio}</p>
-          </div>
+      <section className="grid gap-10 border-b border-gray-300 py-10 dark:border-gray-700 sm:py-16 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20">
+        <div className="relative aspect-[4/5] w-full max-w-md overflow-hidden bg-gray-100 dark:bg-gray-800">
+          <Image
+            src={profile.aboutImageUrl}
+            unoptimized
+            alt="Mateo Gheeraert"
+            fill
+            sizes="(min-width: 1024px) 40vw, 100vw"
+            className="object-cover"
+          />
+        </div>
+        <div className="flex items-end">
+          <p className="max-w-2xl text-2xl leading-relaxed tracking-[-0.02em] text-gray-700 dark:text-gray-300 sm:text-3xl sm:leading-relaxed">
+            {dictionary.about.hero.bio}
+          </p>
+        </div>
+      </section>
+
+      <section className="py-6 sm:py-10">
+        {sections.map((section, index) => (
+          <article
+            key={section.title}
+            className="grid gap-4 border-b border-gray-300 py-8 dark:border-gray-700 sm:grid-cols-[5rem_minmax(0,0.7fr)_minmax(0,1.3fr)] sm:gap-8 sm:py-12"
+          >
+            <span className="font-mono text-sm text-blue-600 dark:text-blue-400">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <h2 className="text-2xl font-semibold tracking-[-0.025em] text-gray-950 dark:text-white sm:text-3xl">
+              {section.title}
+            </h2>
+            <p className="max-w-2xl text-base leading-8 text-gray-600 dark:text-gray-400 sm:text-lg">
+              {section.content}
+            </p>
+          </article>
+        ))}
+      </section>
+
+      <section className="grid gap-10 border-b border-gray-300 py-14 dark:border-gray-700 sm:py-20 lg:grid-cols-[minmax(0,0.65fr)_minmax(0,1.35fr)] lg:gap-20">
+        <div className="lg:sticky lg:top-28 lg:self-start">
+          <p className="mb-4 font-mono text-xs uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400">
+            {dictionary.about.sections.timeline.subtitle}
+          </p>
+          <h2 className="text-4xl font-semibold leading-tight tracking-[-0.04em] text-gray-950 dark:text-white sm:text-5xl">
+            {dictionary.about.sections.timeline.title}
+          </h2>
         </div>
 
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-          {cards.map(({ title, content, icon: Icon, color, wide }) => (
-            <div key={title} className={`rounded-xl border border-gray-100 bg-white p-6 shadow-md transition-all hover:shadow-lg dark:border-gray-700 dark:bg-gray-900 ${wide ? "md:col-span-2" : ""}`}>
-              <div className={`mb-4 flex h-12 w-12 items-center justify-center rounded-lg text-white ${color}`}><Icon className="h-6 w-6" /></div>
-              <h3 className="mb-3 text-xl font-semibold text-gray-800 dark:text-gray-100">{title}</h3>
-              <p className="leading-relaxed text-gray-600 dark:text-gray-400">{content}</p>
-            </div>
+        <ol className="border-t border-gray-300 dark:border-gray-700">
+          {dictionary.about.sections.timeline.items.map((entry, index) => (
+            <li key={entry.id} className="grid gap-4 border-b border-gray-300 py-8 dark:border-gray-700 sm:grid-cols-[7rem_1fr] sm:gap-8 sm:py-10">
+              <div>
+                <span className="font-mono text-xs text-gray-400 dark:text-gray-500">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <p className="mt-2 text-sm font-medium text-blue-600 dark:text-blue-400">{entry.period}</p>
+              </div>
+              <div>
+                <h3 className="text-2xl font-semibold tracking-[-0.025em] text-gray-950 dark:text-white">{entry.title}</h3>
+                <p className="mt-1 text-sm font-medium text-gray-500 dark:text-gray-400">{entry.institution}</p>
+                <p className="mt-5 max-w-xl leading-7 text-gray-600 dark:text-gray-400">{entry.description}</p>
+              </div>
+            </li>
           ))}
-        </div>
-      </div>
+        </ol>
+      </section>
 
-      <div className="mb-12 rounded-2xl bg-white p-8 shadow-xl transition-colors dark:bg-gray-800 dark:shadow-gray-700/20">
-        <div className="mb-10 text-center">
-          <h3 className="mb-2 text-3xl font-bold text-gray-800 dark:text-gray-100">{dictionary.about.sections.timeline.title}</h3>
-          <p className="text-gray-600 dark:text-gray-400">{dictionary.about.sections.timeline.subtitle}</p>
-        </div>
-        <div className="relative">
-          <div className="absolute bottom-0 left-4 top-0 w-0.5 bg-blue-200 dark:bg-blue-700 md:left-1/2 md:-translate-x-px" />
-          <div className="space-y-10">
-            {dictionary.about.sections.timeline.items.map((entry, index) => {
-              const left = index % 2 === 0;
-              return (
-                <div key={entry.id} className="relative grid gap-8 pl-12 md:grid-cols-2 md:pl-0">
-                  <div className={`rounded-xl bg-gray-50 p-6 shadow-md dark:bg-gray-700 ${left ? "md:mr-8 md:text-right" : "md:order-2 md:ml-8"}`}>
-                    <div className="mb-1 text-sm font-semibold text-blue-600 dark:text-blue-400">{entry.period}</div>
-                    <h4 className="mb-2 text-lg font-bold text-gray-800 dark:text-gray-100">{entry.title}</h4>
-                    <div className="mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">{entry.institution}</div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{entry.description}</p>
-                  </div>
-                  <div className={left ? "hidden md:block" : "hidden md:order-1 md:block"} />
-                  <div className="absolute left-4 top-6 h-4 w-4 -translate-x-1/2 rounded-full border-4 border-white bg-blue-500 dark:border-gray-800 dark:bg-blue-400 md:left-1/2" />
-                </div>
-              );
-            })}
+      <section className="py-14 sm:py-20">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20">
+          <h2 className="text-4xl font-semibold leading-tight tracking-[-0.04em] text-gray-950 dark:text-white sm:text-5xl">
+            {dictionary.about.sections.learning.title}
+          </h2>
+          <div className="space-y-6 text-lg leading-8 text-gray-600 dark:text-gray-400">
+            <p>{dictionary.about.sections.learning.content_intro}</p>
+            <p>{dictionary.about.sections.learning.content_outro}</p>
           </div>
         </div>
-      </div>
-
-      <div className="rounded-2xl bg-blue-600 p-8 text-white shadow-xl transition-all hover:-translate-y-1 dark:bg-blue-700 dark:shadow-gray-700/20">
-        <h3 className="mb-4 text-2xl font-bold">{dictionary.about.sections.learning.title}</h3>
-        <p className="mb-6 leading-relaxed text-blue-100 dark:text-blue-200">{dictionary.about.sections.learning.content_intro}</p>
-        <p className="leading-relaxed text-blue-100 dark:text-blue-200">{dictionary.about.sections.learning.content_outro}</p>
-      </div>
+      </section>
     </div>
   );
 }
