@@ -32,7 +32,7 @@ async function ProjectsList({ locale, emptyTitle, emptyDescription }: { locale: 
       </div>
     );
   }
-  return <div>{projects.map((project, index) => <ProjectCard key={project.id} project={project} locale={locale} index={index} />)}</div>;
+  return <div>{projects.map((project) => <ProjectCard key={project.id} project={project} locale={locale} />)}</div>;
 }
 
 export default async function ProjectsPage({ params }: ProjectsPageProps) {

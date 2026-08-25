@@ -7,7 +7,6 @@ import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
 interface ProjectCardProps {
   project: LocalizedProject;
   locale: string;
-  index: number;
 }
 
 function isValidImageUrl(url: string): boolean {
@@ -20,7 +19,7 @@ function isValidImageUrl(url: string): boolean {
   }
 }
 
-export default function ProjectCard({ project, locale, index }: ProjectCardProps) {
+export default function ProjectCard({ project, locale }: ProjectCardProps) {
   const hasImage = project.image_url && isValidImageUrl(project.image_url);
 
   return (
@@ -35,17 +34,14 @@ export default function ProjectCard({ project, locale, index }: ProjectCardProps
             className="object-cover transition-transform duration-500 hover:scale-[1.02]"
           />
         ) : (
-          <div className="flex h-full items-center justify-center font-mono text-5xl text-gray-300 dark:text-gray-700">
-            {String(index + 1).padStart(2, "0")}
+          <div className="flex h-full items-end p-6">
+            <span className="max-w-xs text-lg font-medium text-gray-400 dark:text-gray-600">{project.title}</span>
           </div>
         )}
       </div>
 
       <div className="flex flex-col">
-        <div className="flex items-start justify-between gap-6">
-          <span className="font-mono text-xs text-blue-600 dark:text-blue-400">
-            {String(index + 1).padStart(2, "0")}
-          </span>
+        <div className="flex items-start justify-end gap-6">
           <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
             {project.github_url && (
               <Link href={project.github_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 transition-colors hover:text-gray-950 dark:hover:text-white">
