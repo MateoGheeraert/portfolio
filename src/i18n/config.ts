@@ -1,5 +1,5 @@
 export const defaultLocale = "en";
-export const locales = ["en", "nl", "fr"];
+export const locales = ["en", "nl", "fr"] as const;
 export const languages = {
   en: "English",
   nl: "Nederlands",

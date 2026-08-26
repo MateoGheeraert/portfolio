@@ -1,8 +1,63 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextRequest, NextResponse } from "next/server";
-import { defaultLocale, locales } from "./i18n/config";
+import { defaultLocale, locales, type Locale } from "./i18n/config";
 
 const PUBLIC_FILE = /\.(.*)$/;
+const LOCALE_COOKIE = "NEXT_LOCALE";
+const ONE_YEAR = 60 * 60 * 24 * 365;
+
+function isSupportedLocale(locale: string | undefined): locale is Locale {
+  return locales.includes(locale as Locale);
+}
+
+function getPathLocale(pathname: string): Locale | undefined {
+  const locale = pathname.split("/")[1]?.toLowerCase();
+  return isSupportedLocale(locale) ? locale : undefined;
+}
+
+function getBrowserLocale(acceptLanguage: string | null): Locale {
+  if (!acceptLanguage) return defaultLocale;
+
+  const preferences = acceptLanguage
+    .split(",")
+    .map((preference, index) => {
+      const [languageTag, ...parameters] = preference.trim().toLowerCase().split(";");
+      const qualityParameter = parameters.find((parameter) =>
+        parameter.trim().startsWith("q="),
+      );
+      const parsedQuality = qualityParameter
+        ? Number.parseFloat(qualityParameter.split("=")[1])
+        : 1;
+
+      return {
+        languageTag,
+        quality: Number.isFinite(parsedQuality) ? parsedQuality : 0,
+        index,
+      };
+    })
+    .filter(({ languageTag, quality }) => languageTag !== "*" && quality > 0)
+    .sort((a, b) => b.quality - a.quality || a.index - b.index);
+
+  for (const { languageTag } of preferences) {
+    const baseLanguage = languageTag.split("-")[0];
+    if (isSupportedLocale(languageTag)) return languageTag;
+    if (isSupportedLocale(baseLanguage)) return baseLanguage;
+  }
+
+  return defaultLocale;
+}
+
+function rememberLocale(response: NextResponse, locale: Locale) {
+  response.cookies.set(LOCALE_COOKIE, locale, {
+    httpOnly: true,
+    maxAge: ONE_YEAR,
+    path: "/",
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+  });
+
+  return response;
+}
 
 export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
@@ -59,14 +114,21 @@ export async function proxy(request: NextRequest) {
     return response;
   }
 
-  const pathnameHasLocale = locales.some(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
-  );
+  const pathLocale = getPathLocale(pathname);
 
-  if (!pathnameHasLocale) {
-    return NextResponse.redirect(
-      new URL(`/${defaultLocale}${pathname}`, request.url),
-    );
+  if (!pathLocale) {
+    const savedLocale = request.cookies.get(LOCALE_COOKIE)?.value;
+    const locale = isSupportedLocale(savedLocale)
+      ? savedLocale
+      : getBrowserLocale(request.headers.get("accept-language"));
+    const url = request.nextUrl.clone();
+    url.pathname = `/${locale}${pathname}`;
+
+    return rememberLocale(NextResponse.redirect(url), locale);
+  }
+
+  if (request.cookies.get(LOCALE_COOKIE)?.value !== pathLocale) {
+    return rememberLocale(response, pathLocale);
   }
 
   return response;

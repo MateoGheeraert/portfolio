@@ -1,361 +1,97 @@
-"use client";
-
-import { Locale } from "@/i18n/config";
-import { getDictionary } from "@/i18n/dictionaries";
-import { fetchProjectById } from "../actions";
-import { notFound } from "next/navigation";
-import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
+import { cache } from "react";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  ArrowLeft,
-  ArrowSquareOut,
-  GithubLogo,
-  CalendarBlank,
-  Stack,
-} from "@phosphor-icons/react";
-import { use, useEffect, useState } from "react";
-import type { LocalizedProject } from "@/dal/projects";
-import { LoadingSkeleton } from "@/components/ui/loading-spinner";
+import { notFound } from "next/navigation";
+import { ArrowLeft, ArrowUpRight, GithubLogo } from "@phosphor-icons/react/dist/ssr";
+import type { Locale } from "@/i18n/config";
+import { getDictionary } from "@/i18n/dictionaries";
+import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
+import { fetchProjectById } from "../actions";
 
 interface ProjectDetailPageProps {
-  params: Promise<{
-    locale: Locale;
-    id: string;
-  }>;
+  params: Promise<{ locale: Locale; id: string }>;
 }
 
-export default function ProjectDetailPage({
-  params,
-}: ProjectDetailPageProps) {
-  const { locale, id } = use(params);
-  const [project, setProject] = useState<LocalizedProject | null>(null);
-  const [dictionary, setDictionary] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+const getProject = cache((id: string, locale: Locale) => fetchProjectById(id, locale));
 
-  useEffect(() => {
-    async function loadData() {
-      try {
-        setLoading(true);
-        setError(null);
+function validImage(url?: string | null): url is string {
+  if (!url) return false;
+  try {
+    const parsed = new URL(url);
+    return parsed.protocol === "http:" || parsed.protocol === "https:";
+  } catch {
+    return url.startsWith("/");
+  }
+}
 
-        const [projectData, dict] = await Promise.all([
-          fetchProjectById(id, locale),
-          getDictionary(locale),
-        ]);
+function plainText(markdown: string) {
+  return markdown.replace(/[#>*_`\[\]()!-]/g, " ").replace(/\s+/g, " ").trim();
+}
 
-        if (!projectData) {
-          notFound();
-          return;
-        }
-
-        setProject(projectData);
-        setDictionary(dict);
-      } catch (err) {
-        console.error("Error loading project:", err);
-        setError("Failed to load project");
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    loadData();
-  }, [id, locale]);
-
-  // Helper function to validate image URL
-  const isValidImageUrl = (url: string): boolean => {
-    if (!url || typeof url !== "string") return false;
-    try {
-      const urlObj = new URL(url);
-      return urlObj.protocol === "http:" || urlObj.protocol === "https:";
-    } catch {
-      return url.startsWith("/");
-    }
+export async function generateMetadata({ params }: ProjectDetailPageProps): Promise<Metadata> {
+  const { id, locale } = await params;
+  const project = await getProject(id, locale);
+  if (!project) return { title: "Project | Mateo Gheeraert" };
+  const description = plainText(project.description).slice(0, 160);
+  const remoteImage = project.image_url?.startsWith("http") ? [project.image_url] : [];
+  return {
+    title: `${project.title} | Mateo Gheeraert`,
+    description,
+    openGraph: { title: project.title, description, images: remoteImage },
+    twitter: { card: remoteImage.length ? "summary_large_image" : "summary", title: project.title, description, images: remoteImage },
   };
+}
 
-  if (loading) {
-    return (
-      <div className='min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300'>
-        <div className='container mx-auto px-4 py-8 max-w-6xl'>
-          {/* Back Button Skeleton */}
-          <div className='mb-8'>
-            <LoadingSkeleton className='h-6 w-32' />
-          </div>
+export default async function ProjectDetailPage({ params }: ProjectDetailPageProps) {
+  const { locale, id } = await params;
+  const [project, dictionary] = await Promise.all([getProject(id, locale), getDictionary(locale)]);
+  if (!project) notFound();
 
-          {/* Project Header Skeleton */}
-          <div className='bg-white dark:bg-gray-800 rounded-2xl shadow-xl dark:shadow-gray-700/20 overflow-hidden mb-8 border border-gray-100 dark:border-gray-700'>
-            <LoadingSkeleton className='h-64 md:h-80 lg:h-96 w-full' />
-          </div>
-
-          <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
-            {/* Main Content Skeleton */}
-            <div className='lg:col-span-2 space-y-8'>
-              {/* Project Description Skeleton */}
-              <div className='bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-700/20 p-8 border border-gray-100 dark:border-gray-700'>
-                <div className='flex items-center gap-3 mb-6'>
-                  <LoadingSkeleton className='w-8 h-8 rounded-lg' />
-                  <LoadingSkeleton className='h-7 w-48' />
-                </div>
-                <div className='space-y-3'>
-                  <LoadingSkeleton className='h-6 w-full' />
-                  <LoadingSkeleton className='h-6 w-full' />
-                  <LoadingSkeleton className='h-6 w-3/4' />
-                </div>
-              </div>
-
-              {/* Technology Stack Skeleton */}
-              <div className='bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-700/20 p-8 border border-gray-100 dark:border-gray-700'>
-                <div className='flex items-center gap-3 mb-6'>
-                  <LoadingSkeleton className='w-8 h-8 rounded-lg' />
-                  <LoadingSkeleton className='h-7 w-40' />
-                </div>
-                <div className='grid grid-cols-2 md:grid-cols-3 gap-4'>
-                  {Array.from({ length: 6 }).map((_, index) => (
-                    <div
-                      key={index}
-                      className='p-4 bg-gray-50 dark:bg-gray-700 rounded-lg'
-                    >
-                      <LoadingSkeleton className='h-6 w-full' />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Sidebar Skeleton */}
-            <div className='space-y-6'>
-              {/* Project Info Skeleton */}
-              <div className='bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-700/20 p-6 border border-gray-100 dark:border-gray-700'>
-                <LoadingSkeleton className='h-6 w-32 mb-4' />
-                <div className='space-y-4'>
-                  <div className='flex items-center gap-3'>
-                    <LoadingSkeleton className='w-5 h-5 rounded' />
-                    <div className='space-y-1'>
-                      <LoadingSkeleton className='h-4 w-16' />
-                      <LoadingSkeleton className='h-5 w-28' />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Action Buttons Skeleton */}
-              <div className='bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-700/20 p-6 border border-gray-100 dark:border-gray-700'>
-                <LoadingSkeleton className='h-6 w-28 mb-4' />
-                <div className='space-y-3'>
-                  <LoadingSkeleton className='h-12 w-full rounded-lg' />
-                  <LoadingSkeleton className='h-12 w-full rounded-lg' />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (error || !project || !dictionary) {
-    return (
-      <div className='min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300 flex items-center justify-center'>
-        <div className='text-center px-4'>
-          <div className='mx-auto w-32 h-32 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mb-8'>
-            <svg
-              className='w-16 h-16 text-red-500 dark:text-red-400'
-              fill='none'
-              stroke='currentColor'
-              viewBox='0 0 24 24'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth={1.5}
-                d='M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.464 0L4.35 16.5c-.77.833.192 2.5 1.732 2.5z'
-              />
-            </svg>
-          </div>
-          <h1 className='text-4xl font-bold text-gray-900 dark:text-white mb-4'>
-            {error ||
-              dictionary?.projects?.project_not_found?.title ||
-              "Project Not Found"}
-          </h1>
-          <p className='text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-md mx-auto'>
-            {error
-              ? dictionary?.projects?.project_not_found?.description_error ||
-                "Something went wrong while loading this project."
-              : dictionary?.projects?.project_not_found
-                  ?.description_not_found ||
-                "The project you're looking for doesn't exist."}
-          </p>
-          <Link
-            href={`/${locale}/projects`}
-            className='inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-medium rounded-lg transition-colors duration-200'
-          >
-            <ArrowLeft size={20} />
-            {dictionary?.projects?.back_to_projects || "Back to Projects"}
-          </Link>
-        </div>
-      </div>
-    );
-  }
+  const created = new Date(project.created_at).toLocaleDateString(locale, { year: "numeric", month: "long", day: "numeric" });
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300'>
-      <div className='container mx-auto px-4 py-8 max-w-6xl'>
-        {/* Back Button */}
-        <Link
-          href={`/${locale}/projects`}
-          className='inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-200 mb-8 group'
-        >
-          <ArrowLeft
-            size={20}
-            className='transition-transform group-hover:-translate-x-1'
-          />
-          {dictionary.projects.back_to_projects}
-        </Link>
+    <article className="mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-16 lg:px-10 lg:py-24">
+      <Link href={`/${locale}/projects`} className="group inline-flex items-center gap-3 text-sm text-gray-500 transition-colors hover:text-gray-950 dark:text-gray-400 dark:hover:text-white">
+        <ArrowLeft className="transition-transform group-hover:-translate-x-1" size={17} />{dictionary.projects.back_to_projects}
+      </Link>
 
-        {/* Project Header */}
-        <div className='bg-white dark:bg-gray-800 rounded-2xl shadow-xl dark:shadow-gray-700/20 overflow-hidden mb-8 border border-gray-100 dark:border-gray-700'>
-          {/* Project Image */}
-          {project.image_url && isValidImageUrl(project.image_url) && (
-            <div className='relative h-64 md:h-80 lg:h-96 w-full'>
-              <Image
-                src={project.image_url}
-                alt={project.title}
-                fill
-                className='object-cover'
-                priority
-              />
-              <div className='absolute inset-0 bg-gradient-to-t from-black/50 to-transparent' />
-              <div className='absolute bottom-6 left-6 right-6'>
-                <h1 className='text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2'>
-                  {project.title}
-                </h1>
-              </div>
-            </div>
-          )}
-
-          {/* Project Header Content (when no image) */}
-          {(!project.image_url || !isValidImageUrl(project.image_url)) && (
-            <div className='p-8 md:p-12'>
-              <h1 className='text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4'>
-                {project.title}
-              </h1>
-            </div>
-          )}
+      <header className="grid gap-10 border-b border-gray-300 py-10 dark:border-gray-700 sm:py-14 lg:grid-cols-[minmax(0,1.3fr)_minmax(15rem,0.7fr)] lg:items-end lg:gap-20">
+        <div>
+          <p className="mb-5 font-mono text-xs uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400">{dictionary.navigation.projects}</p>
+          <h1 className="text-5xl font-semibold leading-[0.98] tracking-[-0.05em] text-gray-950 dark:text-white sm:text-7xl">{project.title}</h1>
         </div>
-
-        <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
-          {/* Main Content */}
-          <div className='lg:col-span-2 space-y-8'>
-            {/* Project Description */}
-            <div className='bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-700/20 p-8 border border-gray-100 dark:border-gray-700'>
-              <h2 className='text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3'>
-                <div className='w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center'>
-                  <span className='text-blue-600 dark:text-blue-400 text-sm font-bold'>
-                    📝
-                  </span>
-                </div>
-                {dictionary.projects.project_description}
-              </h2>
-              <MarkdownRenderer content={project.content} />
-            </div>
-
-            {/* Technology Stack */}
-            <div className='bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-700/20 p-8 border border-gray-100 dark:border-gray-700'>
-              <h2 className='text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3'>
-                <div className='w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center'>
-                  <Stack
-                    size={18}
-                    className='text-green-600 dark:text-green-400'
-                  />
-                </div>
-                {dictionary.projects.technology_stack}
-              </h2>
-              <div className='grid grid-cols-2 md:grid-cols-3 gap-4'>
-                {project.techstack.map((tech, index) => (
-                  <div
-                    key={`${tech}-${index}`}
-                    className='flex items-center gap-3 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-blue-300 dark:hover:border-blue-500 transition-colors duration-200'
-                  >
-                    <div className='w-2 h-2 bg-blue-500 rounded-full' />
-                    <span className='font-medium text-gray-900 dark:text-white'>
-                      {tech}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Sidebar */}
-          <div className='space-y-6'>
-            {/* Project Info */}
-            <div className='bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-700/20 p-6 border border-gray-100 dark:border-gray-700'>
-              <h3 className='text-lg font-bold text-gray-900 dark:text-white mb-4'>
-                {dictionary.projects.project_information}
-              </h3>
-
-              <div className='space-y-4'>
-                <div className='flex items-center gap-3 text-gray-600 dark:text-gray-400'>
-                  <CalendarBlank size={18} />
-                  <div>
-                    <p className='text-sm'>{dictionary.projects.created}</p>
-                    <p className='font-medium text-gray-900 dark:text-white'>
-                      {new Date(project.created_at).toLocaleDateString(locale, {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Action Buttons */}
-            <div className='bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-700/20 p-6 border border-gray-100 dark:border-gray-700'>
-              <h3 className='text-lg font-bold text-gray-900 dark:text-white mb-4'>
-                {dictionary.projects.quick_links}
-              </h3>
-
-              <div className='space-y-3'>
-                {project.demo_url && project.demo_url.trim() !== "" && (
-                  <Link
-                    href={project.demo_url}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='flex items-center justify-center gap-3 w-full px-4 py-3 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-medium rounded-lg transition-colors duration-200'
-                  >
-                    <ArrowSquareOut size={18} />
-                    {dictionary.projects.view_live_demo}
-                  </Link>
-                )}
-
-                {project.github_url && project.github_url.trim() !== "" && (
-                  <Link
-                    href={project.github_url}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='flex items-center justify-center gap-3 w-full px-4 py-3 bg-gray-900 hover:bg-gray-800 dark:bg-gray-700 dark:hover:bg-gray-600 text-white font-medium rounded-lg transition-colors duration-200'
-                  >
-                    <GithubLogo size={18} />
-                    {dictionary.projects.view_source_code}
-                  </Link>
-                )}
-
-                {(!project.demo_url || project.demo_url.trim() === "") &&
-                  (!project.github_url || project.github_url.trim() === "") && (
-                    <div className='text-center py-4'>
-                      <p className='text-gray-500 dark:text-gray-400 text-sm'>
-                        {dictionary.projects.no_links_available}
-                      </p>
-                    </div>
-                  )}
-              </div>
-            </div>
+        <div className="space-y-6 text-sm text-gray-500 dark:text-gray-400">
+          <div className="border-t border-gray-300 pt-3 dark:border-gray-700"><span className="block font-mono text-[0.68rem] uppercase tracking-[0.2em]">{dictionary.projects.created}</span><span className="mt-1 block text-gray-900 dark:text-gray-200">{created}</span></div>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 border-t border-gray-300 pt-3 font-mono text-[0.68rem] uppercase tracking-wider dark:border-gray-700">
+            {project.techstack.map((tech) => <span key={tech}>{tech}</span>)}
           </div>
         </div>
+      </header>
+
+      {validImage(project.image_url) && (
+        <div className="relative my-10 aspect-[16/9] overflow-hidden bg-gray-100 dark:bg-gray-800 sm:my-14">
+          <Image src={project.image_url} alt={project.title} fill priority sizes="(min-width: 1200px) 72rem, 100vw" className="object-cover" />
+        </div>
+      )}
+
+      <div className="grid gap-12 border-t border-gray-300 py-12 dark:border-gray-700 lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-20 lg:py-16">
+        <aside className="space-y-10 lg:sticky lg:top-28 lg:self-start">
+          <div>
+            <h2 className="font-mono text-xs uppercase tracking-[0.25em] text-gray-500 dark:text-gray-400">{dictionary.projects.quick_links}</h2>
+            <div className="mt-4 border-t border-gray-300 dark:border-gray-700">
+              {project.demo_url && <Link href={project.demo_url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between border-b border-gray-300 py-4 text-sm font-medium transition-colors hover:text-blue-600 dark:border-gray-700 dark:hover:text-blue-400">{dictionary.projects.view_live_demo}<ArrowUpRight size={16} /></Link>}
+              {project.github_url && <Link href={project.github_url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between border-b border-gray-300 py-4 text-sm font-medium transition-colors hover:text-blue-600 dark:border-gray-700 dark:hover:text-blue-400">{dictionary.projects.view_source_code}<GithubLogo size={16} /></Link>}
+              {!project.demo_url && !project.github_url && <p className="border-b border-gray-300 py-4 text-sm text-gray-500 dark:border-gray-700 dark:text-gray-400">{dictionary.projects.no_links_available}</p>}
+            </div>
+          </div>
+        </aside>
+
+        <section aria-labelledby="project-description">
+          <h2 id="project-description" className="mb-10 text-3xl font-semibold tracking-[-0.035em] text-gray-950 dark:text-white sm:text-4xl">{dictionary.projects.project_description}</h2>
+          <MarkdownRenderer content={project.content} className="text-lg [&_p]:text-lg [&_p]:leading-8" />
+        </section>
       </div>
-    </div>
+    </article>
   );
 }
